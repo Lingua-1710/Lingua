@@ -23,7 +23,7 @@ const FirstVendor = (props) => {
         intensity={1}
         position={{ x: 2.5, y: 0.0, z: 0.0 }}
       />
-    </ Entity>
+    </Entity>
   )
 };
 export default FirstVendor;

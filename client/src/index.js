@@ -7,7 +7,7 @@ import 'aframe-particle-system-component';
 import 'aframe-environment-component'
 import  FirstVendor from '../components/FirstVendor'
 
-class Main extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
 
@@ -39,5 +39,5 @@ class Main extends Component {
 };
 
 
-ReactDOM.render(<Main />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));
 
