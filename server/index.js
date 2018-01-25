@@ -1,14 +1,14 @@
-const express = require('express');
+const express = require('express')
 const path = require('path')
-const app = express();
-const router = require('./router');
+const app = express()
+const router = require('./router')
 
-app.use(express.static(path.join(__dirname,'..','public')));
+app.use(express.static(path.join(__dirname,'..','public')))
 
-app.use('/', router);
+app.use('/', router)
 
 app.listen(5000, () => {
-  console.log(`listening on port 5000!`);
-});
+  console.log(`listening on port 5000!`)
+})
 
-module.exports = app;
+module.exports = app
