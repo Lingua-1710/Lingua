@@ -14,6 +14,7 @@
   "dependencies": {
     "aframe": "^0.7.1",
     "aframe-particle-system-component": "^1.0.11",
+    "aframe-physics-system": "^2.1.1",
     "aframe-react": "^4.3.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

@@ -4,6 +4,7 @@ import 'aframe';
 import { Entity, Scene } from 'aframe-react';
 import 'babel-polyfill';
 import 'aframe-particle-system-component';
+import 'aframe-physics-system';
 class App extends React.Component {
   render() {
     return (
