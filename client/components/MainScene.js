@@ -5,11 +5,13 @@ import { Entity, Scene } from 'aframe-react';
 import 'babel-polyfill';
 import 'aframe-particle-system-component';
 import 'aframe-environment-component'
-// import  Main from '../components/MainScene'
+
+// possible color palette for later
+const COLORS = ['#D92B6A', '#9564F2', '#FFCF59']
 
 class Main extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     this.state = {
       colorIndex: 0,
@@ -21,29 +23,20 @@ class Main extends Component {
     return (
       <Scene
         environment={{
-          preset: 'forest',
+          preset: 'starry',
           seed: 2,
           lightPosition: { x: 0.0, y: 0.03, z: -0.5 },
           fog: 0.8,
-          ground: 'hills',
+          ground: 'canyon',
           groundYScale: 6.31,
-          groundTexture: 'none',
-          groundColor: '#2c441f',
+          groundTexture: 'walkernoise',
+          groundColor: '#8a7f8a',
           grid: 'none'
         }}
       >
-        <a-assests>
-          <a-asset-item id="octo-obj" src="models/octo/ramenocto.obj"></a-asset-item>
-          <a-asset-item id="octo-mtl" src="models/octo/ramenoctomaterials.mtl"></a-asset-item>
-        </a-assests>
-        <a-obj-model id="octo" src="#octo-obj" mtl="#octo-mtl">
-        </a-obj-model>
-        <Entity src="#octo" />
       </Scene>
     )
-  };
+  }
 };
 
-
-ReactDOM.render(<Main />, document.getElementById('app'));
-
+export default Main;

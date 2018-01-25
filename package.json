@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "aframe": "^0.7.1",
+    "aframe-environment-component": "^1.0.0",
     "aframe-particle-system-component": "^1.0.11",
     "aframe-react": "^4.3.0",
     "babel-core": "^6.26.0",
