@@ -2,33 +2,40 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import 'aframe'
 import { Entity, Scene } from 'aframe-react'
-import { setAttributes } from './utils'
+import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from './utils'
 import 'babel-polyfill'
 import 'aframe-particle-system-component'
 import 'aframe-physics-system'
 
-const COLORS = ['#D92B6A', '#9564F2', '#FFCF59']
 class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      colorIndex: 0
+      colorIndex: 0,
+      question: ''
     }
   }
 
   _handleClick() {
-    let sceneEl = document.getElementById('scene')
-    let markerEl = document.getElementById('box')
+    const sceneEl = document.getElementById('scene')
+    const markerEl = document.getElementById('box')
     let text = document.getElementById('text')
-    if (text) text.parentNode.removeChild(text)
+    let prevQuestion = ''
+    if (text) {
+      prevQuestion = text.getAttribute('value')
+      //remove text element if exists already
+      text.parentNode.removeChild(text)
+    }
     let position = markerEl.object3D.getWorldPosition()
     let newEl = document.createElement('a-text')
     position.y = position.y + 2
+    let question = fetchRandomQuestion(QUESTIONS, prevQuestion)
     setAttributes(newEl, {
       color: 'black',
-      value: 'Hi',
+      value: question,
       id: 'text',
-      position: position
+      position: position,
+      align: 'center'
     })
     sceneEl.appendChild(newEl)
     this.setState({
