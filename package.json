@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "aframe": "^0.7.1",
+    "aframe-environment-component": "^1.0.0",
     "aframe-particle-system-component": "^1.0.11",
     "aframe-physics-system": "^2.1.1",
     "aframe-react": "^4.3.0",
