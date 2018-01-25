@@ -13,7 +13,7 @@ class Main extends Component {
 
     this.state = {
       colorIndex: 0,
-      spherePosition: { x: 0.0, y: 4, z: -10.0 }
+      vendorPosition: { x: 0.0, y: 4, z: -10.0 }
     };
   };
 
@@ -36,9 +36,15 @@ class Main extends Component {
           <a-asset-item id="octo-obj" src="models/octo/ramenocto.obj"></a-asset-item>
           <a-asset-item id="octo-mtl" src="models/octo/ramenoctomaterials.mtl"></a-asset-item>
         </a-assests>
-        <a-obj-model id="octo" src="#octo-obj" mtl="#octo-mtl">
+        <a-obj-model id="octo" src="#octo-obj" mtl="#octo-mtl" position="0 1 -3" rotation="10 180 0" >
         </a-obj-model>
-        <Entity src="#octo" />
+        <Entity
+          primitive="a-light"
+          type="directional"
+          color="#FFF"
+          intensity={1}
+          position={{ x: 2.5, y: 0.0, z: 0.0 }}
+        />
       </Scene>
     )
   };
