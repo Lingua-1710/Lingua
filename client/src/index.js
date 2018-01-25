@@ -51,8 +51,9 @@ class App extends React.Component {
           position="0 0 -10" />
         <Entity
           class="clickable"
-          dynamic-body primitive="a-box"
-          material={{ color: COLORS[this.state.colorIndex] }}
+          dynamic-body
+          primitive="a-box"
+          material={{ shader: 'flat', color: COLORS[this.state.colorIndex] }}
           position={{ x: 0, y: 2, z: -5 }}
           events={{
             click: this._handleClick.bind(this)
