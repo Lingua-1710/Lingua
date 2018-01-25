@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import 'aframe';
 import { Entity, Scene } from 'aframe-react';
 import 'babel-polyfill';
-import 'aframe-particle-system-component';
+// import 'aframe-particle-system-component';
 import 'aframe-environment-component'
-import  FirstVendor from '../components/FirstVendor'
+import FirstVendor from '../components/FirstVendor'
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class App extends Component {
       vendorPosition: { x: 0.0, y: 4, z: -10.0 }
     };
   };
-
   render() {
     return (
       <Scene
@@ -32,7 +31,7 @@ class App extends Component {
           grid: 'none'
         }}
       >
-      <FirstVendor />
+        <FirstVendor />
       </Scene>
     )
   };
