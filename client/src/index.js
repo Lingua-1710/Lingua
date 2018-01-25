@@ -60,8 +60,6 @@ class App extends React.Component {
           }}
         />
         <Entity particle-system={{ preset: 'snow' }} />
-        <Entity light={{ type: 'point' }} />
-        <Entity text={{ value: 'Hello, WebVR!' }} />
       </Scene>
     )
   }
