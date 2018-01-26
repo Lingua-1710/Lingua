@@ -44,7 +44,7 @@ class Main extends Component {
     </Scene>
   )
  }
-};
+}
 
 
 ReactDOM.render(<Main />, document.getElementById('main'));

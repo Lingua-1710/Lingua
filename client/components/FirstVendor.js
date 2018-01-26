@@ -11,8 +11,7 @@ const FirstVendor = () => {
         <a-asset-item id="octo-obj" src="models/octo/ramenocto.obj" />
         <a-asset-item id="octo-mtl" src="models/octo/ramenoctomaterials.mtl" />
       </a-assests>
-      <a-obj-model id="octo" src="#octo-obj" mtl="#octo-mtl" position="1 1 -4" rotation="10 180 0" >
-      </a-obj-model>
+      <a-obj-model id="octo" src="#octo-obj" mtl="#octo-mtl" position="1 1 -4" rotation="10 180 0" />
       <FirstVendorStoreFront />
       <Entity
         primitive="a-light"
