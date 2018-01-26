@@ -5,7 +5,7 @@ import { Scene } from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
-import { FirstVendor, Box, Cursor, Floor } from '../components'
+import { FirstVendor, Cursor, Floor } from '../components'
 
 class Main extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class Main extends Component {
         physics="debug: true"
         inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js"
         environment={{
-          preset: 'starry',
+          preset: 'forest',
           seed: 2,
           lighting: 'distant',
           lightPosition: {
@@ -38,7 +38,6 @@ class Main extends Component {
       >
         <FirstVendor />
         <Cursor />
-        <Box />
         <Floor />
       </Scene>
     )
