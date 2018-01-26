@@ -7,7 +7,7 @@ import speech from './reducers/speech';
 
 const reducer = combineReducers({speech});
 const middleware = composeWithDevTools(applyMiddleware(
-  thunkMiddleware
+  thunkMiddleware,
   createLogger({collapsed: true})
 ));
 const store = createStore(reducer, middleware);
