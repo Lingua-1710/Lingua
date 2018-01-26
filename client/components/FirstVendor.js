@@ -2,7 +2,7 @@ import React from 'react'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import FirstVendorStoreFront from '../components/FirstVendorStoreFront'
+import { FirstVendorStoreFront } from './index'
 
 const FirstVendor = () => {
   return (
