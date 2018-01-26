@@ -7,7 +7,14 @@ import 'aframe-environment-component'
 import 'aframe-physics-system'
 import { FirstVendor, Box, Cursor, Floor } from '../components'
 
-const Main = () => {
+class Main extends Component {
+  constructor(props){
+    super(props)
+    
+    this.state = {}
+  }
+  
+  render(){
   return (
     <Scene
       id="scene"
@@ -36,7 +43,7 @@ const Main = () => {
       <Floor />
     </Scene>
   )
-
+ }
 };
 
 
