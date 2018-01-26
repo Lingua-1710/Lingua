@@ -5,12 +5,26 @@ import { Scene } from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
+import Artyom from 'artyom.js'
+import store, { sendSpeech } from '../store'
 import { FirstVendor, Box, Cursor, Floor } from '../components'
 
 class Main extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.listen = this.listen.bind(this)
+  }
+
+  listen(){
+    const speaker = new Artyom()
+    let speech = speaker.newDictation({
+      onResult: function(text) {
+        store.dispatch(sendSpeech(text))
+      }
+    })
+    speech.start()
+    setTimeout(() => speech.stop(), 5000)
   }
 
   render() {
@@ -38,7 +52,7 @@ class Main extends Component {
       >
         <FirstVendor />
         <Cursor />
-        <Box />
+        <Box listen={this.listen}/>
         <Floor />
       </Scene>
     )
