@@ -5,12 +5,34 @@ import { Scene } from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
-import { FirstVendor, Cursor, Floor } from '../components'
+import Artyom from 'artyom.js'
+import store, { sendSpeech } from '../store'
+import { FirstVendor, Box, Cursor, Floor } from '../components'
 
 class Main extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+    this.listen = this.listen.bind(this)
+  }
+
+  listen(){
+    let googLang = 'es'
+    const speaker = new Artyom()
+    speaker.initialize({
+      lang: "es-ES",
+      debug: true,
+      listen: true,
+      speed: 1,
+      mode: "normal"
+    })
+    let speech = speaker.newDictation({
+      onResult: function(text) {
+        store.dispatch(sendSpeech(googLang, text))
+      }
+    })
+    speech.start()
+    setTimeout(() => speech.stop(), 5000)
   }
 
 
