@@ -13,6 +13,7 @@ class Main extends Component {
     this.state = {}
   }
 
+
   render() {
     return (
       <Scene
@@ -43,6 +44,7 @@ class Main extends Component {
     )
   }
 }
+
 
 ReactDOM.render(<Main />, document.getElementById('main'))
 

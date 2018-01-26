@@ -26,11 +26,17 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
+    "chalk": "^2.3.0",
+    "eslint": "^4.16.0",
+    "eslint-config-fullstack": "^3.0.0",
+    "eslint-plugin-react": "^7.6.0",
     "express": "^4.16.2",
     "nodemon": "^1.14.11",
     "path": "^0.12.7",
+    "pg": "^7.4.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "sequelize": "^4.32.2",
     "webpack": "^3.10.0"
   },
   "devDependencies": {
