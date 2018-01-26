@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import 'aframe'
 import { Scene } from 'aframe-react'
@@ -7,7 +7,14 @@ import 'aframe-environment-component'
 import 'aframe-physics-system'
 import { FirstVendor, Box, Cursor, Floor } from '../components'
 
-const Main = () => {
+class Main extends Component {
+  constructor(props){
+    super(props)
+    
+    this.state = {}
+  }
+  
+  render(){
   return (
     <Scene
       id="scene"
@@ -17,7 +24,11 @@ const Main = () => {
         preset: 'starry',
         seed: 2,
         lighting: 'distant',
-        lightPosition: { x: -0.110, y: 1.000, z: 0.330 },
+        lightPosition: {
+          x: -0.110,
+          y: 1.000,
+          z: 0.330
+        },
         fog: 0.8,
         ground: 'hills',
         groundYScale: 6.31,
@@ -25,13 +36,17 @@ const Main = () => {
         groundColor: '#2c441f',
         grid: 'none'
       }}
-      >
+    >
       <FirstVendor />
       <Cursor />
       <Box />
       <Floor />
     </Scene>
   )
-}
+ }
+};
 
-ReactDOM.render(<Main />, document.getElementById('main'))
+
+ReactDOM.render(<Main />, document.getElementById('main'));
+
+

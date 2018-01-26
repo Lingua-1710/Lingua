@@ -3,7 +3,7 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 
-const Cursor = () => {
+const Floor= () => {
   return (
     <Entity
       id="floor"
@@ -20,4 +20,4 @@ const Cursor = () => {
   )
 }
 
-export default Cursor
+export default Floor

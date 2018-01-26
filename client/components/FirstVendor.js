@@ -2,6 +2,7 @@ import React from 'react'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
+import { FirstVendorStoreFront } from './index'
 
 const FirstVendor = () => {
   return (
@@ -10,7 +11,9 @@ const FirstVendor = () => {
         <a-asset-item id="octo-obj" src="models/octo/ramenocto.obj" />
         <a-asset-item id="octo-mtl" src="models/octo/ramenoctomaterials.mtl" />
       </a-assests>
-      <a-obj-model id="octo" src="#octo-obj" mtl="#octo-mtl" position="0 1 -3" rotation="10 180 0" />
+      <a-obj-model id="octo" src="#octo-obj" mtl="#octo-mtl" position="1 1 -4" rotation="10 180 0" >
+      </a-obj-model>
+      <FirstVendorStoreFront />
       <Entity
         primitive="a-light"
         type="directional"
