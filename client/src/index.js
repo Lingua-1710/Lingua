@@ -10,10 +10,10 @@ import { FirstVendor, Box, Cursor, Floor } from '../components'
 class Main extends Component {
   constructor(props){
     super(props)
-    
+
     this.state = {}
   }
-  
+
   render(){
   return (
     <Scene
@@ -21,7 +21,7 @@ class Main extends Component {
       physics="debug: true"
       inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js"
       environment={{
-        preset: 'starry',
+        preset: 'forest',
         seed: 2,
         lighting: 'distant',
         lightPosition: {
