@@ -13,9 +13,9 @@ class FirstVendor extends React.Component {
     }
   }
 
-  handleBoxClick() {
+  handleVendorClick() {
     const sceneEl = document.getElementById('scene')
-    const markerEl = document.getElementById('box')
+    const markerEl = document.getElementById('octo')
     let text = document.getElementById('text')
     let prevQuestion = ''
     if (text) {
@@ -45,6 +45,9 @@ class FirstVendor extends React.Component {
       <Entity
         id="first-vendor"
         class="clickable"
+        events={{
+          click: this.handleVendorClick.bind(this)
+        }}
       >
         <a-assests>
           <a-asset-item

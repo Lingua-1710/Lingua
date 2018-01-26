@@ -5,7 +5,7 @@ import { Scene } from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
-import { FirstVendor, Box, Cursor, Floor } from '../components'
+import { FirstVendor, Cursor, Floor } from '../components'
 
 class Main extends Component {
   constructor(props) {
@@ -38,7 +38,6 @@ class Main extends Component {
       >
         <FirstVendor />
         <Cursor />
-        <Box />
         <Floor />
       </Scene>
     )
