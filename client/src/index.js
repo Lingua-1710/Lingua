@@ -10,10 +10,10 @@ import { FirstVendor, Box, Cursor, Floor } from '../components'
 class Main extends Component {
   constructor(props){
     super(props)
-    
+
     this.state = {}
   }
-  
+
   render(){
   return (
     <Scene
