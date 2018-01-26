@@ -63,7 +63,7 @@ class FirstVendor extends React.Component {
           mtl="#octo-mtl"
           position="1 1 -4"
           rotation="10 180 0" />
-        <FirstVendorStoreFront />
+        {/* <FirstVendorStoreFront /> */}
         <Entity
           primitive="a-light"
           type="directional"
