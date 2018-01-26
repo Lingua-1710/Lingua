@@ -60,7 +60,6 @@ class Main extends Component {
       >
         <FirstVendor />
         <Cursor />
-        <Box listen={this.listen}/>
         <Floor />
       </Scene>
     )
