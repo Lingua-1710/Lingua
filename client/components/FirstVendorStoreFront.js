@@ -4,6 +4,10 @@ import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 
+
+
+
+
 const FirstVendorStoreFront = () => {
   return (
     <Entity>
@@ -15,4 +19,8 @@ const FirstVendorStoreFront = () => {
     </Entity>
   )
 }
+
+
+
+
 export default FirstVendorStoreFront
