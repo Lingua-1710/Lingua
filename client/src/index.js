@@ -17,10 +17,18 @@ class Main extends Component {
   }
 
   listen(){
+    let googLang = 'es'
     const speaker = new Artyom()
+    speaker.initialize({
+      lang: "es-ES",
+      debug: true,
+      listen: true,
+      speed: 1,
+      mode: "normal"
+    })
     let speech = speaker.newDictation({
       onResult: function(text) {
-        store.dispatch(sendSpeech(text))
+        store.dispatch(sendSpeech(googLang, text))
       }
     })
     speech.start()

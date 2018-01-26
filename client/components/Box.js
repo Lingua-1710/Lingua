@@ -5,8 +5,8 @@ import 'babel-polyfill'
 import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from './utils'
 
 class Box extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       colorIndex: 0
     }
@@ -37,6 +37,7 @@ class Box extends React.Component {
     this.setState({
       colorIndex: (this.state.colorIndex + 1) % COLORS.length
     })
+    this.props.listen()
   }
 
   render() {

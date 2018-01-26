@@ -10,10 +10,10 @@ export const getSpeech = speech => {
   };
 };
 
-export const sendSpeech = speech => {
+export const sendSpeech = (lang, speech) => {
   console.log('!!!', speech)
   return function(dispatch) {
-    axios.get('/api/translation?speech=' + speech)
+    axios.get('/api/translation' + '?speech=' + lang + '!' + speech)
     .then((translation) => dispatch(getSpeech(translation)))
     .catch((err) => console.log(err))
   }
