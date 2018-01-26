@@ -42,35 +42,38 @@ class FirstVendor extends React.Component {
 
   render() {
     return (
-      <Entity
-        id="first-vendor"
-        class="clickable"
-        events={{
-          click: this.handleVendorClick.bind(this)
-        }}
-      >
-        <a-assests>
-          <a-asset-item
-            id="octo-obj"
-            src="models/octo/ramenocto.obj" />
-          <a-asset-item
-            id="octo-mtl"
-            src="models/octo/ramenoctomaterials.mtl" />
-        </a-assests>
-        <a-obj-model
-          id="octo"
-          src="#octo-obj"
-          mtl="#octo-mtl"
-          position="1 1 -4"
-          rotation="10 180 0" />
-        <FirstVendorStoreFront />
+      <Entity>
         <Entity
-          primitive="a-light"
-          type="directional"
-          color="#FFF"
-          intensity={1}
-          position={{ x: 2.5, y: 0.0, z: 0.0 }}
-        />
+          id="first-vendor"
+          class="clickable"
+          events={{
+            click: this.handleVendorClick.bind(this)
+          }}
+        >
+          <a-assests>
+            <a-asset-item
+              id="octo-obj"
+              src="models/octo/ramenocto.obj" />
+            <a-asset-item
+              id="octo-mtl"
+              src="models/octo/ramenoctomaterials.mtl" />
+          </a-assests>
+          <a-obj-model
+            id="octo"
+            src="#octo-obj"
+            mtl="#octo-mtl"
+            position="1 1 -4"
+            rotation="10 180 0" />
+
+          <Entity
+            primitive="a-light"
+            type="directional"
+            color="#FFF"
+            intensity={1}
+            position={{ x: 2.5, y: 0.0, z: 0.0 }}
+          />
+        </Entity>
+        <FirstVendorStoreFront />
       </Entity>
     )
   }
