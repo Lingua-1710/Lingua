@@ -43,6 +43,7 @@ class Box extends React.Component {
     return (
       <Entity
         id="box"
+        class="clickable"
         geometry={{primitive: 'box'}}
         dynamic-body
         material={{color: COLORS[this.state.colorIndex] }}

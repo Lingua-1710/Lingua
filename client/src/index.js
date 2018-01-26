@@ -21,7 +21,7 @@ class Main extends Component {
       physics="debug: true"
       inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js"
       environment={{
-        preset: 'starry',
+        preset: 'forest',
         seed: 2,
         lighting: 'distant',
         lightPosition: {
