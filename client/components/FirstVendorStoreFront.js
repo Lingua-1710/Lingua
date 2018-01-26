@@ -16,5 +16,4 @@ const FirstVendorStoreFront = () => {
   )
 }
 
-
 export default FirstVendorStoreFront

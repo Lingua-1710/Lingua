@@ -23,4 +23,5 @@ const FirstVendor = () => {
     </Entity>
   )
 }
+
 export default FirstVendor

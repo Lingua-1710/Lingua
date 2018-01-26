@@ -38,5 +38,10 @@
     "react-dom": "^16.2.0",
     "sequelize": "^4.32.2",
     "webpack": "^3.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-fullstack": "^3.0.0",
+    "eslint-plugin-react": "^7.6.0"
   }
 }
