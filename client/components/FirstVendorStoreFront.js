@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import 'aframe';
 import { Entity, Scene } from 'aframe-react';
 import 'babel-polyfill';
-import 'aframe-particle-system-component';
 import 'aframe-environment-component'
 
 
