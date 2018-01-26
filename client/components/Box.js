@@ -2,7 +2,7 @@ import React from 'react'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from './utils'
+import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from '../utils'
 
 class Box extends React.Component {
   constructor() {
