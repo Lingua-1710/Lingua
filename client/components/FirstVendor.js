@@ -6,8 +6,8 @@ import { FirstVendorStoreFront } from './index'
 import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from '../utils'
 
 class FirstVendor extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       colorIndex: 0
     }
@@ -38,6 +38,11 @@ class FirstVendor extends React.Component {
     this.setState({
       colorIndex: (this.state.colorIndex + 1) % COLORS.length
     })
+    this.props.listen();
+  }
+
+  componentWillUnmount() {
+    speech.stop();
   }
 
   render() {
