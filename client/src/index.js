@@ -35,7 +35,6 @@ class Main extends Component {
     setTimeout(() => speech.stop(), 5000)
   }
 
-
   render() {
     return (
       <Scene
@@ -59,7 +58,7 @@ class Main extends Component {
           grid: 'none'
         }}
       >
-        <FirstVendor />
+        <FirstVendor listen={this.listen}/>
         <Cursor />
         <Floor />
       </Scene>
