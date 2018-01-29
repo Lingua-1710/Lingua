@@ -36,11 +36,14 @@ export const recognizeSpeech = (recognition, recList, event, ans, googLang, lang
   const result = recognition.onresult = (event) => {
     let transcript = event.results["0"]["0"].transcript
     store.dispatch(sendSpeech(googLang, transcript))
+    recognition.stop()
   };
   const noMatch = recognition.onnomatch = (event) => {
     store.dispatch(sendSpeech(googLang, 'What?'))
+    recognition.stop()
   };
   const recognitionError = recognition.onerror = (event) => {
     store.dispatch(sendSpeech('en-US', event.error))
+    recognition.stop()
   };
 };
