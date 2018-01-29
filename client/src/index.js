@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import store from '../store'
 import 'aframe'
 import { Scene } from 'aframe-react'
 import 'babel-polyfill'
@@ -17,7 +19,9 @@ const speechRecognitionList = new SpeechGrammarList()
 class Main extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      answers: ['hola como estas', 'necesito el bano', 'puta madre']
+    }
     this.listen = this.listen.bind(this)
   }
 
@@ -29,6 +33,7 @@ class Main extends Component {
 
   render() {
     return (
+      <Provider store={store}>
       <Scene
         id="scene"
         physics="debug: true"
@@ -54,6 +59,7 @@ class Main extends Component {
         <Cursor />
         <Floor />
       </Scene>
+      </Provider>
     )
   }
 }
