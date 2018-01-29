@@ -1,7 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
+import store from '../store'
 import { FirstVendorStoreFront } from './index'
 import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from '../utils'
 
@@ -27,6 +29,7 @@ class FirstVendor extends React.Component {
     let newEl = document.createElement('a-text')
     position.y = position.y + 2
     let question = fetchRandomQuestion(QUESTIONS, prevQuestion)
+    let answer = this.props.userSpeech.data
     setAttributes(newEl, {
       color: 'black',
       value: question,
@@ -41,11 +44,31 @@ class FirstVendor extends React.Component {
     this.props.listen();
   }
 
-  componentWillUnmount() {
-    speech.stop();
+  componentDidUpdate() {
+    if(this.props.userSpeech.data) {
+      const sceneEl = document.getElementById('scene')
+      const markerEl = document.getElementById('octo')
+      let text = document.getElementById('answer-text')
+      if (text) {
+        text.parentNode.removeChild(text)
+      }
+      let position = markerEl.object3D.getWorldPosition()
+      position.z = position.z + 3
+      let newEl = document.createElement('a-text')
+      let answer = this.props.userSpeech.data
+      setAttributes(newEl, {
+        color: 'black',
+        value: answer,
+        id: 'answer-text',
+        position: position,
+        align: 'center'
+      })
+      sceneEl.appendChild(newEl)
+    }
   }
 
   render() {
+    console.log('answer', this.props.answer)
     return (
       <Entity>
         <Entity
@@ -84,4 +107,10 @@ class FirstVendor extends React.Component {
   }
 }
 
-export default FirstVendor
+const mapState = (storeState) => {
+  return {
+    userSpeech: storeState.speech
+  }
+}
+
+export default connect(mapState, null)(FirstVendor)
