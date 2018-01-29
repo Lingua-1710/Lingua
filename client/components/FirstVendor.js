@@ -29,7 +29,6 @@ class FirstVendor extends React.Component {
     let newEl = document.createElement('a-text')
     position.y = position.y + 2
     let question = fetchRandomQuestion(QUESTIONS, prevQuestion)
-    let answer = this.props.userSpeech.data
     setAttributes(newEl, {
       color: 'black',
       value: question,

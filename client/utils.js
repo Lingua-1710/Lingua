@@ -33,12 +33,12 @@ export const recognizeSpeech = (recognition, recList, event, ans, googLang, lang
   recognition.interimResults = false
   recognition.maxAlternatives = 1
   recognition.start()
-  const result = recognition.onresult = (event) => {
+  recognition.onresult = (event) => {
     let transcript = event.results["0"]["0"].transcript
     store.dispatch(sendSpeech(googLang, transcript))
     recognition.stop()
   };
-  const noMatch = recognition.onnomatch = (event) => {
+  recognition.onnomatch = (event) => {
     store.dispatch(sendSpeech(googLang, 'What?'))
     recognition.stop()
   };
