@@ -5,6 +5,14 @@ const Prompt = db.define('prompts', {
   text: {
     type: Sequelize.TEXT
   }
+}, {
+    scopes: {
+      populated: () => ({
+        include: {
+          all: true
+        }
+      })
+    }
 })
 
 module.exports = Prompt
