@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
-import 'babel-polyfill'
 import { FirstVendorStoreFront } from './index'
 import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from '../utils'
 
@@ -83,13 +82,13 @@ class FirstVendor extends React.Component {
               id="octo-mtl"
               src="models/octo/ramenoctomaterials.mtl" />
           </a-assests>
-          <a-obj-model
+          <Entity
+            primitive="a-obj-model"
             id="octo"
             src="#octo-obj"
             mtl="#octo-mtl"
             position="1 1 -4"
             rotation="10 180 0" />
-
           <Entity
             primitive="a-light"
             type="directional"
@@ -98,7 +97,7 @@ class FirstVendor extends React.Component {
             position={{ x: 2.5, y: 0.0, z: 0.0 }}
           />
         </Entity>
-        {/* <FirstVendorStoreFront /> */}
+        <FirstVendorStoreFront />
       </Entity>
     )
   }
@@ -110,4 +109,4 @@ const mapState = (storeState) => {
   }
 }
 
-export default connect(mapState, null)(FirstVendor)
+export default connect(mapState)(FirstVendor)
