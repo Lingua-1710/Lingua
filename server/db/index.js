@@ -4,7 +4,8 @@ const {
   Langugage,
   Prompt,
   Scene,
-  User
+  User,
+  Response
 } = require('./models')
 
 require('./models')
@@ -15,5 +16,6 @@ module.exports = {
   Langugage,
   Prompt,
   Scene,
-  User
+  User,
+  Response
 }
