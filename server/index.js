@@ -1,8 +1,18 @@
-const express = require('express');
+const express = require('express')
 const path = require('path')
-const app = express();
-app.use(express.static(path.join(__dirname,'..','public')));
-app.listen(5000, () => {
-  console.log(`listening on port 5000!`);
-});
+const app = express()
+const router = require('./router')
+const { db } = require('./db')
+const PORT = 5000
 
+app.use(express.static(path.join(__dirname,'..','public')))
+app.use('/', router)
+
+db.sync()
+  .then(() => {
+    console.log('db synced')
+    app.listen(PORT, () => console.log(`server is listening on port ${PORT}`))
+   })
+
+
+module.exports = app
