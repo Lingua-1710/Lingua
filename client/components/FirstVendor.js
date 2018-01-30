@@ -3,14 +3,17 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront } from './index'
+import { FirstVendorStoreFront, PromptText } from './index'
 import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from '../utils'
 
 class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      colorIndex: 0
+      colorIndex: 0,
+      lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
+      vendorPosition: "10 180 0",
+      vendorRotation: "10 180 0"
     }
   }
 
@@ -42,28 +45,28 @@ class FirstVendor extends React.Component {
     this.props.listen()
   }
 
-  componentDidUpdate() {
-    if(this.props.userSpeech.data) {
-      const sceneEl = document.getElementById('scene')
-      const markerEl = document.getElementById('octo')
-      let text = document.getElementById('answer-text')
-      if (text) {
-        text.parentNode.removeChild(text)
-      }
-      let position = markerEl.object3D.getWorldPosition()
-      position.z = position.z + 3
-      let newEl = document.createElement('a-text')
-      let answer = this.props.userSpeech.data
-      setAttributes(newEl, {
-        color: 'black',
-        value: answer,
-        id: 'answer-text',
-        position: position,
-        align: 'center'
-      })
-      sceneEl.appendChild(newEl)
-    }
-  }
+  // componentDidUpdate() {
+  //   if(this.props.userSpeech.data) {
+  //     const sceneEl = document.getElementById('scene')
+  //     const markerEl = document.getElementById('octo')
+  //     let text = document.getElementById('answer-text')
+  //     if (text) {
+  //       text.parentNode.removeChild(text)
+  //     }
+  //     let position = markerEl.object3D.getWorldPosition()
+  //     position.z = position.z + 3
+  //     let newEl = document.createElement('a-text')
+  //     let answer = this.props.userSpeech.data
+  //     setAttributes(newEl, {
+  //       color: 'black',
+  //       value: answer,
+  //       id: 'answer-text',
+  //       position: position,
+  //       align: 'center'
+  //     })
+  //     sceneEl.appendChild(newEl)
+  //   }
+  // }
 
   render() {
     return (
@@ -98,6 +101,7 @@ class FirstVendor extends React.Component {
             position={{ x: 2.5, y: 0.0, z: 0.0 }}
           />
         </Entity>
+        <PromptText />
         <FirstVendorStoreFront />
       </Entity>
     )
