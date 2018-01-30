@@ -55,7 +55,7 @@ class Main extends Component {
           grid: 'none'
         }}
       >
-        <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])}/>
+        <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers)} />
         <Cursor />
         <Floor />
       </Scene>

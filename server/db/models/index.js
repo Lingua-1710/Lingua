@@ -5,7 +5,6 @@ const Scene = require('./scene')
 const User = require('./user')
 const Response = require('./response')
 
-// put associations here
 User.belongsToMany(Language, { through: 'user_languages' })
 Language.belongsToMany(User, { through: 'user_languages' })
 User.belongsToMany(Scene, { through: 'user_scenes' })

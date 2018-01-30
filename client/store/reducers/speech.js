@@ -1,17 +1,16 @@
 import axios from 'axios'
 //ACTION TYPES
-const GET_SPEECH = 'GET_SPEECH';
+const GET_SPEECH = 'GET_SPEECH'
 
 //ACTION CREATORS
 export const getSpeech = speech => {
   return {
   type: GET_SPEECH,
   speech
-  };
-};
+  }
+}
 
 export const sendSpeech = (lang, speech) => {
-  console.log('!!!', speech)
   return function(dispatch) {
     axios.get('/api/translation' + '?speech=' + lang + '!' + speech)
     .then((translation) => dispatch(getSpeech(translation)))
@@ -20,12 +19,12 @@ export const sendSpeech = (lang, speech) => {
 }
 
 export default function(state = '', action) {
-  let newState = state;
+  let newState = state
   switch(action.type) {
     case GET_SPEECH:
-      newState = action.speech;
-      return newState;
+      newState = action.speech
+      return newState
     default:
-      return state;
+      return state
   }
 }

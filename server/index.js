@@ -6,9 +6,7 @@ const { db } = require('./db')
 const PORT = 5000
 
 app.use(express.static(path.join(__dirname,'..','public')))
-
 app.use('/', router)
-
 
 db.sync()
   .then(() => {
