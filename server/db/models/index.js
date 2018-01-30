@@ -21,5 +21,6 @@ module.exports = {
   Language,
   Prompt,
   Scene,
-  User
+  User,
+  Response
 }

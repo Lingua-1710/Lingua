@@ -1,11 +1,11 @@
 const {
   db,
   Item,
-  Langugage,
+  Language,
   Prompt,
   Scene,
   User,
-  Responses
+  Response
 } = require('./server/db')
 
 const items = []
@@ -18,20 +18,20 @@ const prompts = [
 ]
 const responses = [
   {text: 'I am a goose', isCorrect: false, promptId: 1},
-  {text: 'You are a tasty muffin', isCorrect: false, id: 1},
-  {text: 'I am doing well, thank you', isCorrect: true, id: 1},
-  {text: 'Yes, I would like to buy a dog', isCorrect: false, id: 2},
-  {text: 'Yes, I love bananas', isCorrect: false, id: 2},
-  {text: 'Yes, I would like to buy a cat', isCorrect: true, id: 2},
-  {text: 'Yes, I am a vegetarian', isCorrect: false, id: 3},
-  {text: 'No, my cousin is a pig', isCorrect: false, id: 3},
-  {text: 'Yes, I would love some dry ham', isCorrect: true, id: 3},
-  {text: 'Yes, I would love to purchase a foot', isCorrect: false, id: 4},
-  {text: 'Are they tasty?', isCorrect: false, id: 4},
-  {text: 'Yes please, you can never have too many kidneys', isCorrect: true, id: 4},
-  {text: 'Yes, I am a parrot', isCorrect: false, id: 5},
-  {text: 'Yes, I am a cop', isCorrect: false, id: 5},
-  {text: 'No, I am not a cop', isCorrect: true, id: 5}
+  {text: 'You are a tasty muffin', isCorrect: false, promptId: 1},
+  {text: 'I am doing well, thank you', isCorrect: true, promptId: 1},
+  {text: 'Yes, I would like to buy a dog', isCorrect: false, promptId: 2},
+  {text: 'Yes, I love bananas', isCorrect: false, promptId: 2},
+  {text: 'Yes, I would like to buy a cat', isCorrect: true, promptId: 2},
+  {text: 'Yes, I am a vegetarian', isCorrect: false, promptId: 3},
+  {text: 'No, my cousin is a pig', isCorrect: false, promptId: 3},
+  {text: 'Yes, I would love some dry ham', isCorrect: true, promptId: 3},
+  {text: 'Yes, I would love to purchase a foot', isCorrect: false, promptId: 4},
+  {text: 'Are they tasty?', isCorrect: false, promptId: 4},
+  {text: 'Yes please, you can never have too many kpromptIdneys', isCorrect: true, promptId: 4},
+  {text: 'Yes, I am a parrot', isCorrect: false, promptId: 5},
+  {text: 'Yes, I am a cop', isCorrect: false, promptId: 5},
+  {text: 'No, I am not a cop', isCorrect: true, promptId: 5}
 ]
 const languages = [
   {name: 'Spanish', code: 'es-419', google: 'es'},
