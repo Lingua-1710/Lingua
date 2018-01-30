@@ -5,10 +5,8 @@ import { Cursor } from './index'
 
 const Player = () => {
   return (
-    <Entity>
-      <Entity primitive="a-camera" wasd-controls-enabled="true" >
-        <Cursor />
-      </Entity>
+    <Entity primitive="a-camera" wasd-controls-enabled="true" >
+      <Cursor />
     </Entity>
   )
 }
