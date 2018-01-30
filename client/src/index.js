@@ -20,7 +20,7 @@ class Main extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      answers: ['hola como estas', 'necesito el bano', 'puta madre']
+      answers: ['hola como estas', 'necesito el bano', 'que tal']
     }
     this.listen = this.listen.bind(this)
   }
