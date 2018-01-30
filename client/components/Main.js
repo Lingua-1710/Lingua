@@ -53,7 +53,7 @@ class Main extends Component {
           grid: 'none'
         }}
       >
-        <Player />
+        <Player wasd-controls-enabled="false" />
         {gameState === 'home-screen' ?
         <HomeScreen /> :
         <Entity>

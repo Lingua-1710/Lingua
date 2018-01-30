@@ -15,14 +15,14 @@ const HomeScreen = (props) => {
         theta-length="90"
         width="2048"
         height="2048"
-        radius="10"
+        radius="5"
       />
       <Entity
         id="home-screen"
         primitive="a-plane"
         height="6"
         width="20"
-        position="0 3 -8"
+        position="0 2 -3"
       >
         <Entity
           id="enter-scene-plane"

@@ -98,7 +98,7 @@ class FirstVendor extends React.Component {
             position={{ x: 2.5, y: 0.0, z: 0.0 }}
           />
         </Entity>
-        <FirstVendorStoreFront />
+        {/* <FirstVendorStoreFront /> */}
       </Entity>
     )
   }
