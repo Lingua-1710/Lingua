@@ -1,43 +1,39 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import store from '../store'
 import 'aframe'
 import { Scene } from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
-import Artyom from 'artyom.js'
-import store, { sendSpeech } from '../store'
+import { recognizeSpeech } from '../utils'
 import { FirstVendor, Box, Cursor, Floor } from '../components'
+
+const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+const recognition = new SpeechRecognition()
+const speechRecognitionList = new SpeechGrammarList()
 
 class Main extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      answers: ['hola como estas', 'necesito el bano', 'puta madre']
+    }
     this.listen = this.listen.bind(this)
   }
 
-  listen(){
+  listen(rec, gram, event, ans){
     let googLang = 'es'
-    const speaker = new Artyom()
-    speaker.initialize({
-      lang: "es-ES",
-      debug: true,
-      listen: true,
-      speed: 1,
-      mode: "normal"
-    })
-    let speech = speaker.newDictation({
-      onResult: function(text) {
-        store.dispatch(sendSpeech(googLang, text))
-      }
-    })
-    speech.start()
-    setTimeout(() => speech.stop(), 5000)
+    let langCode = 'es-419'
+    recognizeSpeech(rec, gram, event, ans, googLang, langCode)
   }
-
 
   render() {
     return (
+      <Provider store={store}>
       <Scene
         id="scene"
         physics="debug: true"
@@ -59,10 +55,11 @@ class Main extends Component {
           grid: 'none'
         }}
       >
-        <FirstVendor />
+        <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])}/>
         <Cursor />
         <Floor />
       </Scene>
+      </Provider>
     )
   }
 }
