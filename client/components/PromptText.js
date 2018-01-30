@@ -5,18 +5,17 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 
 const PromptText = (props) => {
+  console.log('prooops', props)
   return (
-    <Entity>
 
       <a-text
-        value={props.text}
-        color={props.color}
-        id={props.id}
-        position={props.position}
-        align={props.align}
+        value={props.promptProps.value}
+        color={props.promptProps.color}
+        id={props.promptProps.id}
+        position={props.promptProps.position}
+        align={props.promptProps.align}
       />
 
-    </Entity>
 
   )
 }

@@ -25,10 +25,8 @@ class Main extends Component {
     this.listen = this.listen.bind(this)
   }
 
-  listen(rec, gram, event, ans){
-    let googLang = 'es'
-    let langCode = 'es-419'
-    recognizeSpeech(rec, gram, event, ans, googLang, langCode)
+  listen(rec, gram, event, ans, fromLang, toLang, langCode){
+    recognizeSpeech(rec, gram, event, ans, fromLang, toLang, langCode)
   }
 
   render() {
@@ -55,7 +53,7 @@ class Main extends Component {
           grid: 'none'
         }}
       >
-        <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers)} />
+        <FirstVendor listen={(fromLang, toLang, langCode) => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers, fromLang, toLang, langCode)} />
         <Cursor />
         <Floor />
       </Scene>

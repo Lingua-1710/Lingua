@@ -25,7 +25,7 @@ export const fetchRandomQuestion = (questions, prevQuestion) => {
   return question
 }
 
-export const recognizeSpeech = (recognition, recList, event, ans, googLang, langCode) => {
+export const recognizeSpeech = (recognition, recList, event, ans, fromLang, toLang, langCode) => {
   const grammar = '#JSGF V1.0 grammar answers public <answer> = ' + ans.join(' | ') + ' '
   recList.addFromString(grammar, 1)
   recognition.grammars = recList
@@ -35,15 +35,15 @@ export const recognizeSpeech = (recognition, recList, event, ans, googLang, lang
   recognition.start()
   recognition.onresult = (event) => {
     let transcript = event.results["0"]["0"].transcript
-    store.dispatch(sendSpeech(googLang, transcript))
+    store.dispatch(sendSpeech(fromLang, toLang, transcript))
     recognition.stop()
   }
   recognition.onnomatch = () => {
-    store.dispatch(sendSpeech(googLang, 'What?'))
+    store.dispatch(sendSpeech(fromLang, toLang, 'What?'))
     recognition.stop()
   }
   recognition.onerror = (event) => {
-    store.dispatch(sendSpeech('en-US', event.error))
+    store.dispatch(sendSpeech('en', fromLang, event.error))
     recognition.stop()
   }
 }
