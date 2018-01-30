@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import store from '../store'
 import { FirstVendorStoreFront } from './index'
 import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from '../utils'
 
@@ -40,7 +39,7 @@ class FirstVendor extends React.Component {
     this.setState({
       colorIndex: (this.state.colorIndex + 1) % COLORS.length
     })
-    this.props.listen();
+    this.props.listen()
   }
 
   componentDidUpdate() {
