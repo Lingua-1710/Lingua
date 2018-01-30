@@ -7,6 +7,9 @@ const Language = db.define('languages', {
   },
   code: {
     type: Sequelize.STRING
+  },
+  google: {
+    type: Sequelize.STRING
   }
 })
 
