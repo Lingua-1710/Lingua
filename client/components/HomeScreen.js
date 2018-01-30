@@ -5,42 +5,48 @@ import { Entity } from 'aframe-react'
 import { getGameState } from '../store'
 
 const HomeScreen = (props) => {
-  // handleBoxClick() {
-  //   const sceneEl = document.getElementById('scene')
-  //   const markerEl = document.getElementById('box')
-  //   let text = document.getElementById('text')
-  //   let prevQuestion = ''
-  //   if (text) {
-  //     prevQuestion = text.getAttribute('value')
-  //     //remove text element if exists already
-  //     text.parentNode.removeChild(text)
-  //   }
-  //   let position = markerEl.object3D.getWorldPosition()
-  //   let newEl = document.createElement('a-text')
-  //   position.y = position.y + 2
-  //   let question = fetchRandomQuestion(QUESTIONS, prevQuestion)
-  //   setAttributes(newEl, {
-  //     color: 'black',
-  //     value: question,
-  //     id: 'text',
-  //     position: position,
-  //     align: 'center'
-  //   })
-  //   sceneEl.appendChild(newEl)
-  //   this.setState({
-  //     colorIndex: (this.state.colorIndex + 1) % COLORS.length
-  //   })
-  // }
-
-  // const gameState = props.gameState
   return (
     <Entity
-      id="plane"
-      primitive="a-plane"
-      height="6"
-      width="6"
-      position="0 3 -4"
-    />
+      id="home-screen"
+    >
+      <Entity
+        id="home-screen-sphere"
+        primitive="a-sky"
+        theta-length="90"
+        width="2048"
+        height="2048"
+        radius="10"
+      />
+      <Entity
+        id="home-screen"
+        primitive="a-plane"
+        height="6"
+        width="20"
+        position="0 3 -8"
+      >
+        <Entity
+          id="enter-scene-plane"
+          primitive="a-plane"
+          height="1"
+          width="2"
+          position="0 0 .01"
+          color="blue"
+          class="clickable"
+          events={{
+            click: () => props.setGameState('game')
+          }}
+        >
+          <Entity
+            id="enter-scene-text"
+            primitive="a-text"
+            value="Enter Scene"
+            color="white"
+            align="center"
+            position="0 0 0"
+          />
+        </Entity>
+      </Entity>
+    </Entity>
   )
 }
 

@@ -32,35 +32,35 @@ class Main extends Component {
   render() {
     const { gameState } = this.props
     return (
-          <Scene
-            id="scene"
-            physics="debug: true"
-            inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js"
-            environment={{
-              preset: 'forest',
-              seed: 2,
-              lighting: 'distant',
-              lightPosition: {
-                x: -0.110,
-                y: 1.000,
-                z: 0.330
-              },
-              fog: 0.8,
-              ground: 'hills',
-              groundYScale: 6.31,
-              groundTexture: 'none',
-              groundColor: '#2c441f',
-              grid: 'none'
-            }}
-          >
-            {gameState === 'home-screen' ?
-            <HomeScreen /> :
-            <Entity>
-              <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])} />
-              <Player />
-              <Floor />
-            </Entity>}
-          </Scene>
+      <Scene
+        id="scene"
+        physics="debug: true"
+        inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js"
+        environment={{
+          preset: 'forest',
+          seed: 2,
+          lighting: 'distant',
+          lightPosition: {
+            x: -0.110,
+            y: 1.000,
+            z: 0.330
+          },
+          fog: 0.8,
+          ground: 'hills',
+          groundYScale: 6.31,
+          groundTexture: 'none',
+          groundColor: '#2c441f',
+          grid: 'none'
+        }}
+      >
+        <Player />
+        {gameState === 'home-screen' ?
+        <HomeScreen /> :
+        <Entity>
+          <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])} />
+          <Floor />
+        </Entity>}
+      </Scene>
     )
   }
 }
