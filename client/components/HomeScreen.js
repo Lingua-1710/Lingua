@@ -31,7 +31,6 @@ const HomeScreen = (props) => {
           width="2"
           position="0 0 .01"
           color="blue"
-          class="clickable"
           events={{
             click: () => props.setGameState('game')
           }}
