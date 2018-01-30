@@ -8,11 +8,11 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
 import { recognizeSpeech } from '../utils'
-import { FirstVendor, Box, Cursor, Floor } from '../components'
+import { FirstVendor, Cursor, Floor } from '../components'
 
-const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
-const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
 const recognition = new SpeechRecognition()
 const speechRecognitionList = new SpeechGrammarList()
 

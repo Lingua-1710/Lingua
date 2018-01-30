@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname,'..','public')))
 app.use('/', router)
 
 
-db.sync()
+db.sync({force: true})
   .then(() => {
     console.log('db synced')
     app.listen(PORT, () => console.log(`server is listening on port ${PORT}`))
