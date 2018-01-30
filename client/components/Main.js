@@ -6,7 +6,7 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
 import { recognizeSpeech } from '../utils'
-import { FirstVendor, Player, Floor, HomeScreen } from './index'
+import { FirstVendor, Player, Floor, HomeScreen, Loading } from './index'
 
 const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
@@ -54,12 +54,12 @@ class Main extends Component {
         }}
       >
         <Player wasd-controls-enabled="false" />
-        {gameState === 'home-screen' ?
-        <HomeScreen /> :
+        <HomeScreen />
+        { gameState !== 'home-screen' ?
         <Entity>
           <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])} />
           <Floor />
-        </Entity>}
+        </Entity> : null }
       </Scene>
     )
   }
