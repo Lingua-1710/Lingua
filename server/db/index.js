@@ -1,7 +1,7 @@
 const db = require('./db')
 const {
   Item,
-  Langugage,
+  Language,
   Prompt,
   Scene,
   User,
@@ -13,7 +13,7 @@ require('./models')
 module.exports = {
   db,
   Item,
-  Langugage,
+  Language,
   Prompt,
   Scene,
   User,

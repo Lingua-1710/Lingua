@@ -67,7 +67,6 @@ class FirstVendor extends React.Component {
   }
 
   render() {
-    console.log('answer', this.props.answer)
     return (
       <Entity>
         <Entity
