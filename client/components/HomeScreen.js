@@ -2,10 +2,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
-import { getGameState } from '../store'
+import { EnterScene, Loading } from './index'
 
 const HomeScreen = (props) => {
+  const { gameState } = props
   return (
+    gameState !== 'game' ?
     <Entity
       id="home-screen"
     >
@@ -24,38 +26,14 @@ const HomeScreen = (props) => {
         width="20"
         position="0 2 -3"
       >
-        <Entity
-          id="enter-scene-plane"
-          primitive="a-plane"
-          height="1"
-          width="2"
-          position="0 0 .01"
-          color="blue"
-          class="clickable"
-          events={{
-            click: () => props.setGameState('game')
-          }}
-        >
-          <Entity
-            id="enter-scene-text"
-            primitive="a-text"
-            value="Enter Scene"
-            color="white"
-            align="center"
-            position="0 0 0"
-          />
-        </Entity>
+        {gameState === 'home-screen' ?
+        <EnterScene /> :
+        <Loading />}
       </Entity>
-    </Entity>
+    </Entity> : null
   )
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setGameState(gameState) {
-      dispatch(getGameState(gameState))
-    }
-  }
-}
+const mapStateToProps = ({ gameState }) => ({ gameState })
 
-export default connect(null, mapDispatchToProps)(HomeScreen)
+export default connect(mapStateToProps)(HomeScreen)
