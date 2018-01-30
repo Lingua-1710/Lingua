@@ -8,9 +8,9 @@ import 'aframe-physics-system'
 import { recognizeSpeech } from '../utils'
 import { FirstVendor, Player, Floor, HomeScreen } from './index'
 
-const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
-const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
-const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
 const recognition = new SpeechRecognition()
 const speechRecognitionList = new SpeechGrammarList()
 
@@ -31,11 +31,7 @@ class Main extends Component {
 
   render() {
     const { gameState } = this.props
-    console.log('awejrar', gameState)
     return (
-        // gameState === 'home-screen'
-        // ?
-
           <Scene
             id="scene"
             physics="debug: true"
@@ -57,11 +53,12 @@ class Main extends Component {
               grid: 'none'
             }}
           >
-            {gameState === 'home-screen' ? <HomeScreen /> :
+            {gameState === 'home-screen' ?
+            <HomeScreen /> :
             <Entity>
-            <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])} />
-            <Player />
-            <Floor />
+              <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])} />
+              <Player />
+              <Floor />
             </Entity>}
           </Scene>
     )
