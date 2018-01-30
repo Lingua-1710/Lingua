@@ -31,6 +31,7 @@ const HomeScreen = (props) => {
           width="2"
           position="0 0 .01"
           color="blue"
+          class="clickable"
           events={{
             click: () => props.setGameState('game')
           }}
@@ -49,8 +50,6 @@ const HomeScreen = (props) => {
   )
 }
 
-const mapStateToProps = ({ gameState }) => ({ gameState })
-
 const mapDispatchToProps = (dispatch) => {
   return {
     setGameState(gameState) {
@@ -59,4 +58,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
+export default connect(null, mapDispatchToProps)(HomeScreen)

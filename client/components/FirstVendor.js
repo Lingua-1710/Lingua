@@ -66,7 +66,6 @@ class FirstVendor extends React.Component {
   }
 
   render() {
-    console.log('answer', this.props.answer)
     return (
       <Entity>
         <Entity
@@ -99,7 +98,7 @@ class FirstVendor extends React.Component {
             position={{ x: 2.5, y: 0.0, z: 0.0 }}
           />
         </Entity>
-        {/* <FirstVendorStoreFront /> */}
+        <FirstVendorStoreFront />
       </Entity>
     )
   }

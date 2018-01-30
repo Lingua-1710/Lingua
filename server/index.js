@@ -6,11 +6,9 @@ const { db } = require('./db')
 const PORT = 5000
 
 app.use(express.static(path.join(__dirname,'..','public')))
-
 app.use('/', router)
 
-
-db.sync({force: true})
+db.sync()
   .then(() => {
     console.log('db synced')
     app.listen(PORT, () => console.log(`server is listening on port ${PORT}`))

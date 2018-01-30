@@ -1,10 +1,11 @@
 const db = require('./db')
 const {
   Item,
-  Langugage,
+  Language,
   Prompt,
   Scene,
-  User
+  User,
+  Response
 } = require('./models')
 
 require('./models')
@@ -12,8 +13,9 @@ require('./models')
 module.exports = {
   db,
   Item,
-  Langugage,
+  Language,
   Prompt,
   Scene,
-  User
+  User,
+  Response
 }
