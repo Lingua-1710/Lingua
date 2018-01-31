@@ -24,9 +24,10 @@ class Main extends Component {
   }
 
   listen(rec, gram, event, ans){
-    let googLang = 'es'
     let langCode = 'es-419'
-    recognizeSpeech(rec, gram, event, ans, googLang, langCode)
+    let fromLang = 'en'
+    let toLang = 'es'
+    recognizeSpeech(rec, gram, event, ans, fromLang, toLang, langCode)
   }
 
   render() {
