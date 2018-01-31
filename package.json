@@ -33,6 +33,7 @@
     "chai-enzyme": "^0.8.0",
     "chalk": "^2.3.0",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.16.0",
     "eslint-config-fullstack": "^3.0.0",
     "eslint-plugin-react": "^7.6.0",
