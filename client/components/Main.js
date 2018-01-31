@@ -1,14 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import store from '../store'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import 'aframe'
-import { Scene } from 'aframe-react'
+import { Scene, Entity} from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
 import { recognizeSpeech } from '../utils'
-import { FirstVendor, Cursor, Floor } from '../components'
+import { FirstVendor, Player, Floor, HomeScreen } from './index'
 
 const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
@@ -25,13 +23,15 @@ class Main extends Component {
     this.listen = this.listen.bind(this)
   }
 
-  listen(rec, gram, event, ans, fromLang, toLang, langCode){
-    recognizeSpeech(rec, gram, event, ans, fromLang, toLang, langCode)
+  listen(rec, gram, event, ans){
+    let googLang = 'es'
+    let langCode = 'es-419'
+    recognizeSpeech(rec, gram, event, ans, googLang, langCode)
   }
 
   render() {
+    const { gameState } = this.props
     return (
-      <Provider store={store}>
       <Scene
         id="scene"
         physics="debug: true"
@@ -53,14 +53,18 @@ class Main extends Component {
           grid: 'none'
         }}
       >
-        <FirstVendor listen={(fromLang, toLang, langCode) => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers, fromLang, toLang, langCode)} />
-        <Cursor />
-        <Floor />
+        <Player />
+        {gameState === 'home-screen' ?
+        <HomeScreen /> :
+        <Entity>
+          <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])} />
+          <Floor />
+        </Entity>}
       </Scene>
-      </Provider>
     )
   }
 }
 
+const mapStateToProps = ({ gameState }) => ({ gameState })
 
-ReactDOM.render(<Main />, document.getElementById('main'))
+export default connect(mapStateToProps)(Main)

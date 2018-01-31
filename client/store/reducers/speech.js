@@ -1,12 +1,15 @@
 import axios from 'axios'
+
 //ACTION TYPES
 const GET_SPEECH = 'GET_SPEECH'
 
 //ACTION CREATORS
 export const getSpeech = translate => {
   return {
+
   type: GET_SPEECH,
   translate
+
   }
 }
 

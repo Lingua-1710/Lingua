@@ -14,6 +14,7 @@ module.exports = {
   },
   "rules": {
     "semi": [1, "never"],
-    "no-console": 0
+    "no-console": 0,
+    "react/prop-types": 0
   }
 }

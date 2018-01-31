@@ -1,5 +1,5 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux'
-import {createLogger} from 'redux-logger'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import speech from './reducers/speech'
@@ -8,6 +8,8 @@ import currentPrompt from './reducers/currentPrompt'
 
 
 const reducer = combineReducers({speech, prompts, currentPrompt})
+
+
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -16,5 +18,7 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './reducers/speech'
+
 export * from './reducers/prompts'
 export * from './reducers/currentPrompt'
+
