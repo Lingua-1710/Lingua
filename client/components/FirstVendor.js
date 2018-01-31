@@ -35,29 +35,6 @@ class FirstVendor extends React.Component {
     this.props.listen('es', 'en', 'es-419')
   }
 
-  // componentDidUpdate() {
-  //   if(this.props.userSpeech.data) {
-  //     const sceneEl = document.getElementById('scene')
-  //     const markerEl = document.getElementById('octo')
-  //     let text = document.getElementById('answer-text')
-  //     if (text) {
-  //       text.parentNode.removeChild(text)
-  //     }
-  //     let position = markerEl.object3D.getWorldPosition()
-  //     position.z = position.z + 3
-  //     let newEl = document.createElement('a-text')
-  //     let answer = this.props.userSpeech.data
-  //     setAttributes(newEl, {
-  //       color: 'black',
-  //       value: answer,
-  //       id: 'answer-text',
-  //       position: position,
-  //       align: 'center'
-  //     })
-  //     sceneEl.appendChild(newEl)
-  //   }
-  // }
-
   componentDidMount() {
 
     this.props.setPrompts(this.state.nativeLang, this.state.learningLang)

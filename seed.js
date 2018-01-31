@@ -40,12 +40,7 @@ const languages = [
   {name: 'Italian', code: 'it-IT', google: 'it'},
   {name: 'Korean', code: 'ko-KR', google: 'ko'}
 ]
-// const scenes = []
-// const users = []
 
-// items.forEach((item) => {
-//   Item.create(item)
-// })
 function addPrompts(prompts) {
   return prompts.forEach((prompt) => {
     Prompt.create(prompt)
