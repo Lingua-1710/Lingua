@@ -2,13 +2,14 @@ import React from 'react'
 import 'aframe'
 import chai from 'chai'
 import sinon from 'sinon'
-import chaiEnzyme from 'chai-enzyme'
 import sinonChai from 'sinon-chai'
-import EnterScene from '../EnterScene'
+import jest from 'jest'
+// import EnterScene from '../EnterScene'
+// import renderer from 'react-test-renderer'
 
-chai.use(chaiEnzyme())
-chai.should()
-chai.use(sinonChai)
+import { EnterScene } from '../index.js'
+
+jest.mock('react-dom')
 
 describe ('The EnterScene component', () => {
   let Enter, clickSpy
