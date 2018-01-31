@@ -5,7 +5,6 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 
 const ResponseText = (props) => {
-  console.log('response props', props.responseProps)
   let yAdjust = 0
   return (
     <Entity>
@@ -13,7 +12,7 @@ const ResponseText = (props) => {
         props.responseProps.responses.map((response) => {
           let position = Object.assign({}, props.responseProps.position )
           position.y += yAdjust
-          yAdjust+= 0.27
+          yAdjust += 0.27
           return (
             <Entity
               key={response.id}
@@ -24,12 +23,10 @@ const ResponseText = (props) => {
               position={position}
               align={props.responseProps.align}
               />
-
           )
         })
       }
     </Entity>
-  )
-}
+  )}
 
 export default ResponseText

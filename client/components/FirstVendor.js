@@ -6,7 +6,6 @@ import 'babel-polyfill'
 import { FirstVendorStoreFront, PromptText, ResponseText } from './index'
 import { fetchPrompts, getPrompt } from '../store'
 
-
 class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
@@ -24,19 +23,16 @@ class FirstVendor extends React.Component {
   }
 
   handleVendorClick() {
-    console.log('this props prompts' ,this.props.prompts[this.state.promptIndex])
     this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
     let index = this.state.promptIndex
     if(index < this.props.prompts.length - 1) {
       index++
     }
     this.setState({promptIndex: index})
-
     this.props.listen('es', 'en', 'es-419')
   }
 
   componentDidMount() {
-
     this.props.setPrompts(this.state.nativeLang, this.state.learningLang)
   }
 
