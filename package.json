@@ -7,7 +7,7 @@
     "start": "nodemon server/index.js",
     "build": "webpack -w",
     "start-dev": "npm run start & npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/boilermaker-test' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/**/*.spec.js --compilers js:babel-register",
     "seed": "node seed"
   },
   "author": "",
