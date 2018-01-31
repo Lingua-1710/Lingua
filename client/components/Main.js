@@ -6,7 +6,7 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
 import { recognizeSpeech } from '../utils'
-import { FirstVendor, Player, Floor, HomeScreen, Loading } from './index'
+import { FirstVendor, Player, Floor, HomeScreen } from './index'
 
 const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
