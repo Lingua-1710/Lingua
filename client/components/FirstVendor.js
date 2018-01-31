@@ -29,7 +29,7 @@ class FirstVendor extends React.Component {
       index++
     }
     this.setState({promptIndex: index})
-    this.props.listen('es', 'en', 'es-419')
+    this.props.listen(this.props.currentPrompt.responses)
   }
 
   componentDidMount() {
@@ -78,7 +78,7 @@ class FirstVendor extends React.Component {
             this.props.currentPrompt.text &&
             <Entity>
             <PromptText promptProps={{
-              value: this.props.currentPrompt.text,
+              value: this.props.currentPrompt.translation,
               color: 'black',
               id: 'prompt-text',
               position: {

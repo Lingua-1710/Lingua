@@ -17,16 +17,13 @@ const speechRecognitionList = new SpeechGrammarList()
 class Main extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      answers: ['hola como estas', 'necesito el bano', 'que tal']
-    }
     this.listen = this.listen.bind(this)
   }
 
   listen(rec, gram, event, ans){
     let langCode = 'es-419'
-    let fromLang = 'en'
-    let toLang = 'es'
+    let fromLang = 'es'
+    let toLang = 'en'
     recognizeSpeech(rec, gram, event, ans, fromLang, toLang, langCode)
   }
 
@@ -58,7 +55,7 @@ class Main extends Component {
         <HomeScreen />
         { gameState !== 'home-screen' ?
         <Entity>
-          <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])} />
+          <FirstVendor listen={(ans) => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, ans)} />
           <Floor />
         </Entity> : null }
       </Scene>
