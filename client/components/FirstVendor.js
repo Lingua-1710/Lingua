@@ -23,9 +23,12 @@ class FirstVendor extends React.Component {
   }
 
   handleVendorClick() {
-    console.log('PROPS', this.props.prompts)
     this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex].text)
-    this.setState({promptIndex: this.state.promptIndex++})
+    let index = this.state.promptIndex
+    if(index < this.props.prompts.length - 1) {
+      index++
+    }
+    this.setState({promptIndex: index})
     // const sceneEl = document.getElementById('scene')
     // const markerEl = document.getElementById('octo')
     // let text = document.getElementById('text')
@@ -82,7 +85,6 @@ class FirstVendor extends React.Component {
 
   render() {
     if(this.props.prompts) {
-      console.log(this.props)
       return (
         <Entity>
           <Entity
@@ -109,8 +111,8 @@ class FirstVendor extends React.Component {
                 .map(key => this.state.vendorPosition[key])
                 .join(' ')
               }
-              rotation="10 180 0" />
-
+              rotation="10 180 0"
+            />
             <Entity
               primitive="a-light"
               type="directional"

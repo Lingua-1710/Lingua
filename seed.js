@@ -11,8 +11,8 @@ const {
 const items = []
 const prompts = [
   {text: 'Hello, how are you?'},
-  {text: 'Would you like to buy a cat?'},
-  {text: 'Would you like some nice ham? It\'s very dry.'},
+  {text: 'Do you want to buy a cat?'},
+  {text: 'Do you want a nice ham? It\'s very dry.'},
   {text: 'How about some kidneys?'},
   {text: 'Are you a cop?'}
 ]

@@ -8,7 +8,8 @@ const PromptText = (props) => {
   console.log('prooops', props)
   return (
 
-      <a-text
+      <Entity
+        primitive='a-text'
         value={props.promptProps.value}
         color={props.promptProps.color}
         id={props.promptProps.id}
