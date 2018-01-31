@@ -1,9 +1,10 @@
 import React from 'react'
+import 'aframe'
 import chai from 'chai'
 import sinon from 'sinon'
 import chaiEnzyme from 'chai-enzyme'
 import sinonChai from 'sinon-chai'
-import { EnterScene } from '../index'
+import EnterScene from '../EnterScene'
 
 chai.use(chaiEnzyme())
 chai.should()
