@@ -5,9 +5,7 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 
 const PromptText = (props) => {
-  console.log('prooops', props)
   return (
-
       <Entity
         primitive='a-text'
         value={props.promptProps.value}
@@ -16,8 +14,6 @@ const PromptText = (props) => {
         position={props.promptProps.position}
         align={props.promptProps.align}
       />
-
-
   )
 }
 

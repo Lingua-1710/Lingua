@@ -31,7 +31,6 @@ export default function(state = [], action) {
   let newState = state
   switch(action.type) {
     case GET_PROMPTS:
-    console.log('ap',action.prompts)
       newState = newState.concat(action.prompts)
       return newState
     default:

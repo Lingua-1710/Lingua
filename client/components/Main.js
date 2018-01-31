@@ -53,13 +53,13 @@ class Main extends Component {
           grid: 'none'
         }}
       >
-        <Player />
-        {gameState === 'home-screen' ?
-        <HomeScreen /> :
+        <Player wasd-controls-enabled="false" />
+        <HomeScreen />
+        { gameState !== 'home-screen' ?
         <Entity>
           <FirstVendor listen={() => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, this.state.answers || ['hola como estas'])} />
           <Floor />
-        </Entity>}
+        </Entity> : null }
       </Scene>
     )
   }
