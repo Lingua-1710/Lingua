@@ -28,7 +28,7 @@ const responses = [
   {text: 'Yes, I would love some dry ham', isCorrect: true, promptId: 3},
   {text: 'Yes, I would love to purchase a foot', isCorrect: false, promptId: 4},
   {text: 'Are they tasty?', isCorrect: false, promptId: 4},
-  {text: 'Yes please, you can never have too many kpromptIdneys', isCorrect: true, promptId: 4},
+  {text: 'Yes please, you can never have too many kidneys', isCorrect: true, promptId: 4},
   {text: 'Yes, I am a parrot', isCorrect: false, promptId: 5},
   {text: 'Yes, I am a cop', isCorrect: false, promptId: 5},
   {text: 'No, I am not a cop', isCorrect: true, promptId: 5}

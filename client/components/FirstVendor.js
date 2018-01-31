@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront, PromptText } from './index'
-import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from '../utils'
+import { FirstVendorStoreFront, PromptText, ResponseText } from './index'
 import { fetchPrompts, getPrompt } from '../store'
+
 
 class FirstVendor extends React.Component {
   constructor(props) {
@@ -18,41 +18,20 @@ class FirstVendor extends React.Component {
       vendorPosition: {x: 1, y: 1, z: -4},
       vendorRotation: "10 180 0",
       promptAdjustPosition: {x: 0, y: 2, z: 0},
-      promptIndex: 0
+      promptIndex: 0,
+      responseAdjustPosition: { x: 0, y: 1, z: 0 },
     }
   }
 
   handleVendorClick() {
-    this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex].text)
+    console.log('this props prompts' ,this.props.prompts[this.state.promptIndex])
+    this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
     let index = this.state.promptIndex
     if(index < this.props.prompts.length - 1) {
       index++
     }
     this.setState({promptIndex: index})
-    // const sceneEl = document.getElementById('scene')
-    // const markerEl = document.getElementById('octo')
-    // let text = document.getElementById('text')
-    // let prevQuestion = ''
-    // if (text) {
-    //   prevQuestion = text.getAttribute('value')
-    //   //remove text element if exists already
-    //   text.parentNode.removeChild(text)
-    // }
-    // let position = markerEl.object3D.getWorldPosition()
-    // let newEl = document.createElement('a-text')
-    // position.y = position.y + 2
-    // let question = fetchRandomQuestion(QUESTIONS, prevQuestion)
-    // setAttributes(newEl, {
-    //   color: 'black',
-    //   value: question,
-    //   id: 'text',
-    //   position: position,
-    //   align: 'center'
-    // })
-    // sceneEl.appendChild(newEl)
-    // this.setState({
-    //   colorIndex: (this.state.colorIndex + 1) % COLORS.length
-    // })
+
     this.props.listen('es', 'en', 'es-419')
   }
 
@@ -80,6 +59,7 @@ class FirstVendor extends React.Component {
   // }
 
   componentDidMount() {
+
     this.props.setPrompts(this.state.nativeLang, this.state.learningLang)
   }
 
@@ -122,17 +102,30 @@ class FirstVendor extends React.Component {
             />
           </Entity>
           {
-            this.props.currentPrompt.length &&
+            this.props.currentPrompt.text &&
+            <Entity>
             <PromptText promptProps={{
-              value: this.props.currentPrompt,
+              value: this.props.currentPrompt.text,
               color: 'black',
               id: 'prompt-text',
-              position: {x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
+              position: {
+                x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
                 y: this.state.vendorPosition.y + this.state.promptAdjustPosition.y,
                 z: this.state.vendorPosition.z + this.state.promptAdjustPosition.z
               },
               align: 'center'
-            }}/>
+            }} />
+            <ResponseText responseProps={{
+                responses: this.props.currentPrompt.responses,
+                color: 'black',
+                position: {
+                  x: this.state.vendorPosition.x + this.state.responseAdjustPosition.x,
+                  y: this.state.vendorPosition.y + this.state.responseAdjustPosition.y,
+                  z: this.state.vendorPosition.z + this.state.responseAdjustPosition.z
+                },
+                align: 'center'
+            }} />
+            </Entity>
           }
           <FirstVendorStoreFront />
         </Entity>
