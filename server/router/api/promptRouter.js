@@ -12,4 +12,6 @@ router.get('/:id', (req, res, next) => {
     .then(prompt => res.json(prompt))
     .catch(next)
 })
+
+
 module.exports = router
