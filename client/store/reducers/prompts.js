@@ -14,17 +14,31 @@ export const fetchPrompts = (fromLang, toLang) => {
   return function(dispatch) {
     axios.get('/api/prompts')
     .then(prompts => prompts.data)
-    .then(prompts => Promise.all(prompts.map((prompt) => {
-      return axios.get('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + prompt.text)
-      .then(text => {
-        prompt.text=text.data
-        return prompt
-      })
-
-    })))
+    .then(prompts => translatePrompts(prompts, fromLang, toLang))
     .then(prompts => dispatch(getPrompts(prompts)))
     .catch(err => console.log(err))
   }
+}
+
+const translatePrompts = (prompts, fromLang, toLang) => {
+  return Promise.all(prompts.map((prompt) => {
+    return axios.get('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + prompt.text)
+    .then(async (translation) => {
+      prompt.translation = translation.data
+      prompt.responses = await translateResponses(prompt.responses, fromLang, toLang)
+      return prompt;
+    })
+  }))
+}
+
+const translateResponses = (responses, fromLang, toLang) => {
+  return Promise.all(responses.map((response) => {
+    return axios.get('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + response.text)
+    .then((translation) => {
+      response.translation = translation.data
+      return response;
+    })
+  }))
 }
 
 export default function(state = [], action) {
