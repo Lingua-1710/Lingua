@@ -54,7 +54,6 @@ class FirstVendor extends React.Component {
       correctAnswer: this.props.currentPrompt.responses.find((res) => {
         return(res.isCorrect === true)
       })})
-    console.log('ans:', this.state.correctAnswer.translation)
     this.props.listen(speechRecObject, {
         answers: this.props.currentPrompt.responses,
         language: this.state.language
