@@ -7,7 +7,7 @@
     "start": "nodemon server/index.js",
     "build": "webpack -w",
     "start-dev": "npm run start & npm run build",
-    "test": "jest client/components/tests/*.spec.js",
+    "test": "jest client/components/*.spec.js",
     "seed": "node seed"
   },
   "author": "",
