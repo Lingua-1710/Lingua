@@ -7,14 +7,6 @@ import { FirstVendorStoreFront, PromptText, ResponseText } from './index'
 import { fetchPrompts, getPrompt, addToScore } from '../store'
 import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
 
-const recognition = new SpeechRecognition()
-const speechRecognitionList = new SpeechGrammarList()
-const speechRecObject = {
-  SpeechRecognition,
-  SpeechGrammarList,
-  SpeechRecognitionEvent
-}
-
 export class FirstVendor extends React.Component {
   constructor(props) {
     super(props)

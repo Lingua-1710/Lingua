@@ -9,9 +9,16 @@ export function setAttributes(el, attrs) {
   }
 }
 
-export const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-export const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-export const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+let SpeechRecognitionEvent
+let recognition
+let speechRecognitionList
+if (('webkitSpeechRecognition' in window) &&
+    ('webkitSpeechGrammarList' in window) &&
+    ('webkitSpeechRecognitionEvent' in window)) {
+  recognition = new webkitSpeechRecognition()
+  speechRecognitionList = new webkitSpeechGrammarList()
+  SpeechRecognitionEvent = webkitSpeechRecognitionEvent
+}
 
 export const COLORS = ['#D92B6A', '#9564F2', '#FFCF59']
 
@@ -33,8 +40,6 @@ export const fetchRandomQuestion = (questions, prevQuestion) => {
 }
 
 export const recognizeSpeech = (recObj, options) => {
-  const recognition = new SpeechRecognition()
-  const speechRecognitionList = new SpeechGrammarList()
   const answers = options.answers.map(ans => ans.translation).join(' | ')
   const grammar = `#JSGF V1.0 grammar answers public <answer> = ${answers} `
   speechRecognitionList.addFromString(grammar, 1)
