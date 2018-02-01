@@ -19,6 +19,7 @@ class FirstVendor extends React.Component {
       promptAdjustPosition: {x: 0, y: 2, z: 0},
       promptIndex: 0,
       responseAdjustPosition: { x: 0, y: 1, z: 0 },
+      correctAnswer: ''
     }
   }
 
@@ -27,13 +28,29 @@ class FirstVendor extends React.Component {
     let index = this.state.promptIndex
     if(index < this.props.prompts.length - 1) {
       index++
+      this.setState({promptIndex: index})
+    } else {
+      this.setState({promptIndex: 0})
     }
     this.setState({promptIndex: index})
+    this.setState({
+      correctAnswer: this.props.currentPrompt.responses.find((res) => {
+        return(res.isCorrect === true)
+      })})
+    console.log('ans:', this.state.correctAnswer.translation)
     this.props.listen(this.props.currentPrompt.responses)
   }
 
   componentDidMount() {
     this.props.setPrompts(this.state.nativeLang, this.state.learningLang)
+  }
+
+  componentDidUpdate() {
+    let userInput = this.props.userSpeech
+    console.log('user: ', userInput, 'answer: ', this.state.correctAnswer.text)
+    if(userInput.length) {
+      console.log('correct? true or false:', this.props.checkAnswer(userInput, this.state.correctAnswer.text))
+    }
   }
 
   render() {

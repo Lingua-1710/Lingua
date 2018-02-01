@@ -17,7 +17,7 @@ const ResponseText = (props) => {
             <Entity
               key={response.id}
               primitive='a-text'
-              value={response.text}
+              value={response.translation}
               color={props.responseProps.color}
               id={response.id}
               position={position}

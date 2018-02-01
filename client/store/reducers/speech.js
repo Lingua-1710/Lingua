@@ -16,7 +16,7 @@ export const getSpeech = translate => {
 export const sendSpeech = (fromLang, toLang, translate) => {
   return function(dispatch) {
     axios.get('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + translate)
-    .then((translation) => dispatch(getSpeech(translation)))
+    .then((translation) => dispatch(getSpeech(translation.data)))
     .catch((err) => console.log(err))
   }
 }

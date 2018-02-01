@@ -5,7 +5,7 @@ import { Scene, Entity} from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
-import { recognizeSpeech } from '../utils'
+import { recognizeSpeech, checkAnswer } from '../utils'
 import { FirstVendor, Player, Floor, HomeScreen } from './index'
 
 const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
@@ -55,7 +55,9 @@ class Main extends Component {
         <HomeScreen />
         { gameState !== 'home-screen' ?
         <Entity>
-          <FirstVendor listen={(ans) => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, ans)} />
+          <FirstVendor listen={(ans) => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, ans)}
+            checkAnswer={checkAnswer}
+          />
           <Floor />
         </Entity> : null }
       </Scene>
