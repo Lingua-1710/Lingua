@@ -1,3 +1,5 @@
+/* SpeechRecognition webkitSpeechRecognition*/
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import 'aframe'
@@ -5,14 +7,9 @@ import { Scene, Entity} from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
-import { recognizeSpeech, checkAnswer } from '../utils'
+import { recognizeSpeech, checkAnswer, SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
 import { FirstVendor, Player, Floor, HomeScreen } from './index'
 
-const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
-const recognition = new SpeechRecognition()
-const speechRecognitionList = new SpeechGrammarList()
 
 class Main extends Component {
   constructor(props) {
@@ -20,11 +17,11 @@ class Main extends Component {
     this.listen = this.listen.bind(this)
   }
 
-  listen(rec, gram, event, ans){
+  listen(obj, options){
     let langCode = 'es-419'
     let fromLang = 'es'
     let toLang = 'en'
-    recognizeSpeech(rec, gram, event, ans, fromLang, toLang, langCode)
+    recognizeSpeech(obj, options)
   }
 
   render() {
@@ -55,7 +52,7 @@ class Main extends Component {
         <HomeScreen />
         { gameState !== 'home-screen' ?
         <Entity>
-          <FirstVendor listen={(ans) => this.listen(recognition, speechRecognitionList, SpeechRecognitionEvent, ans)}
+          <FirstVendor listen={(obj, options) => this.listen(obj, options)}
             checkAnswer={checkAnswer}
           />
           <Floor />
