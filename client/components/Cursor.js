@@ -9,7 +9,7 @@ const Cursor = () => {
       primitive="a-cursor"
       cursor={{ fuse: false }}
       material={{ color: 'white', shader: 'flat', opacity: 0.75 }}
-      geometry={{ radiusInner: 0.005, radiusOuter: 0.007 }}
+      geometry={{ radiusInner: 0.007, radiusOuter: 0.009 }}
       event-set__1={{
         event: 'mouseenter',
         scale: { x: 1.4, y: 1.4, z: 1.4 }

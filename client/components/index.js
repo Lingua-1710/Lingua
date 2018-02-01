@@ -9,3 +9,6 @@ export { default as Main } from './Main'
 export { default as HomeScreen } from './HomeScreen'
 export { default as Loading } from './Loading'
 export { default as EnterScene } from './EnterScene'
+
+// Models
+export { default as Octo } from './modelComponents/octo'

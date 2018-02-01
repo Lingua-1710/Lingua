@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront, PromptText, ResponseText } from './index'
+import { FirstVendorStoreFront, PromptText, ResponseText, Octo } from './index'
 import { fetchPrompts, getPrompt, addToScore } from '../store'
 import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
 
@@ -23,9 +23,9 @@ class FirstVendor extends React.Component {
       learningLang: 'es',
       colorIndex: 0,
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
-      vendorPosition: {x: 1, y: 1, z: -4},
-      vendorRotation: "10 180 0",
-      promptAdjustPosition: {x: 0, y: 2, z: 0},
+      vendorPosition: { x: 3, y: 1, z: -5.5 },
+      vendorRotation: { x: 10, y: 180, z: 0 },
+      promptAdjustPosition: { x: 0, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: 0, y: 1, z: 0 },
       language: {
@@ -35,6 +35,7 @@ class FirstVendor extends React.Component {
       },
       appResponse: ''
     }
+    this.handleVendorClick = this.handleVendorClick.bind(this)
   }
 
   handleVendorClick() {
@@ -44,7 +45,7 @@ class FirstVendor extends React.Component {
       this.props.setCurrentPrompt(this.props.prompts[0])
     }
     let index = this.state.promptIndex
-    if(index < this.props.prompts.length - 1) {
+    if (index < this.props.prompts.length - 1) {
       index++
       this.setState({promptIndex: index})
     } else {
@@ -85,43 +86,14 @@ class FirstVendor extends React.Component {
   }
 
   render() {
-    if(this.props.prompts) {
+    if (this.props.prompts) {
       return (
         <Entity>
-          <Entity
-            id="first-vendor"
-            class="clickable"
-            events={{
-              click: this.handleVendorClick.bind(this)
-            }}
-          >
-            <a-assests>
-              <a-asset-item
-                id="octo-obj"
-                src="models/octo/ramenocto.obj" />
-              <a-asset-item
-                id="octo-mtl"
-                src="models/octo/ramenoctomaterials.mtl" />
-            </a-assests>
-            <a-obj-model
-              id="octo"
-              src="#octo-obj"
-              mtl="#octo-mtl"
-              position={
-                Object.keys(this.state.vendorPosition)
-                .map(key => this.state.vendorPosition[key])
-                .join(' ')
-              }
-              rotation="10 180 0"
-            />
-            <Entity
-              primitive="a-light"
-              type="directional"
-              color="#FFF"
-              intensity={1}
-              position={{ x: 2.5, y: 0.0, z: 0.0 }}
-            />
-          </Entity>
+          <Octo
+            vendorPosition={this.state.vendorPosition}
+            handleVendorClick={this.handleVendorClick}
+            vendorRotation={this.state.vendorRotation}
+          />
           {
             this.props.currentPrompt.text &&
             <Entity>
@@ -145,7 +117,7 @@ class FirstVendor extends React.Component {
                   z: this.state.vendorPosition.z + this.state.responseAdjustPosition.z
                 },
                 align: 'center'
-            }} />
+              }} />
             </Entity>
           }
           <FirstVendorStoreFront />
