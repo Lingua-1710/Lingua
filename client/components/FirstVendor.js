@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront, PromptText, ResponseText } from './index'
+import { FirstVendorStoreFront, PromptText, ResponseText, Octo } from './index'
 import { fetchPrompts, getPrompt, addToScore } from '../store'
 import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
 
@@ -35,6 +35,7 @@ class FirstVendor extends React.Component {
       },
       appResponse: ''
     }
+    this.handleVendorClick = this.handleVendorClick.bind(this)
   }
 
   handleVendorClick() {
@@ -88,44 +89,11 @@ class FirstVendor extends React.Component {
     if (this.props.prompts) {
       return (
         <Entity>
-          <Entity
-            id="first-vendor"
-            class="clickable"
-            events={{
-              click: this.handleVendorClick.bind(this)
-            }}
-          >
-            <Entity>
-              <a-asset-item
-                id="octo-obj"
-                src="models/octo/ramenocto.obj" />
-              <a-asset-item
-                id="octo-mtl"
-                src="models/octo/ramenoctomaterials.mtl" />
-            </Entity>
-            <a-obj-model
-              id="octo"
-              src="#octo-obj"
-              mtl="#octo-mtl"
-              position={
-                Object.keys(this.state.vendorPosition)
-                  .map(key => this.state.vendorPosition[key])
-                  .join(' ')
-              }
-              rotation={
-                Object.keys(this.state.vendorRotation)
-                  .map(key => this.state.vendorRotation[key])
-                  .join(' ')
-              }
-            />
-            <Entity
-              primitive="a-light"
-              type="directional"
-              color="#FFF"
-              intensity={1}
-              position={{ x: 2.5, y: 0.0, z: 0.0 }}
-            />
-          </Entity>
+          <Octo
+            vendorPosition={this.state.vendorPosition}
+            handleVendorClick={this.handleVendorClick}
+            vendorRotation={this.state.vendorRotation}
+          />
           {
             this.props.currentPrompt.text &&
             <Entity>

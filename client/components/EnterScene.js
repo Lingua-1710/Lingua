@@ -21,6 +21,7 @@ const EnterScene = (props) => {
       <Entity
         id="enter-scene-text"
         primitive="a-text"
+        font=""
         value="Enter Scene"
         color="white"
         align="center"
