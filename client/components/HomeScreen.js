@@ -10,7 +10,7 @@ const HomeScreen = (props) => {
     gameState !== 'game' ?
     <Entity
       id="home-screen"
-      >
+     >
         <img
           id="backdrop"
           src="/backgrounds/backdrop.jpg"
