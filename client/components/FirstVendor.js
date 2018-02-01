@@ -6,7 +6,7 @@ import 'babel-polyfill'
 import { FirstVendorStoreFront, PromptText, ResponseText } from './index'
 import { fetchPrompts, getPrompt } from '../store'
 
-class FirstVendor extends React.Component {
+export class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -109,7 +109,7 @@ class FirstVendor extends React.Component {
   }
 }
 
-const mapState = (storeState) => {
+export const mapState = (storeState) => {
   return {
     userSpeech: storeState.speech,
     prompts: storeState.prompts,
@@ -117,7 +117,7 @@ const mapState = (storeState) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+export const mapDispatch = (dispatch) => {
   return {
     setPrompts: (fromLang, toLang) => dispatch(fetchPrompts(fromLang, toLang)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt))
