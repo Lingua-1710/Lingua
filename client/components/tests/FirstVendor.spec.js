@@ -1,8 +1,7 @@
 import React from 'react'
 import { FirstVendor, mapState, mapDispatch } from '../FirstVendor'
 import { Entity } from 'aframe-react'
-import enzyme, { shallow, mount } from 'enzyme'
-import sinon from 'sinon'
+import enzyme from 'enzyme'
 import { connect } from 'react-redux'
 import { shallowWithStore } from 'enzyme-redux'
 import { createMockStore } from 'redux-test-utils'
@@ -13,6 +12,7 @@ enzyme.configure({ adapter: new Adapter() })
 
 describe("FirstVendor", () => {
   let props
+  let store
   beforeEach(() => {
     props = {
       userSpeech: undefined,
@@ -20,21 +20,22 @@ describe("FirstVendor", () => {
       currentPrompt: undefined,
       dispatch: ()=>{}
     }
+    store = createMockStore()
+
   })
 
   describe('state', () => {
-    it('receives correct props', () => {
+    it('receives correct props from store', () => {
       const expectedProps = props
       const ConnectedComponent = connect(mapState)(FirstVendor)
-      const component = shallowWithStore(<ConnectedComponent />, createMockStore(expectedProps))
+      const component = shallowWithStore(<ConnectedComponent />, store)
       expect(Object.keys(component.props())).toEqual(Object.keys(expectedProps))
     })
   })
 
   describe('dispatch', () => {
     it('dispatches the correct actions', () => {
-      const store = createMockStore()
-      const ConnectedComponent = connect(undefined, mapDispatch)(FirstVendor)
+      const ConnectedComponent = connect(null, mapDispatch)(FirstVendor)
       const component = shallowWithStore(<ConnectedComponent />, store)
       component.props().setPrompts()
       expect(store.isActionDispatched(fetchPrompts)).toBe(true)
@@ -43,14 +44,31 @@ describe("FirstVendor", () => {
     })
   })
 
-  // it('calls componentDidMount', () => {
-  //   sinon.spy(FirstVendor.prototype, 'componentDidMount')
-  //   firstVendor()
-  //   expect(FirstVendor.prototype.componentDidMount.calledOnce).toBe(true)
-  // })
+  describe('renders an A-frame react component', () => {
+    let mockState
+    beforeEach(() => {
+      mockState = () => {
+        return {
+          prompts: true,
+          currentPrompt: 'test',
+          listen: ()=>{}
+        }
+      }
+    })
 
-  // it('renders an Entity', () => {
-  //   const entities = firstVendor().find(Entity)
-  //   expect(entities.length).toBeGreaterThan(0)
-  // })
+    it('that is an Entity', () => {
+      const ConnectedComponent = connect(mockState, mapDispatch)(FirstVendor)
+      const component = shallowWithStore(<ConnectedComponent />, store)
+      const entities = component.dive().first()
+      expect(entities.type().name).toBe('Entity')
+    })
+
+    it('that contains everything else that gets rendered', () => {
+      const ConnectedComponent = connect(mockState, mapDispatch)(FirstVendor)
+      const component = shallowWithStore(<ConnectedComponent />, store)
+      const entities = component.dive().find(Entity)
+      const wrappingEntity = entities.first()
+      expect(wrappingEntity.children().length).toEqual(component.dive().children().length)
+    })
+  })
 })

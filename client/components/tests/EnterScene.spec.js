@@ -2,7 +2,6 @@ import React from 'react'
 import { EnterScene }  from '../EnterScene'
 import { Entity } from 'aframe-react'
 import enzyme, { shallow } from 'enzyme'
-import sinon from 'sinon'
 
 import Adapter from 'enzyme-adapter-react-16'
 
@@ -25,8 +24,8 @@ describe("EnterScene", () => {
 
   describe('Component: EnterScene', () => {
     it('renders an Entity', () => {
-      const entities = enterScene().find(Entity)
-      expect(entities.length).toBeGreaterThan(0)
+      const entity = enterScene().first()
+      expect(entity.type().name).toBe('Entity')
     })
 
     it('contains everything else that gets rendered', () => {
@@ -35,11 +34,11 @@ describe("EnterScene", () => {
       expect(wrappingEntity.children()).toEqual(enterScene().children())
     })
 
-    it('should be able to be clicked', () => {
-      const clickSpy = sinon.spy()
+    it('is able to be clicked', () => {
+      const clickSpy = jest.fn()
       const component = shallow(<EnterScene setGameState={clickSpy} />)
-      component.find('#enter-scene-plane').prop("events").click()
-      expect(clickSpy.called).toBe(true)
+      component.find('#enter-scene-plane').prop('events').click()
+      expect(clickSpy).toBeCalled()
     })
   })
 })
