@@ -46,6 +46,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.32.2",
+    "string-similarity": "^1.2.0",
     "webpack": "^3.10.0"
   },
   "devDependencies": {

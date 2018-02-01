@@ -4,7 +4,16 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 import { FirstVendorStoreFront, PromptText, ResponseText } from './index'
-import { fetchPrompts, getPrompt } from '../store'
+import { fetchPrompts, getPrompt, addToScore } from '../store'
+import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
+
+const recognition = new SpeechRecognition()
+const speechRecognitionList = new SpeechGrammarList()
+const speechRecObject = {
+  SpeechRecognition,
+  SpeechGrammarList,
+  SpeechRecognitionEvent
+}
 
 class FirstVendor extends React.Component {
   constructor(props) {
@@ -19,21 +28,60 @@ class FirstVendor extends React.Component {
       promptAdjustPosition: {x: 0, y: 2, z: 0},
       promptIndex: 0,
       responseAdjustPosition: { x: 0, y: 1, z: 0 },
+      language: {
+        langCode: 'es-419',
+        fromLang: 'es',
+        toLang: 'en'
+      },
+      appResponse: ''
     }
   }
 
   handleVendorClick() {
-    this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
+    if(Object.keys(this.props.currentPrompt).length) {
+      this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
+    } else {
+      this.props.setCurrentPrompt(this.props.prompts[0])
+    }
     let index = this.state.promptIndex
     if(index < this.props.prompts.length - 1) {
       index++
+      this.setState({promptIndex: index})
+    } else {
+      this.setState({promptIndex: 0})
     }
-    this.setState({promptIndex: index})
-    this.props.listen('es', 'en', 'es-419')
+    this.setState({
+      correctAnswer: this.props.currentPrompt.responses.find((res) => {
+        return(res.isCorrect === true)
+      })})
+    this.props.listen(speechRecObject, {
+        answers: this.props.currentPrompt.responses,
+        language: this.state.language
+    })
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if((this.props.userSpeech !== nextProps.userSpeech) || this.props.currentPrompt.id !== nextProps.currentPrompt.id) {
+      return true
+    }
+    return false
   }
 
   componentDidMount() {
     this.props.setPrompts(this.state.nativeLang, this.state.learningLang)
+  }
+
+  componentDidUpdate() {
+    let userInput = this.props.userSpeech
+    if(userInput.length) {
+      let result = this.props.checkAnswer(userInput, this.props.currentPrompt.responses)
+      let appResponse = (`You said: ${userInput},
+      ${result.answer ? `Which matched: ${result.answer}.` : 'I am not sure what you meant.'}
+      ${result.correct ? 'This was correct!' : 'This was incorrect.'}`)
+      if(result.correct) {
+        this.props.incrementScore()
+      }
+    }
   }
 
   render() {
@@ -78,7 +126,7 @@ class FirstVendor extends React.Component {
             this.props.currentPrompt.text &&
             <Entity>
             <PromptText promptProps={{
-              value: this.props.currentPrompt.text,
+              value: this.props.currentPrompt.translation,
               color: 'black',
               id: 'prompt-text',
               position: {
@@ -113,14 +161,16 @@ const mapState = (storeState) => {
   return {
     userSpeech: storeState.speech,
     prompts: storeState.prompts,
-    currentPrompt: storeState.currentPrompt
+    currentPrompt: storeState.currentPrompt,
+    score: storeState.score
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
     setPrompts: (fromLang, toLang) => dispatch(fetchPrompts(fromLang, toLang)),
-    setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt))
+    setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
+    incrementScore: () => dispatch(addToScore())
   }
 }
 

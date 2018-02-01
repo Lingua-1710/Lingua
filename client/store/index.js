@@ -6,8 +6,9 @@ import speech from './reducers/speech'
 import prompts from './reducers/prompts'
 import currentPrompt from './reducers/currentPrompt'
 import gameState from './reducers/gameState'
+import score from './reducers/score'
 
-const reducer = combineReducers({ speech, prompts, currentPrompt, gameState })
+const reducer = combineReducers({ speech, prompts, currentPrompt, gameState, score })
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -20,4 +21,5 @@ export * from './reducers/speech'
 export * from './reducers/prompts'
 export * from './reducers/currentPrompt'
 export * from './reducers/gameState'
+export * from './reducers/score'
 
