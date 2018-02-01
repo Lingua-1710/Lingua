@@ -8,11 +8,17 @@ import 'aframe-physics-system'
 import { recognizeSpeech } from '../utils'
 import { FirstVendor, Player, Floor, HomeScreen } from './index'
 
-const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
-const recognition = new SpeechRecognition()
-const speechRecognitionList = new SpeechGrammarList()
+let SpeechRecognitionEvent
+let recognition
+let speechRecognitionList
+if (('webkitSpeechRecognition' in window) &&
+    ('webkitSpeechGrammarList' in window) &&
+    ('webkitSpeechRecognitionEvent' in window)) {
+  recognition = new webkitSpeechRecognition()
+  speechRecognitionList = new webkitSpeechGrammarList()
+  SpeechRecognitionEvent = webkitSpeechRecognitionEvent
+}
+
 
 class Main extends Component {
   constructor(props) {
