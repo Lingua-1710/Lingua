@@ -1,5 +1,5 @@
 import React from 'react'
-import { EnterScene }  from '../EnterScene'
+import { EnterScene }  from './EnterScene'
 import { Entity } from 'aframe-react'
 import enzyme, { shallow } from 'enzyme'
 

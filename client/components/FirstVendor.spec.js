@@ -1,11 +1,11 @@
 import React from 'react'
-import { FirstVendor, mapState, mapDispatch } from '../FirstVendor'
+import { FirstVendor, mapState, mapDispatch } from './FirstVendor'
 import { Entity } from 'aframe-react'
 import enzyme from 'enzyme'
 import { connect } from 'react-redux'
 import { shallowWithStore } from 'enzyme-redux'
 import { createMockStore } from 'redux-test-utils'
-import { fetchPrompts, getPrompt } from '../../store'
+import { fetchPrompts, getPrompt } from '../store'
 import Adapter from 'enzyme-adapter-react-16'
 
 enzyme.configure({ adapter: new Adapter() })
@@ -18,10 +18,10 @@ describe("FirstVendor", () => {
       userSpeech: undefined,
       prompts: undefined,
       currentPrompt: undefined,
+      score: undefined,
       dispatch: ()=>{}
     }
     store = createMockStore()
-
   })
 
   describe('state', () => {

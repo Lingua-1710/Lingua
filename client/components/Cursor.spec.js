@@ -1,5 +1,5 @@
 import React from 'react'
-import { Cursor }  from '../Cursor'
+import { Cursor }  from './Cursor'
 import { Entity } from 'aframe-react'
 import enzyme, { shallow } from 'enzyme'
 
