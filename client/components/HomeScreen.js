@@ -24,8 +24,6 @@ const HomeScreen = (props) => {
         height="window.innerHeight"
         radius="5"
         />
-
-
       <Entity
         id="home-screen"
         primitive="a-plane"
