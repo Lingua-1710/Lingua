@@ -3,7 +3,6 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 
-
 const PromptText = (props) => {
   return (
       <Entity
