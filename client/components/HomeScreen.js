@@ -10,15 +10,22 @@ const HomeScreen = (props) => {
     gameState !== 'game' ?
     <Entity
       id="home-screen"
-    >
+      >
+        <img
+          id="backdrop"
+          src="/backgrounds/backdrop.jpg"
+          />
       <Entity
         id="home-screen-sphere"
         primitive="a-sky"
+        src="#backdrop"
         theta-length="90"
-        width="2048"
-        height="2048"
+        width="window.innerWidth"
+        height="window.innerHeight"
         radius="5"
-      />
+        />
+
+
       <Entity
         id="home-screen"
         primitive="a-plane"

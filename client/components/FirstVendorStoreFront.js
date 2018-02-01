@@ -22,8 +22,8 @@ const FirstVendorStoreFront = (props) => {
         id="storefront"
         src="#storefront-obj"
         mtl="#storefront-mtl"
-        position="12 1 -10"
-        rotation="0 175 0" />
+        position="12 1 -8.5"
+        rotation="0 160 1" />
     </Entity>
   )
 }

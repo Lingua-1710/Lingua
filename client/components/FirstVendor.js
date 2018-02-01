@@ -14,9 +14,9 @@ class FirstVendor extends React.Component {
       learningLang: 'es',
       colorIndex: 0,
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
-      vendorPosition: {x: 1, y: 1, z: -4},
-      vendorRotation: "10 180 0",
-      promptAdjustPosition: {x: 0, y: 2, z: 0},
+      vendorPosition: { x: 3, y: 1, z: -5.5 },
+      vendorRotation: { x: 10, y: 180, z: 0 },
+      promptAdjustPosition: { x: 0, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: 0, y: 1, z: 0 },
     }
@@ -25,10 +25,10 @@ class FirstVendor extends React.Component {
   handleVendorClick() {
     this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
     let index = this.state.promptIndex
-    if(index < this.props.prompts.length - 1) {
+    if (index < this.props.prompts.length - 1) {
       index++
     }
-    this.setState({promptIndex: index})
+    this.setState({ promptIndex: index })
     this.props.listen('es', 'en', 'es-419')
   }
 
@@ -37,7 +37,7 @@ class FirstVendor extends React.Component {
   }
 
   render() {
-    if(this.props.prompts) {
+    if (this.props.prompts) {
       return (
         <Entity>
           <Entity
@@ -47,24 +47,28 @@ class FirstVendor extends React.Component {
               click: this.handleVendorClick.bind(this)
             }}
           >
-            <a-assests>
+            <Entity>
               <a-asset-item
                 id="octo-obj"
                 src="models/octo/ramenocto.obj" />
               <a-asset-item
                 id="octo-mtl"
                 src="models/octo/ramenoctomaterials.mtl" />
-            </a-assests>
+            </Entity>
             <a-obj-model
               id="octo"
               src="#octo-obj"
               mtl="#octo-mtl"
               position={
                 Object.keys(this.state.vendorPosition)
-                .map(key => this.state.vendorPosition[key])
-                .join(' ')
+                  .map(key => this.state.vendorPosition[key])
+                  .join(' ')
               }
-              rotation="10 180 0"
+              rotation={
+                Object.keys(this.state.vendorRotation)
+                  .map(key => this.state.vendorRotation[key])
+                  .join(' ')
+              }
             />
             <Entity
               primitive="a-light"
@@ -77,18 +81,18 @@ class FirstVendor extends React.Component {
           {
             this.props.currentPrompt.text &&
             <Entity>
-            <PromptText promptProps={{
-              value: this.props.currentPrompt.text,
-              color: 'black',
-              id: 'prompt-text',
-              position: {
-                x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
-                y: this.state.vendorPosition.y + this.state.promptAdjustPosition.y,
-                z: this.state.vendorPosition.z + this.state.promptAdjustPosition.z
-              },
-              align: 'center'
-            }} />
-            <ResponseText responseProps={{
+              <PromptText promptProps={{
+                value: this.props.currentPrompt.text,
+                color: 'black',
+                id: 'prompt-text',
+                position: {
+                  x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
+                  y: this.state.vendorPosition.y + this.state.promptAdjustPosition.y,
+                  z: this.state.vendorPosition.z + this.state.promptAdjustPosition.z
+                },
+                align: 'center'
+              }} />
+              <ResponseText responseProps={{
                 responses: this.props.currentPrompt.responses,
                 color: 'black',
                 position: {
@@ -97,7 +101,7 @@ class FirstVendor extends React.Component {
                   z: this.state.vendorPosition.z + this.state.responseAdjustPosition.z
                 },
                 align: 'center'
-            }} />
+              }} />
             </Entity>
           }
           <FirstVendorStoreFront />
