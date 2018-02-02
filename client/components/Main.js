@@ -7,7 +7,7 @@ import { Scene, Entity} from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
 import 'aframe-physics-system'
-import { recognizeSpeech, checkAnswer, SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
+import { recognizeSpeech, checkAnswer } from '../utils'
 import { FirstVendor, Player, Floor, HomeScreen } from './index'
 
 
