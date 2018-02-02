@@ -19,9 +19,6 @@ class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      nativeLang: 'en',
-      learningLang: 'es',
-      langCode: 'es-419',
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
       vendorPosition: {x: 1, y: 1, z: -4},
       vendorRotation: "10 180 0",
