@@ -1,7 +1,6 @@
 import React from 'react'
 import { Entity } from 'aframe-react'
 
-
 const DisplayScore = (props) => {
   return (
     <Entity
