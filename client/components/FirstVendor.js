@@ -68,11 +68,8 @@ class FirstVendor extends React.Component {
           })
         })
       }
-      if(!this.state.gameOver) {
         this.setState({repeat: true})
         this.listenToUser()
-
-      }
       if(this.state.promptIndex === this.props.prompts.length) {
         this.setState({
           grade: {response: `The end! Your score is: ${this.state.score}`},
@@ -116,14 +113,14 @@ class FirstVendor extends React.Component {
         repeat: false
       })
     } else {
-      if(this.state.grade.attempts > 0) {
+      if (this.state.grade.attempts > 0) {
         this.setState({
             repeat: true,
             grade: {response: 'Try again in', attempts: this.state.grade.attempts},
             countdown: {counting: true, timer: this.state.countdown.timer}
           })
         let countdown = setInterval(() => {
-          if(this.state.countdown.timer <=0) {
+          if (this.state.countdown.timer <=0) {
             this.listenToUser()
             this.setState({
               countdown: {counting: false, timer: 3}
@@ -179,12 +176,12 @@ class FirstVendor extends React.Component {
           {
             this.state.countdown.counting &&
             <Countdown
-            time={this.state.countdown.timer}
-            position={{
-              x: this.state.vendorPosition.x,
-              y: this.state.vendorPosition.y + 1.25,
-              z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
-            }}
+              time={this.state.countdown.timer}
+              position={{
+                x: this.state.vendorPosition.x,
+                y: this.state.vendorPosition.y + 1.25,
+                z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
+              }}
             />
           }
           {
