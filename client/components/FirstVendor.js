@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront, PromptText, ResponseText, Octo } from './index'
+import { FirstVendorStoreFront, PromptText, ResponseText, Octo, DisplayScore } from './index'
 import { fetchPrompts, getPrompt, addToScore } from '../store'
 import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
 
@@ -22,6 +22,7 @@ class FirstVendor extends React.Component {
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
       vendorPosition: { x: 3, y: 1, z: -5.5 },
       vendorRotation: { x: 10, y: 180, z: 0 },
+      scoreAdjustPosition: { z: 2 },
       promptAdjustPosition: { x: 0, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: 0, y: 1, z: 0 },
@@ -78,6 +79,14 @@ class FirstVendor extends React.Component {
             vendorPosition={this.state.vendorPosition}
             handleVendorClick={this.handleVendorClick}
             vendorRotation={this.state.vendorRotation}
+          />
+          <DisplayScore
+            score={this.props.score}
+            position={{
+              x: this.state.vendorPosition.x,
+              y: this.state.vendorPosition.y,
+              z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
+            }}
           />
           {
             this.props.currentPrompt.text &&
