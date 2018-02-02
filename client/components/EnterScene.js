@@ -4,7 +4,7 @@ import { Entity } from 'aframe-react'
 import { connect } from 'react-redux'
 import { getGameState } from '../store'
 
-const EnterScene = (props) => {
+export const EnterScene = (props) => {
   return (
     <Entity
       id="enter-scene-plane"
