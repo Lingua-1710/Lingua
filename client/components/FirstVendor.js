@@ -7,15 +7,7 @@ import { FirstVendorStoreFront, PromptText, ResponseText, Octo } from './index'
 import { fetchPrompts, getPrompt, addToScore } from '../store'
 import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
 
-const recognition = new SpeechRecognition()
-const speechRecognitionList = new SpeechGrammarList()
-const speechRecObject = {
-  SpeechRecognition,
-  SpeechGrammarList,
-  SpeechRecognitionEvent
-}
-
-class FirstVendor extends React.Component {
+export class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -114,7 +106,7 @@ class FirstVendor extends React.Component {
   }
 }
 
-const mapState = (storeState) => {
+export const mapState = (storeState) => {
   return {
     prompts: storeState.prompts,
     currentPrompt: storeState.currentPrompt,
@@ -122,7 +114,7 @@ const mapState = (storeState) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+export const mapDispatch = (dispatch) => {
   return {
     setPrompts: (fromLang, toLang) => dispatch(fetchPrompts(fromLang, toLang)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),

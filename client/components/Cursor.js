@@ -3,7 +3,7 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 
-const Cursor = () => {
+export const Cursor = () => {
   return (
     <Entity
       primitive="a-cursor"
