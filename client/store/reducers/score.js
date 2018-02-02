@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 //ACTION TYPES
 const ADD_TO_SCORE = 'ADD_TO_SCORE'
 
