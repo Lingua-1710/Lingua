@@ -4,8 +4,6 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import { Cursor } from './index'
 
-
-
 class Player extends React.Component {
   constructor(props) {
     super(props)
