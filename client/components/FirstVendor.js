@@ -58,10 +58,9 @@ class FirstVendor extends React.Component {
         } else {
           this.props.setCurrentPrompt(this.props.prompts[0])
         }
-        let index = this.state.promptIndex
-        if (index < this.props.prompts.length - 1) {
-          index++
-          this.setState({ promptIndex: index })
+        if (this.state.promptIndex < this.props.prompts.length - 1) {
+          this.setState({ promptIndex: this.state.promptIndex + 1 })
+
         }
         this.setState({
           correctAnswer: this.props.currentPrompt.responses.find((res) => {
@@ -74,7 +73,7 @@ class FirstVendor extends React.Component {
         this.listenToUser()
 
       }
-      if(this.state.promptIndex === this.props.prompts.length -1) {
+      if(this.state.promptIndex === this.props.prompts.length) {
         this.setState({
           grade: {response: `The end! Your score is: ${this.state.score}`},
           gameOver: true
