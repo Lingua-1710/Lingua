@@ -19,8 +19,8 @@ export class FirstVendor extends React.Component {
       responseAdjustPosition: { x: 0, y: 1, z: 0 },
       language: {
         langCode: 'es-419',
-        fromLang: 'es',
-        toLang: 'en'
+        fromLang: 'en',
+        toLang: 'es'
       }
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
@@ -59,7 +59,7 @@ export class FirstVendor extends React.Component {
   }
 
   componentDidMount() {
-    this.props.setPrompts(this.state.language.toLang, this.state.language.fromLang)
+    this.props.setPrompts(this.state.language.fromLang, this.state.language.toLang)
   }
 
   render() {
