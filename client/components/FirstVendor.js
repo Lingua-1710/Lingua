@@ -7,8 +7,6 @@ import { FirstVendorStoreFront, PromptText, ResponseText, Octo, DisplayScore, Di
 import { fetchPrompts, getPrompt, addToScore } from '../store'
 import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
 
-// const recognition = new SpeechRecognition()
-// const speechRecognitionList = new SpeechGrammarList()
 const speechRecObject = {
   SpeechRecognition,
   SpeechGrammarList,
