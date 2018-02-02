@@ -37,7 +37,7 @@ class FirstVendor extends React.Component {
   }
 
   handleVendorClick() {
-    if(Object.keys(this.props.currentPrompt).length) {
+    if (Object.keys(this.props.currentPrompt).length) {
       this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
     } else {
       this.props.setCurrentPrompt(this.props.prompts[0])
@@ -45,31 +45,31 @@ class FirstVendor extends React.Component {
     let index = this.state.promptIndex
     if (index < this.props.prompts.length - 1) {
       index++
-      this.setState({promptIndex: index})
+      this.setState({ promptIndex: index })
     } else {
-      this.setState({promptIndex: 0})
+      this.setState({ promptIndex: 0 })
     }
     this.setState({
       correctAnswer: this.props.currentPrompt.responses.find((res) => {
-        return(res.isCorrect === true)
-      })})
+        return (res.isCorrect === true)
+      })
+    })
     this.props.listen(speechRecObject, {
-        answers: this.props.currentPrompt.responses,
-        language: this.state.language
+      answers: this.props.currentPrompt.responses,
+      language: this.state.language
     })
-    .then((result) => {
-      return this.props.checkAnswer(result, this.props.currentPrompt.responses)
-    })
-    .then((graded) => {
-      if(graded.correct) {
-        this.props.incrementScore()
-      }
-      this.handleUserGrade(graded.correct)
-      setTimeout(() => {
-        this.setState({ grade: '' })
-      }, 1500)
-      console.log('result:', graded)
-    })
+      .then((result) => {
+        return this.props.checkAnswer(result, this.props.currentPrompt.responses)
+      })
+      .then((graded) => {
+        if (graded.correct) {
+          this.props.incrementScore()
+        }
+        this.handleUserGrade(graded.correct)
+        setTimeout(() => {
+          this.setState({ grade: '' })
+        }, 1500)
+      })
   }
 
   handleUserGrade(grade) {
@@ -93,14 +93,14 @@ class FirstVendor extends React.Component {
             handleVendorClick={this.handleVendorClick}
             vendorRotation={this.state.vendorRotation}
           />
-            <DisplayCorrect
-              value={this.state.grade}
-              position={{
-                x: this.state.vendorPosition.x,
-                y: this.state.vendorPosition.y + 2,
-                z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
-              }}
-            />
+          <DisplayCorrect
+            value={this.state.grade}
+            position={{
+              x: this.state.vendorPosition.x,
+              y: this.state.vendorPosition.y + 2,
+              z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
+            }}
+          />
           <DisplayScore
             score={this.props.score}
             position={{
@@ -112,18 +112,18 @@ class FirstVendor extends React.Component {
           {
             this.props.currentPrompt.text &&
             <Entity>
-            <PromptText promptProps={{
-              value: this.props.currentPrompt.translation,
-              color: 'black',
-              id: 'prompt-text',
-              position: {
-                x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
-                y: this.state.vendorPosition.y + this.state.promptAdjustPosition.y,
-                z: this.state.vendorPosition.z + this.state.promptAdjustPosition.z
-              },
-              align: 'center'
-            }} />
-            <ResponseText responseProps={{
+              <PromptText promptProps={{
+                value: this.props.currentPrompt.translation,
+                color: 'black',
+                id: 'prompt-text',
+                position: {
+                  x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
+                  y: this.state.vendorPosition.y + this.state.promptAdjustPosition.y,
+                  z: this.state.vendorPosition.z + this.state.promptAdjustPosition.z
+                },
+                align: 'center'
+              }} />
+              <ResponseText responseProps={{
                 responses: this.props.currentPrompt.responses,
                 color: 'black',
                 position: {

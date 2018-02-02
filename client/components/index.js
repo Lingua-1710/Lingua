@@ -11,7 +11,6 @@ export { default as Loading } from './Loading'
 export { default as EnterScene } from './EnterScene'
 export { default as DisplayScore } from './DisplayScore'
 
-
 // Models
 export { default as Octo } from './modelComponents/Octo'
 export { default as DisplayCorrect } from './modelComponents/DisplayCorrect'
