@@ -7,7 +7,7 @@
     "start": "nodemon server/index.js",
     "build": "webpack -w",
     "start-dev": "npm run start & npm run build",
-    "test": "jest client/components/*.spec.js client/store/reducers/*.spec.js server/router/api/*.spec.js",
+    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/lingua' jest client/components/*.spec.js client/store/reducers/*.spec.js server/router/api/*.spec.js",
     "seed": "node seed"
   },
   "author": "",
