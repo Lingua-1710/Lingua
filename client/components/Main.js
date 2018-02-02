@@ -17,10 +17,7 @@ class Main extends Component {
   }
 
   listen(obj, options){
-    let langCode = 'es-419'
-    let fromLang = 'es'
-    let toLang = 'en'
-    recognizeSpeech(obj, options)
+    return recognizeSpeech(obj, options)
   }
 
   render() {
@@ -51,7 +48,7 @@ class Main extends Component {
         <HomeScreen />
         { gameState !== 'home-screen' ?
         <Entity>
-          <FirstVendor listen={(obj, options) => this.listen(obj, options)}
+          <FirstVendor listen={this.listen}
             checkAnswer={checkAnswer}
           />
           <Floor />
