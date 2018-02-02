@@ -63,6 +63,7 @@
     "redux-test-utils": "^0.2.2",
     "regenerator-runtime": "^0.11.1",
     "sinon": "^4.2.2",
-    "sinon-chai": "^2.14.0"
+    "sinon-chai": "^2.14.0",
+    "supertest": "^3.0.0"
   }
 }
