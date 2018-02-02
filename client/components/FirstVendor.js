@@ -19,9 +19,6 @@ class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      nativeLang: 'en',
-      learningLang: 'es',
-      colorIndex: 0,
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
       vendorPosition: { x: 3, y: 1, z: -5.5 },
       vendorRotation: { x: 10, y: 180, z: 0 },
@@ -32,8 +29,7 @@ class FirstVendor extends React.Component {
         langCode: 'es-419',
         fromLang: 'es',
         toLang: 'en'
-      },
-      appResponse: ''
+      }
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
   }
@@ -59,30 +55,19 @@ class FirstVendor extends React.Component {
         answers: this.props.currentPrompt.responses,
         language: this.state.language
     })
-  }
-
-  shouldComponentUpdate(nextProps) {
-    if((this.props.userSpeech !== nextProps.userSpeech) || this.props.currentPrompt.id !== nextProps.currentPrompt.id) {
-      return true
-    }
-    return false
+    .then((result) => {
+      return this.props.checkAnswer(result, this.props.currentPrompt.responses)
+    })
+    .then((graded) => {
+      if(graded.correct) {
+        this.props.incrementScore()
+      }
+      console.log('result:', graded)
+    })
   }
 
   componentDidMount() {
-    this.props.setPrompts(this.state.nativeLang, this.state.learningLang)
-  }
-
-  componentDidUpdate() {
-    let userInput = this.props.userSpeech
-    if(userInput.length) {
-      let result = this.props.checkAnswer(userInput, this.props.currentPrompt.responses)
-      let appResponse = (`You said: ${userInput},
-      ${result.answer ? `Which matched: ${result.answer}.` : 'I am not sure what you meant.'}
-      ${result.correct ? 'This was correct!' : 'This was incorrect.'}`)
-      if(result.correct) {
-        this.props.incrementScore()
-      }
-    }
+    this.props.setPrompts(this.state.language.toLang, this.state.language.fromLang)
   }
 
   render() {
@@ -131,7 +116,6 @@ class FirstVendor extends React.Component {
 
 const mapState = (storeState) => {
   return {
-    userSpeech: storeState.speech,
     prompts: storeState.prompts,
     currentPrompt: storeState.currentPrompt,
     score: storeState.score
