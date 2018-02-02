@@ -18,12 +18,12 @@ export class FirstVendor extends React.Component {
     super(props)
     this.state = {
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
-      vendorPosition: { x: 3, y: 1, z: -5.5 },
-      vendorRotation: { x: 10, y: 180, z: 0 },
-      scoreAdjustPosition: { z: 2 },
-      promptAdjustPosition: { x: 0, y: 2, z: 0 },
+      vendorPosition: { x: 1, y: 1, z: -5 },
+      vendorRotation: { x: 10, y: 160, z: 0 },
+      scoreAdjustPosition: { x: 1, y: -.05, z: 2 },
+      promptAdjustPosition: { x: -2, y: 2, z: 0 },
       promptIndex: 0,
-      responseAdjustPosition: { x: 0, y: 1, z: 0 },
+      responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
       grade: '',
       language: {
         langCode: 'es-419',
@@ -102,8 +102,8 @@ export class FirstVendor extends React.Component {
           <DisplayScore
             score={this.props.score}
             position={{
-              x: this.state.vendorPosition.x,
-              y: this.state.vendorPosition.y,
+              x: this.state.vendorPosition.x + this.state.scoreAdjustPosition.x,
+              y: this.state.vendorPosition.y + this.state.scoreAdjustPosition.y,
               z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
             }}
           />
@@ -112,8 +112,9 @@ export class FirstVendor extends React.Component {
             <Entity>
               <PromptText promptProps={{
                 value: this.props.currentPrompt.translation,
-                color: 'black',
+                color: 'white',
                 id: 'prompt-text',
+                width: '10',
                 position: {
                   x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
                   y: this.state.vendorPosition.y + this.state.promptAdjustPosition.y,
