@@ -1,4 +1,11 @@
-import prompts, { getPrompts } from './prompts'
+import prompts, { getPrompts, fetchPrompts, translatePrompts, translateResponses } from './prompts'
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import configureMockStore from 'redux-mock-store'
+import thunkMiddleware from 'redux-thunk'
+
+const middlewares = [thunkMiddleware]
+const mockStore = configureMockStore(middlewares)
 
 describe('prompts reducer', () => {
   it('should return the initial state', () => {
@@ -7,14 +14,72 @@ describe('prompts reducer', () => {
 
   it('should handle GET_PROMPTS', () => {
     expect(
-      prompts([], getPrompts(['hello']))
+      prompts([], getPrompts([{text: 'hello'}]))
     ).toEqual(
-      ['hello']
+      [{text: 'hello'}]
     )
     expect(
-      prompts(['how are you'], getPrompts(['hi']))
+      prompts([{text: 'how are you'}], getPrompts([{text: 'hi'}]))
     ).toEqual(
-      ['how are you', 'hi']
+      [{text: 'how are you'}, {text: 'hi'}]
     )
   })
 })
+
+describe('thunk creators', () => {
+  let store
+  let mockAxios
+  const initialState = []
+  beforeEach(() => {
+    mockAxios = new MockAdapter(axios)
+    store = mockStore(initialState)
+  })
+
+  afterEach(() => {
+    mockAxios.restore()
+    store.clearActions()
+  })
+
+  // describe('translatePrompts', () => {
+  //   it('logout: eventually dispatches the REMOVE_USER action', () => {
+  //     mockAxios.onPost('/auth/logout').replyOnce(204)
+  //     return store.dispatch(logout())
+  //       .then(() => {
+  //         const actions = store.getActions()
+  //         expect(actions[0].type).to.be.equal('REMOVE_USER')
+  //         expect(history.location.pathname).to.be.equal('/login')
+  //       })
+  //   })
+  // })
+
+  // describe('translateResponses', () => {
+  //   it('logout: eventually dispatches the REMOVE_USER action', () => {
+  //     mockAxios.onPost('/auth/logout').replyOnce(204)
+  //     return store.dispatch(logout())
+  //       .then(() => {
+  //         const actions = store.getActions()
+  //         expect(actions[0].type).to.be.equal('REMOVE_USER')
+  //         expect(history.location.pathname).to.be.equal('/login')
+  //       })
+  //   })
+  // })
+
+  describe('fetchPrompts', () => {
+    it('eventually dispatches the GET_PROMPTS action', () => {
+      const fromLang = 'en'
+      const toLang = 'es'
+      const fakePrompts = [{text: 'Hello, how are you?', responses: [{text: 'I\'m fine, thanks'}]}]
+      const expectedPrompts = [{text: 'Hello, how are you?', translation: 'Hola como estas', responses: [{text: 'I\'m fine, thanks', translation: 'Estoy bien, gracias', isCorrect: true, promptId: 1}]}]
+      mockAxios.onGet('/api/prompts').replyOnce(200, [{text: 'Hello, how are you?', translation: 'Hola como estas', responses: [{text: 'I\'m fine, thanks', translation: 'Estoy bien, gracias', isCorrect: true, promptId: 1}]}])
+      mockAxios.onGet('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + fakePrompts[0].text).replyOnce(200, 'Hola como estas')
+      mockAxios.onGet('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + fakePrompts[0].responses[0].text).replyOnce(200, 'Estoy bien, gracias')
+      return store.dispatch(fetchPrompts(fromLang, toLang))
+        .then(() => {
+          const actions = store.getActions()
+          expect(actions[0].type).toEqual('GET_PROMPTS')
+          expect(actions[0].prompts).toEqual(expectedPrompts)
+        })
+    })
+  })
+})
+

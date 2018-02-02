@@ -12,7 +12,7 @@ export const getPrompts = prompts => {
 
 export const fetchPrompts = (fromLang, toLang) => {
   return function(dispatch) {
-    axios.get('/api/prompts')
+    return axios.get('/api/prompts')
     .then(prompts => prompts.data)
     .then(prompts => translatePrompts(prompts, fromLang, toLang))
     .then(prompts => dispatch(getPrompts(prompts)))
