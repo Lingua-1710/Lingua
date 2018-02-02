@@ -61,8 +61,6 @@
     "mocha": "^5.0.0",
     "react-test-renderer": "^16.2.0",
     "redux-test-utils": "^0.2.2",
-    "regenerator-runtime": "^0.11.1",
-    "sinon": "^4.2.2",
-    "sinon-chai": "^2.14.0"
+    "regenerator-runtime": "^0.11.1"
   }
 }
