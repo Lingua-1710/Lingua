@@ -4,7 +4,7 @@ import { Entity } from 'aframe-react'
 import { connect } from 'react-redux'
 import { getGameState } from '../store'
 
-const EnterScene = (props) => {
+export const EnterScene = (props) => {
   return (
     <Entity
       id="enter-scene-plane"
@@ -12,7 +12,9 @@ const EnterScene = (props) => {
       height="1"
       width="2"
       position="0 0 .01"
-      color="blue"
+      radius="2"
+      color="grey"
+      opacity="0"
       class="clickable"
       events={{
         click: () => props.setGameState('loading')
@@ -21,7 +23,9 @@ const EnterScene = (props) => {
       <Entity
         id="enter-scene-text"
         primitive="a-text"
-        value="Enter Scene"
+        font="exo2bold"
+        value="ENTER SCENE"
+        height="12"
         color="white"
         align="center"
         position="0 0 0"
