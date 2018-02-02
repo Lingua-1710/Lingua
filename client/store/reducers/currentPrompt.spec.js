@@ -7,14 +7,14 @@ describe('currentPrompt reducer', () => {
 
   it('should handle GET_PROMPT', () => {
     expect(
-      currentPrompt({}, getPrompt({prompt: 'hello'}))
+      currentPrompt({}, getPrompt({text: 'hello'}))
     ).toEqual({
-      prompt: 'hello'
+      text: 'hello'
     })
     expect(
-      currentPrompt({ prompt: {text: 'how are you'} }, getPrompt({prompt: 'hi'}))
+      currentPrompt({ prompt: {text: 'how are you'} }, getPrompt({text: 'hi'}))
     ).toEqual({
-      prompt: 'hi'
+      text: 'hi'
     })
   })
 })

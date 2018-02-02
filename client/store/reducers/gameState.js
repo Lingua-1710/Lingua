@@ -9,7 +9,7 @@ export const getGameState = gameState => {
   }
 }
 
-export default function(state = {gameState: 'home-screen'}, action) {
+export default function(state = 'home-screen', action) {
   switch(action.type) {
     case GET_GAME_STATE:
       return action.gameState

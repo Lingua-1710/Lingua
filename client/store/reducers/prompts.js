@@ -5,8 +5,8 @@ const GET_PROMPTS = 'GET_PROMPTS'
 //ACTION CREATORS
 export const getPrompts = prompts => {
   return {
-  type: GET_PROMPTS,
-  prompts
+    type: GET_PROMPTS,
+    prompts
   }
 }
 
