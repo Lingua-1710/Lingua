@@ -15,7 +15,6 @@ describe("FirstVendor", () => {
   let store
   beforeEach(() => {
     props = {
-      userSpeech: undefined,
       prompts: undefined,
       currentPrompt: undefined,
       score: undefined,
