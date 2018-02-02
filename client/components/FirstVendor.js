@@ -3,9 +3,19 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront, PromptText, ResponseText, Octo, DisplayScore, DisplayCorrect } from './index'
+import {
+  FirstVendorStoreFront,
+  PromptText,
+  ResponseText,
+  Octo,
+  DisplayScore,
+  DisplayCorrect,
+  Countdown } from './index'
 import { fetchPrompts, getPrompt, addToScore } from '../store'
-import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
+import {
+  SpeechRecognition,
+  SpeechGrammarList,
+  SpeechRecognitionEvent } from '../utils'
 
 const recognition = new SpeechRecognition()
 const speechRecognitionList = new SpeechGrammarList()
@@ -26,34 +36,54 @@ class FirstVendor extends React.Component {
       promptAdjustPosition: { x: 0, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: 0, y: 1, z: 0 },
-      grade: '',
+      grade: {response: '', attempts: 3},
       language: {
         langCode: 'es-419',
         fromLang: 'es',
         toLang: 'en'
-      }
+      },
+      countdown: {counting: false, timer: 3},
+      repeat: false,
+      gameOver: false
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
+    this.listenToUser = this.listenToUser.bind(this)
   }
 
   handleVendorClick() {
-    if (Object.keys(this.props.currentPrompt).length) {
-      this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
-    } else {
-      this.props.setCurrentPrompt(this.props.prompts[0])
+    if(!this.state.gameOver) {
+      if(!this.state.repeat) {
+        if (Object.keys(this.props.currentPrompt).length) {
+          this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
+        } else {
+          this.props.setCurrentPrompt(this.props.prompts[0])
+        }
+        let index = this.state.promptIndex
+        if (index < this.props.prompts.length - 1) {
+          index++
+          this.setState({ promptIndex: index })
+        }
+        this.setState({
+          correctAnswer: this.props.currentPrompt.responses.find((res) => {
+            return (res.isCorrect === true)
+          })
+        })
+      }
+      if(!this.state.gameOver) {
+        this.setState({repeat: true})
+        this.listenToUser()
+
+      }
+      if(this.state.promptIndex === this.props.prompts.length -1) {
+        this.setState({
+          grade: {response: `The end! Your score is: ${this.state.score}`},
+          gameOver: true
+        })
+      }
     }
-    let index = this.state.promptIndex
-    if (index < this.props.prompts.length - 1) {
-      index++
-      this.setState({ promptIndex: index })
-    } else {
-      this.setState({ promptIndex: 0 })
-    }
-    this.setState({
-      correctAnswer: this.props.currentPrompt.responses.find((res) => {
-        return (res.isCorrect === true)
-      })
-    })
+  }
+
+  listenToUser() {
     this.props.listen(speechRecObject, {
       answers: this.props.currentPrompt.responses,
       language: this.state.language
@@ -64,19 +94,57 @@ class FirstVendor extends React.Component {
       .then((graded) => {
         if (graded.correct) {
           this.props.incrementScore()
+          setTimeout(() => {
+            this.setState({
+              grade: {response: '', attempts: 3}
+            })
+          }, 1500)
+        } else {
+          setTimeout(() => {
+            this.setState({
+              grade: {response: '', attempts: this.state.grade.attempts}
+            })
+          }, 3000)
         }
         this.handleUserGrade(graded.correct)
-        setTimeout(() => {
-          this.setState({ grade: '' })
-        }, 1500)
       })
   }
 
   handleUserGrade(grade) {
     if (grade) {
-      this.setState({ grade: 'ok' })
+      this.setState({
+        grade: {response: 'Correct! Click for next prompt', attempts: 3},
+        repeat: false
+      })
     } else {
-      this.setState({ grade: 'bad choice' })
+      if(this.state.grade.attempts > 0) {
+        this.setState({
+            repeat: true,
+            grade: {response: 'Try again in', attempts: this.state.grade.attempts},
+            countdown: {counting: true, timer: this.state.countdown.timer}
+          })
+        let countdown = setInterval(() => {
+          if(this.state.countdown.timer <=0) {
+            this.listenToUser()
+            this.setState({
+              countdown: {counting: false, timer: 3}
+            })
+            clearInterval(countdown)
+          } else {
+            this.setState({
+              countdown: {counting: true, timer: this.state.countdown.timer - 1}
+            })
+          }
+        }, 1000)
+        this.setState({
+          grade: {attempts: this.state.grade.attempts - 1, response: this.state.grade.response}
+        })
+      } else {
+        this.setState({
+          repeat: false,
+          grade: {response: 'There was an attempt. Click for next prompt...', attempts: 3}
+        })
+      }
     }
   }
 
@@ -94,7 +162,7 @@ class FirstVendor extends React.Component {
             vendorRotation={this.state.vendorRotation}
           />
           <DisplayCorrect
-            value={this.state.grade}
+            value={this.state.grade.response}
             position={{
               x: this.state.vendorPosition.x,
               y: this.state.vendorPosition.y + 2,
@@ -109,6 +177,17 @@ class FirstVendor extends React.Component {
               z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
             }}
           />
+          {
+            this.state.countdown.counting &&
+            <Countdown
+            time={this.state.countdown.timer}
+            position={{
+              x: this.state.vendorPosition.x,
+              y: this.state.vendorPosition.y + 1.25,
+              z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
+            }}
+            />
+          }
           {
             this.props.currentPrompt.text &&
             <Entity>
