@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront, PromptText, ResponseText, Octo, DisplayScore } from './index'
+import { FirstVendorStoreFront, PromptText, ResponseText, Octo, DisplayScore, DisplayCorrect } from './index'
 import { fetchPrompts, getPrompt, addToScore } from '../store'
 import { SpeechRecognition, SpeechGrammarList, SpeechRecognitionEvent } from '../utils'
 
@@ -26,6 +26,7 @@ class FirstVendor extends React.Component {
       promptAdjustPosition: { x: 0, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: 0, y: 1, z: 0 },
+      grade: '',
       language: {
         langCode: 'es-419',
         fromLang: 'es',
@@ -63,8 +64,20 @@ class FirstVendor extends React.Component {
       if(graded.correct) {
         this.props.incrementScore()
       }
+      this.handleUserGrade(graded.correct)
+      setTimeout(() => {
+        this.setState({ grade: '' })
+      }, 1500)
       console.log('result:', graded)
     })
+  }
+
+  handleUserGrade(grade) {
+    if (grade) {
+      this.setState({ grade: 'ok' })
+    } else {
+      this.setState({ grade: 'bad choice' })
+    }
   }
 
   componentDidMount() {
@@ -80,6 +93,14 @@ class FirstVendor extends React.Component {
             handleVendorClick={this.handleVendorClick}
             vendorRotation={this.state.vendorRotation}
           />
+            <DisplayCorrect
+              value={this.state.grade}
+              position={{
+                x: this.state.vendorPosition.x,
+                y: this.state.vendorPosition.y + 2,
+                z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
+              }}
+            />
           <DisplayScore
             score={this.props.score}
             position={{

@@ -3,11 +3,11 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 
-const DisplayScore = (props) => {
+const DisplayCorrect = (props) => {
   return (
     <Entity
       primitive='a-text'
-      value={props.score}
+      value={props.value}
       color='red'
       height='15'
       width='15'
@@ -17,4 +17,4 @@ const DisplayScore = (props) => {
   )
 }
 
-export default DisplayScore
+export default DisplayCorrect
