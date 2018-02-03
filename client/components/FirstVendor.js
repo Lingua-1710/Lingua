@@ -90,13 +90,6 @@ export class FirstVendor extends React.Component {
 
   handleVendorClick() {
     this.converse(true)
-    // console.log('repeat?', this.state.repeat)
-    // if(this.state.repeat) {
-    //   this.converse(true)
-    // } else {
-    //   this.converse(false)
-    //   this.setState({repeat: true})
-    // }
   }
 
   listenToUser() {
