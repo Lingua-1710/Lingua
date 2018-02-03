@@ -1,17 +1,17 @@
 import React from 'react'
-import 'aframe'
 import { Entity } from 'aframe-react'
-import 'babel-polyfill'
 
 const PromptText = (props) => {
   return (
-      <Entity
-        primitive='a-text'
-        value={props.promptProps.value}
-        color={props.promptProps.color}
-        id={props.promptProps.id}
-        position={props.promptProps.position}
-        align={props.promptProps.align}
+
+    <Entity
+      primitive='a-text'
+      value={props.promptProps.value}
+      color={props.promptProps.color}
+      id={props.promptProps.id}
+      position={props.promptProps.position}
+      width={props.promptProps.width}
+      align={props.promptProps.align}
       />
   )
 }

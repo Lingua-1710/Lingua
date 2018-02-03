@@ -19,6 +19,7 @@ const ResponseText = (props) => {
               primitive='a-text'
               value={response.translation}
               color={props.responseProps.color}
+              opacity="3"
               id={response.id}
               position={position}
               align={props.responseProps.align}
