@@ -39,7 +39,8 @@ export class FirstVendor extends React.Component {
         fromLang: 'es',
         toLang: 'en'
       },
-      countdown: {counting: false, timer: 3}
+      countdown: {counting: false, timer: 3},
+      repeat: false
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
     this.listenToUser = this.listenToUser.bind(this)
@@ -48,40 +49,54 @@ export class FirstVendor extends React.Component {
     this.grade = this.grade.bind(this)
   }
 
-  converse(conversing) {
+  converse(repeating) {
     if(this.state.promptIndex < this.props.prompts.length) {
-      if(!conversing) {
-        let prompts = this.props.prompts
-        this.props.setCurrentPrompt(prompts[this.state.promptIndex])
+      if(!repeating) {
         this.setState({
-          promptIndex: this.state.promptIndex + 1,
-          correctAnswer: this.props.currentPrompt.responses.find((res) => {
-            return (res.isCorrect === true)
-          })
+          promptIndex: this.state.promptIndex + 1
         })
+      }
+      let prompts = this.props.prompts
+      if(this.state.promptIndex < this.props.prompts.length) {
+        this.props.setCurrentPrompt(prompts[this.state.promptIndex])
+      } else {
+        this.reward()
       }
       this.listenToUser()
       .then((speech) => {
         let result = this.grade(speech)
         if (result.correct) {
-          console.log(result)
+          this.setState({repeat: false})
           this.converse(false)
         } else {
+          this.setState({repeat: true})
           this.converse(true)
         }
       })
     } else {
-      this.reward()
+      this.reward(true)
     }
   }
 
-  reward() {
+  reward(done) {
     //temporary log until we have the rest of the logic for this down
-    console.log('good job duderino, you did the thing!')
+    if(done) {
+      console.log('I don\'t want to talk to you anymore')
+    } else {
+      console.log('good job duderino, you did the thing!')
+    }
+
   }
 
   handleVendorClick() {
-    this.converse(false)
+    this.converse(true)
+    // console.log('repeat?', this.state.repeat)
+    // if(this.state.repeat) {
+    //   this.converse(true)
+    // } else {
+    //   this.converse(false)
+    //   this.setState({repeat: true})
+    // }
   }
 
   listenToUser() {
