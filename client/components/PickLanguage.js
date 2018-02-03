@@ -16,7 +16,7 @@ export const PickLanguage = (props) => {
       opacity="0"
       class="clickable"
       events={{
-        click: () => props.setGameState('EnterScene')
+        click: () => props.setGameState('loading')
       }}
     >
       <Entity

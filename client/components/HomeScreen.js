@@ -36,9 +36,8 @@ const HomeScreen = (props) => {
           <SignIn /> :
           gameState === 'PickLanguage' ?
            <PickLanguage /> :
-          gameState === 'EnterScene' ?
-          <EnterScene /> :
-          <Loading />}
+            <Loading />
+          }
         </Entity>
       </Entity> : null
   )
