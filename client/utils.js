@@ -1,6 +1,6 @@
-import store, { sendSpeech } from './store'
 import stringSimilarity from 'string-similarity'
 
+let webkitSpeechRecognition, webkitSpeechGrammarList, webkitSpeechRecognitionEvent
 export const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 export const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
 export const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent

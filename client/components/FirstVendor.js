@@ -37,18 +37,12 @@ export class FirstVendor extends React.Component {
       grade: {response: '', attempts: 3},
       language: {
         langCode: 'es-419',
-<<<<<<< HEAD
-        fromLang: 'en',
-        toLang: 'es'
-      }
-=======
         fromLang: 'es',
         toLang: 'en'
       },
       countdown: {counting: false, timer: 3},
       repeat: false,
       gameOver: false
->>>>>>> b6eec9a29a67942905cccafcd2a6b90bb061414f
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
     this.listenToUser = this.listenToUser.bind(this)
