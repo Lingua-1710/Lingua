@@ -25,7 +25,7 @@ export const fetchLanguages = () => {
 //REDUCER
 export default function(state = [], action) {
   switch(action.type) {
-    case SET_LANGUAGE:
+    case GET_LANGUAGES:
       let newState = state
       newState = newState.concat(action.languages)
       return newState
