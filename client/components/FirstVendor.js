@@ -27,12 +27,6 @@ export class FirstVendor extends React.Component {
       promptAdjustPosition: { x: -2, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
-      language: {
-        learningLangCode: 'es-419',
-        learningLang: 'es',
-        nativeLang: 'en'
-      },
-      countdown: {counting: false, timer: 3},
       repeat: false,
       vendorResponse: 'I don\'t understand'
     }
