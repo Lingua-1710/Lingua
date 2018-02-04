@@ -5,8 +5,8 @@ const RESPOND = 'RESPOND'
 //ACTION CREATORS
 export const respond = response => {
   return {
-  type: RESPOND,
-  response
+    type: RESPOND,
+    response
   }
 }
 
@@ -24,8 +24,7 @@ export const translateResponse = (response, fromLang, toLang) => {
 export default function(state = '', action) {
   switch(action.type) {
     case RESPOND:
-      let newState = action.response
-      return newState
+      return action.response
     default:
       return state
   }
