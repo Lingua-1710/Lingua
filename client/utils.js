@@ -1,22 +1,32 @@
 import stringSimilarity from 'string-similarity'
 
+
+let SpeechRecognition
+let SpeechGrammarList
 let SpeechRecognitionEvent
-let recognition
-let speechRecognitionList
-if (('webkitSpeechRecognition' in window) &&
-    ('webkitSpeechGrammarList' in window) &&
-    ('webkitSpeechRecognitionEvent' in window)) {
-  recognition = new webkitSpeechRecognition()
-  speechRecognitionList = new webkitSpeechGrammarList()
-  SpeechRecognitionEvent = webkitSpeechRecognitionEvent
+try {
+  SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+  SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+  SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+} catch(e) {
+  /* Testing causes an error with webkit, so this is a workaround */
+  console.log(e.message)
+}
+
+export const speechRecObject = {
+  SpeechRecognition,
+  SpeechGrammarList,
+  SpeechRecognitionEvent
 }
 
 export const recognizeSpeech = (recObj, options) => {
+  const recognition = new SpeechRecognition()
+  const speechRecognitionList = new SpeechGrammarList()
   const answers = options.answers.map(ans => ans.translation).join(' | ')
   const grammar = `#JSGF V1.0 grammar answers public <answer> = ${answers} `
   speechRecognitionList.addFromString(grammar, 1)
   recognition.grammars = speechRecognitionList
-  recognition.lang = options.language.langCode
+  recognition.lang = options.language.learningLangCode
   recognition.interimResults = false
   recognition.maxAlternatives = 1
   return new Promise((resolve, reject) => {

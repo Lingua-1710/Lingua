@@ -28,6 +28,7 @@ export const translatePrompts = (prompts, fromLang, toLang) => {
       prompt.responses = await translateResponses(prompt.responses, fromLang, toLang)
       return prompt
     })
+    .catch(err => console.log(err))
   }))
 }
 
@@ -38,6 +39,7 @@ export const translateResponses = (responses, fromLang, toLang) => {
       response.translation = translation.data
       return response
     })
+    .catch(err => console.log(err))
   }))
 }
 

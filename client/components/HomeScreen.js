@@ -27,9 +27,10 @@ const HomeScreen = (props) => {
       <Entity
         id="home-screen"
         primitive="a-plane"
-        height="6"
-        width="20"
-        position="0 2 -3"
+        src="#backdrop"
+        height="100"
+        width="100"
+        position="0 2 -3.5"
       >
         {gameState === 'home-screen' ?
         <EnterScene /> :
