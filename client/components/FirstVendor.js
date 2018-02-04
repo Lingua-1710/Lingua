@@ -8,8 +8,7 @@ import {
   PromptText,
   ResponseText,
   Octo,
-  DisplayCorrect,
-  Countdown } from './index'
+  DisplayCorrect } from './index'
 import { fetchPrompts,
   getPrompt,
   translateResponse,
@@ -112,17 +111,6 @@ export class FirstVendor extends React.Component {
               position={{
                 x: this.state.vendorPosition.x,
                 y: this.state.vendorPosition.y + 2,
-                z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
-              }}
-            />
-          }
-          {
-            this.state.countdown.counting &&
-            <Countdown
-              time={this.state.countdown.timer}
-              position={{
-                x: this.state.vendorPosition.x,
-                y: this.state.vendorPosition.y + 1.25,
                 z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
               }}
             />
