@@ -26,7 +26,7 @@ export const recognizeSpeech = (recObj, options) => {
   const grammar = `#JSGF V1.0 grammar answers public <answer> = ${answers} `
   speechRecognitionList.addFromString(grammar, 1)
   recognition.grammars = speechRecognitionList
-  recognition.lang = options.language.langCode
+  recognition.lang = options.language.learningLangCode
   recognition.interimResults = false
   recognition.maxAlternatives = 1
   return new Promise((resolve, reject) => {

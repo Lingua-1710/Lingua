@@ -8,14 +8,12 @@ import {
   PromptText,
   ResponseText,
   Octo,
-  DisplayCorrect,
-  Countdown } from './index'
+  DisplayCorrect } from './index'
 import { fetchPrompts,
   getPrompt,
   translateResponse,
   respond } from '../store'
-import {
-  speechRecObject } from '../utils'
+import { speechRecObject } from '../utils'
 
 export class FirstVendor extends React.Component {
   constructor(props) {
@@ -28,12 +26,6 @@ export class FirstVendor extends React.Component {
       promptAdjustPosition: { x: -2, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
-      language: {
-        langCode: 'es-419',
-        fromLang: 'es',
-        toLang: 'en'
-      },
-      countdown: {counting: false, timer: 3},
       repeat: false,
       vendorResponse: 'I don\'t understand'
     }
@@ -65,7 +57,7 @@ export class FirstVendor extends React.Component {
           this.converse(false)
           this.props.clearResponse()
         } else {
-          this.props.getVendorResponse(this.state.vendorResponse, this.state.language.toLang, this.state.language.fromLang)
+          this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
           this.setState({repeat: true, vendorResponse: this.props.vendorResponse})
           this.converse(true)
         }
@@ -91,7 +83,7 @@ export class FirstVendor extends React.Component {
   listenToUser() {
     return this.props.listen(speechRecObject, {
       answers: this.props.currentPrompt.responses,
-      language: this.state.language
+      language: this.props.language
     })
   }
 
@@ -100,8 +92,7 @@ export class FirstVendor extends React.Component {
   }
 
   componentDidMount() {
-    this.props.setPrompts(this.state.language.toLang, this.state.language.fromLang)
-    //below, setting default response for incorrect and default response on finish
+    this.props.setPrompts(this.props.language.nativeLang, this.props.language.learningLang)
   }
 
   render() {
@@ -120,17 +111,6 @@ export class FirstVendor extends React.Component {
               position={{
                 x: this.state.vendorPosition.x,
                 y: this.state.vendorPosition.y + 2,
-                z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
-              }}
-            />
-          }
-          {
-            this.state.countdown.counting &&
-            <Countdown
-              time={this.state.countdown.timer}
-              position={{
-                x: this.state.vendorPosition.x,
-                y: this.state.vendorPosition.y + 1.25,
                 z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
               }}
             />
@@ -175,15 +155,16 @@ export const mapState = (storeState) => {
   return {
     prompts: storeState.prompts,
     currentPrompt: storeState.currentPrompt,
-    vendorResponse: storeState.vendorResponse
+    vendorResponse: storeState.vendorResponse,
+    language: storeState.language
   }
 }
 
 export const mapDispatch = (dispatch) => {
   return {
-    setPrompts: (fromLang, toLang) => dispatch(fetchPrompts(fromLang, toLang)),
+    setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
-    getVendorResponse: (response, fromLang, toLang) => dispatch(translateResponse(response, fromLang, toLang)),
+    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
     clearResponse: () => dispatch(respond(''))
   }
 }
