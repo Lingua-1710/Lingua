@@ -6,12 +6,14 @@ import prompts from './reducers/prompts'
 import currentPrompt from './reducers/currentPrompt'
 import gameState from './reducers/gameState'
 import vendorResponse from './reducers/vendorResponse'
+import language from './reducers/language'
 
 const reducer = combineReducers({
   prompts,
   currentPrompt,
   gameState,
-  vendorResponse
+  vendorResponse,
+  language
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -25,4 +27,5 @@ export * from './reducers/prompts'
 export * from './reducers/currentPrompt'
 export * from './reducers/gameState'
 export * from './reducers/vendorResponse'
+export * from './reducers/language'
 
