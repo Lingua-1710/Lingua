@@ -17,7 +17,8 @@ describe("FirstVendor", () => {
     props = {
       prompts: undefined,
       currentPrompt: undefined,
-      score: undefined,
+      vendorResponse: [],
+      language: undefined,
       dispatch: ()=>{}
     }
     store = createMockStore()
@@ -50,6 +51,12 @@ describe("FirstVendor", () => {
         return {
           prompts: true,
           currentPrompt: 'test',
+          vendorResponse: '',
+          language: {
+            nativeLang: 'en',
+            learningLang: 'en',
+            learningLangCode: 'en-US'
+          },
           listen: ()=>{}
         }
       }
