@@ -143,7 +143,7 @@ export class FirstVendor extends React.Component {
   }
 
   componentDidMount() {
-    this.props.setPrompts(this.state.language.fromLang, this.state.language.toLang)
+    this.props.setPrompts(this.state.language.toLang, this.state.language.fromLang)
   }
 
   render() {

@@ -1,6 +1,7 @@
 import stringSimilarity from 'string-similarity'
 
-let webkitSpeechRecognition, webkitSpeechGrammarList, webkitSpeechRecognitionEvent
+/* To run tests, need to uncomment the below line because of DOM issues */
+// let webkitSpeechRecognition, webkitSpeechGrammarList, webkitSpeechRecognitionEvent
 export const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
 export const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
 export const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
