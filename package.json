@@ -7,7 +7,7 @@
     "start": "nodemon server/index.js",
     "build": "webpack -w",
     "start-dev": "npm run start & npm run build",
-    "test": "jest client/components/*.spec.js",
+    "test": "jest client/components/*.spec.js client/store/reducers/*.spec.js",
     "seed": "node seed"
   },
   "author": "",
@@ -28,8 +28,6 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
     "chalk": "^2.3.0",
-    "eslint": "^4.16.0",
-    "eslint-config-fullstack": "^3.0.0",
     "express": "^4.16.2",
     "google-translate-api": "^2.3.0",
     "nodemon": "^1.14.11",
@@ -47,6 +45,7 @@
     "webpack": "^3.10.0"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.12.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.1.0",
     "enzyme": "^3.3.0",
@@ -57,6 +56,7 @@
     "eslint-plugin-react": "^7.6.1",
     "jest": "^22.1.4",
     "react-test-renderer": "^16.2.0",
+    "redux-mock-store": "^1.5.1",
     "redux-test-utils": "^0.2.2",
     "regenerator-runtime": "^0.11.1"
   }

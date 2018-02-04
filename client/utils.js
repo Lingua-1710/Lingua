@@ -1,9 +1,23 @@
-import store, { sendSpeech } from './store'
 import stringSimilarity from 'string-similarity'
 
-export const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
-export const SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-export const SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+
+let SpeechRecognition
+let SpeechGrammarList
+let SpeechRecognitionEvent
+try {
+  SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+  SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+  SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+} catch(e) {
+  /* Testing causes an error with webkit, so this is a workaround */
+  console.log(e.message)
+}
+
+export const speechRecObject = {
+  SpeechRecognition,
+  SpeechGrammarList,
+  SpeechRecognitionEvent
+}
 
 export const recognizeSpeech = (recObj, options) => {
   const recognition = new SpeechRecognition()
