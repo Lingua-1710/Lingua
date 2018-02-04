@@ -85,7 +85,6 @@ export class FirstVendor extends React.Component {
     } else {
       console.log('good job duderino, you did the thing!')
     }
-
   }
 
   handleVendorClick() {
