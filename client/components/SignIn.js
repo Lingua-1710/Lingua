@@ -3,10 +3,10 @@ import { Entity } from 'aframe-react'
 import { connect } from 'react-redux'
 import { getGameState } from '../store'
 
-export const EnterScene = (props) => {
+export const SignIn = (props) => {
   return (
     <Entity
-      id="enter-scene-plane"
+      id="signin-plane"
       primitive="a-plane"
       height="1"
       width="2"
@@ -16,14 +16,14 @@ export const EnterScene = (props) => {
       opacity="0"
       class="clickable"
       events={{
-        click: () => props.setGameState('loading')
+        click: () => props.setGameState('PickLanguage')
       }}
     >
       <Entity
-        id="enter-scene-text"
+        id="signin-text"
         primitive="a-text"
         font="exo2bold"
-        value="ENTER SCENE"
+        value="SIGN IN"
         height="12"
         color="white"
         align="center"
@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(EnterScene)
+export default connect(null, mapDispatchToProps)(SignIn)

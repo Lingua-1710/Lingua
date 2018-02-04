@@ -1,5 +1,4 @@
 import React from 'react'
-import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 

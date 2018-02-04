@@ -3,10 +3,10 @@ import { Entity } from 'aframe-react'
 import { connect } from 'react-redux'
 import { getGameState } from '../store'
 
-export const EnterScene = (props) => {
+export const PickLanguage = (props) => {
   return (
     <Entity
-      id="enter-scene-plane"
+      id="pick-language-plane"
       primitive="a-plane"
       height="1"
       width="2"
@@ -20,10 +20,10 @@ export const EnterScene = (props) => {
       }}
     >
       <Entity
-        id="enter-scene-text"
+        id="pick-language-text"
         primitive="a-text"
         font="exo2bold"
-        value="ENTER SCENE"
+        value="PICK YOUR LANGUAGE"
         height="12"
         color="white"
         align="center"
@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(EnterScene)
+export default connect(null, mapDispatchToProps)(PickLanguage)
