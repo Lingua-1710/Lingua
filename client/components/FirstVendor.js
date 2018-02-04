@@ -8,10 +8,12 @@ import {
   PromptText,
   ResponseText,
   Octo,
-  DisplayScore,
   DisplayCorrect,
   Countdown } from './index'
-import { fetchPrompts, getPrompt, addToScore } from '../store'
+import { fetchPrompts,
+  getPrompt,
+  translateResponse,
+  respond } from '../store'
 import {
   SpeechRecognition,
   SpeechGrammarList,
@@ -30,7 +32,7 @@ export class FirstVendor extends React.Component {
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
       vendorPosition: { x: 1, y: 1, z: -5 },
       vendorRotation: { x: 10, y: 160, z: 0 },
-      scoreAdjustPosition: { x: 1, y: -.05, z: 2 },
+      correctAdjustPosition: { x: 1, y: -.05, z: 2 },
       promptAdjustPosition: { x: -2, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
@@ -40,7 +42,8 @@ export class FirstVendor extends React.Component {
         toLang: 'en'
       },
       countdown: {counting: false, timer: 3},
-      repeat: false
+      repeat: false,
+      vendorResponse: 'I don\'t understand'
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
     this.listenToUser = this.listenToUser.bind(this)
@@ -68,8 +71,10 @@ export class FirstVendor extends React.Component {
         if (result.correct) {
           this.setState({repeat: false})
           this.converse(false)
+          this.props.clearResponse()
         } else {
-          this.setState({repeat: true})
+          this.props.getVendorResponse(this.state.vendorResponse, this.state.language.toLang, this.state.language.fromLang)
+          this.setState({repeat: true, vendorResponse: this.props.vendorResponse})
           this.converse(true)
         }
       })
@@ -104,6 +109,7 @@ export class FirstVendor extends React.Component {
 
   componentDidMount() {
     this.props.setPrompts(this.state.language.toLang, this.state.language.fromLang)
+    //below, setting default response for incorrect and default response on finish
   }
 
   render() {
@@ -115,22 +121,17 @@ export class FirstVendor extends React.Component {
             handleVendorClick={this.handleVendorClick}
             vendorRotation={this.state.vendorRotation}
           />
-          <DisplayCorrect
-            value={''}
-            position={{
-              x: this.state.vendorPosition.x,
-              y: this.state.vendorPosition.y + 2,
-              z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
-            }}
-          />
-          <DisplayScore
-            score={this.props.score}
-            position={{
-              x: this.state.vendorPosition.x + this.state.scoreAdjustPosition.x,
-              y: this.state.vendorPosition.y + this.state.scoreAdjustPosition.y,
-              z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
-            }}
-          />
+          {
+            this.props.vendorResponse.length &&
+            <DisplayCorrect
+              value={this.props.vendorResponse}
+              position={{
+                x: this.state.vendorPosition.x,
+                y: this.state.vendorPosition.y + 2,
+                z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
+              }}
+            />
+          }
           {
             this.state.countdown.counting &&
             <Countdown
@@ -138,7 +139,7 @@ export class FirstVendor extends React.Component {
               position={{
                 x: this.state.vendorPosition.x,
                 y: this.state.vendorPosition.y + 1.25,
-                z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
+                z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
               }}
             />
           }
@@ -182,7 +183,7 @@ export const mapState = (storeState) => {
   return {
     prompts: storeState.prompts,
     currentPrompt: storeState.currentPrompt,
-    score: storeState.score
+    vendorResponse: storeState.vendorResponse
   }
 }
 
@@ -190,7 +191,8 @@ export const mapDispatch = (dispatch) => {
   return {
     setPrompts: (fromLang, toLang) => dispatch(fetchPrompts(fromLang, toLang)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
-    incrementScore: () => dispatch(addToScore())
+    getVendorResponse: (response, fromLang, toLang) => dispatch(translateResponse(response, fromLang, toLang)),
+    clearResponse: () => dispatch(respond(''))
   }
 }
 

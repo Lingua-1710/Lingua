@@ -5,9 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import prompts from './reducers/prompts'
 import currentPrompt from './reducers/currentPrompt'
 import gameState from './reducers/gameState'
-import score from './reducers/score'
+import vendorResponse from './reducers/vendorResponse'
 
-const reducer = combineReducers({ prompts, currentPrompt, gameState, score })
+const reducer = combineReducers({
+  prompts,
+  currentPrompt,
+  gameState,
+  vendorResponse
+})
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -19,5 +24,5 @@ export default store
 export * from './reducers/prompts'
 export * from './reducers/currentPrompt'
 export * from './reducers/gameState'
-export * from './reducers/score'
+export * from './reducers/vendorResponse'
 
