@@ -13,15 +13,7 @@ import {
   Countdown } from './index'
 import { fetchPrompts, getPrompt, addToScore } from '../store'
 import {
-  SpeechRecognition,
-  SpeechGrammarList,
-  SpeechRecognitionEvent } from '../utils'
-
-const speechRecObject = {
-  SpeechRecognition,
-  SpeechGrammarList,
-  SpeechRecognitionEvent
-}
+  speechRecObject } from '../utils'
 
 export class FirstVendor extends React.Component {
   constructor(props) {
