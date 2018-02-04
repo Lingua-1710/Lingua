@@ -11,7 +11,6 @@ export { default as Loading } from './Loading'
 export { default as EnterScene } from './EnterScene'
 export { default as SignIn } from './SignIn'
 export { default as PickLanguage } from './PickLanguage'
-export { default as DisplayScore } from './DisplayScore'
 export { default as Countdown } from './Countdown'
 
 // Models

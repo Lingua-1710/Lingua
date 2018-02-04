@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import 'aframe'
 import { Entity } from 'aframe-react'
-import { EnterScene, Loading, SignIn, PickLanguage } from './index'
+import {Loading, SignIn, PickLanguage } from './index'
 
 const HomeScreen = (props) => {
   const { gameState } = props

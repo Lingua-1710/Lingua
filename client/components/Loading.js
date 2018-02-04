@@ -1,5 +1,4 @@
 import React from 'react'
-import 'aframe'
 import { connect } from 'react-redux'
 import { Entity } from 'aframe-react'
 

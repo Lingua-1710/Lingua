@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 import {
