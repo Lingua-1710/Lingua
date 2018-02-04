@@ -8,10 +8,12 @@ import {
   PromptText,
   ResponseText,
   Octo,
-  DisplayScore,
   DisplayCorrect,
   Countdown } from './index'
-import { fetchPrompts, getPrompt, addToScore } from '../store'
+import { fetchPrompts,
+  getPrompt,
+  translateResponse,
+  respond } from '../store'
 import {
   speechRecObject } from '../utils'
 
@@ -22,11 +24,10 @@ export class FirstVendor extends React.Component {
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
       vendorPosition: { x: 1, y: 1, z: -5 },
       vendorRotation: { x: 10, y: 160, z: 0 },
-      scoreAdjustPosition: { x: 1, y: -.05, z: 2 },
+      correctAdjustPosition: { x: 1, y: -.05, z: 2 },
       promptAdjustPosition: { x: -2, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
-      grade: {response: '', attempts: 3},
       language: {
         langCode: 'es-419',
         fromLang: 'es',
@@ -34,108 +35,73 @@ export class FirstVendor extends React.Component {
       },
       countdown: {counting: false, timer: 3},
       repeat: false,
-      gameOver: false
+      vendorResponse: 'I don\'t understand'
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
     this.listenToUser = this.listenToUser.bind(this)
+    this.converse = this.converse.bind(this)
+    this.reward = this.reward.bind(this)
+    this.grade = this.grade.bind(this)
+  }
+
+  converse(repeating) {
+    if(this.state.promptIndex < this.props.prompts.length) {
+      if(!repeating) {
+        this.setState({
+          promptIndex: this.state.promptIndex + 1
+        })
+      }
+      let prompts = this.props.prompts
+      if(this.state.promptIndex < this.props.prompts.length) {
+        this.props.setCurrentPrompt(prompts[this.state.promptIndex])
+      } else {
+        this.reward()
+      }
+      this.listenToUser()
+      .then((speech) => {
+        let result = this.grade(speech)
+        if (result.correct) {
+          this.setState({repeat: false})
+          this.converse(false)
+          this.props.clearResponse()
+        } else {
+          this.props.getVendorResponse(this.state.vendorResponse, this.state.language.toLang, this.state.language.fromLang)
+          this.setState({repeat: true, vendorResponse: this.props.vendorResponse})
+          this.converse(true)
+        }
+      })
+    } else {
+      this.reward(true)
+    }
+  }
+
+  reward(done) {
+    //temporary log until we have the rest of the logic for this down
+    if(done) {
+      console.log('I don\'t want to talk to you anymore')
+    } else {
+      console.log('good job duderino, you did the thing!')
+    }
   }
 
   handleVendorClick() {
-    if(!this.state.gameOver) {
-      if(!this.state.repeat) {
-        if (Object.keys(this.props.currentPrompt).length) {
-          this.props.setCurrentPrompt(this.props.prompts[this.state.promptIndex])
-        } else {
-          this.props.setCurrentPrompt(this.props.prompts[0])
-        }
-        if (this.state.promptIndex < this.props.prompts.length - 1) {
-          this.setState({ promptIndex: this.state.promptIndex + 1 })
-
-        }
-        this.setState({
-          correctAnswer: this.props.currentPrompt.responses.find((res) => {
-            return (res.isCorrect === true)
-          })
-        })
-      }
-        this.setState({repeat: true})
-        this.listenToUser()
-      if(this.state.promptIndex === this.props.prompts.length) {
-        this.setState({
-          grade: {response: `The end! Your score is: ${this.state.score}`},
-          gameOver: true
-        })
-      }
-    }
+    this.converse(true)
   }
 
   listenToUser() {
-    this.props.listen(speechRecObject, {
+    return this.props.listen(speechRecObject, {
       answers: this.props.currentPrompt.responses,
       language: this.state.language
     })
-      .then((result) => {
-        return this.props.checkAnswer(result, this.props.currentPrompt.responses)
-      })
-      .then((graded) => {
-        if (graded.correct) {
-          this.props.incrementScore()
-          setTimeout(() => {
-            this.setState({
-              grade: {response: '', attempts: 3}
-            })
-          }, 1500)
-        } else {
-          setTimeout(() => {
-            this.setState({
-              grade: {response: '', attempts: this.state.grade.attempts}
-            })
-          }, 3000)
-        }
-        this.handleUserGrade(graded.correct)
-      })
   }
 
-  handleUserGrade(grade) {
-    if (grade) {
-      this.setState({
-        grade: {response: 'Correct! Click for next prompt', attempts: 3},
-        repeat: false
-      })
-    } else {
-      if (this.state.grade.attempts > 0) {
-        this.setState({
-            repeat: true,
-            grade: {response: 'Try again in', attempts: this.state.grade.attempts},
-            countdown: {counting: true, timer: this.state.countdown.timer}
-          })
-        let countdown = setInterval(() => {
-          if (this.state.countdown.timer <=0) {
-            this.listenToUser()
-            this.setState({
-              countdown: {counting: false, timer: 3}
-            })
-            clearInterval(countdown)
-          } else {
-            this.setState({
-              countdown: {counting: true, timer: this.state.countdown.timer - 1}
-            })
-          }
-        }, 1000)
-        this.setState({
-          grade: {attempts: this.state.grade.attempts - 1, response: this.state.grade.response}
-        })
-      } else {
-        this.setState({
-          repeat: false,
-          grade: {response: 'There was an attempt. Click for next prompt...', attempts: 3}
-        })
-      }
-    }
+  grade(answer) {
+    return this.props.checkAnswer(answer, this.props.currentPrompt.responses)
   }
 
   componentDidMount() {
     this.props.setPrompts(this.state.language.toLang, this.state.language.fromLang)
+    //below, setting default response for incorrect and default response on finish
   }
 
   render() {
@@ -147,22 +113,17 @@ export class FirstVendor extends React.Component {
             handleVendorClick={this.handleVendorClick}
             vendorRotation={this.state.vendorRotation}
           />
-          <DisplayCorrect
-            value={this.state.grade.response}
-            position={{
-              x: this.state.vendorPosition.x,
-              y: this.state.vendorPosition.y + 2,
-              z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
-            }}
-          />
-          <DisplayScore
-            score={this.props.score}
-            position={{
-              x: this.state.vendorPosition.x + this.state.scoreAdjustPosition.x,
-              y: this.state.vendorPosition.y + this.state.scoreAdjustPosition.y,
-              z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
-            }}
-          />
+          {
+            this.props.vendorResponse.length &&
+            <DisplayCorrect
+              value={this.props.vendorResponse}
+              position={{
+                x: this.state.vendorPosition.x,
+                y: this.state.vendorPosition.y + 2,
+                z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
+              }}
+            />
+          }
           {
             this.state.countdown.counting &&
             <Countdown
@@ -170,7 +131,7 @@ export class FirstVendor extends React.Component {
               position={{
                 x: this.state.vendorPosition.x,
                 y: this.state.vendorPosition.y + 1.25,
-                z: this.state.vendorPosition.z + this.state.scoreAdjustPosition.z
+                z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
               }}
             />
           }
@@ -214,7 +175,7 @@ export const mapState = (storeState) => {
   return {
     prompts: storeState.prompts,
     currentPrompt: storeState.currentPrompt,
-    score: storeState.score
+    vendorResponse: storeState.vendorResponse
   }
 }
 
@@ -222,7 +183,8 @@ export const mapDispatch = (dispatch) => {
   return {
     setPrompts: (fromLang, toLang) => dispatch(fetchPrompts(fromLang, toLang)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
-    incrementScore: () => dispatch(addToScore())
+    getVendorResponse: (response, fromLang, toLang) => dispatch(translateResponse(response, fromLang, toLang)),
+    clearResponse: () => dispatch(respond(''))
   }
 }
 
