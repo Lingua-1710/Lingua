@@ -10,6 +10,11 @@ describe('prompt routes', () => {
     return db.sync({force: true})
   })
 
+  afterAll(() => {
+    db.close()
+    return null
+  })
+
   describe('/api/prompts/', () => {
     const testText = 'Hello, how are you?'
 
