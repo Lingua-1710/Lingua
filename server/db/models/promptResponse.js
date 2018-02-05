@@ -8,8 +8,7 @@ const PromptResponse = db.define('prompt_responses', {
     autoIncrement: true
   },
   nextPromptId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+    type: Sequelize.INTEGER
   }
 })
 
