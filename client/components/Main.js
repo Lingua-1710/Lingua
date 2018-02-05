@@ -6,9 +6,8 @@ import 'aframe'
 import { Scene, Entity} from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
-import 'aframe-physics-system'
 import { recognizeSpeech, checkAnswer } from '../utils'
-import { FirstVendor, Player, Floor, HomeScreen } from './index'
+import { FirstVendor, Player, HomeScreen } from './index'
 
 class Main extends Component {
   constructor(props) {
@@ -25,7 +24,6 @@ class Main extends Component {
     return (
       <Scene
         id="scene"
-        physics="debug: true"
         inspector="url: https://aframe.io/releases/0.3.0/aframe-inspector.min.js"
         environment={{
           preset: 'forest',
@@ -48,10 +46,10 @@ class Main extends Component {
         <HomeScreen />
         { gameState !== 'home-screen' ?
         <Entity>
-          <FirstVendor listen={this.listen}
+          <FirstVendor
+            listen={this.listen}
             checkAnswer={checkAnswer}
           />
-          <Floor />
         </Entity> : null }
       </Scene>
     )
