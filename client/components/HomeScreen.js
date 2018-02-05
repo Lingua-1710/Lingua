@@ -28,9 +28,9 @@ const HomeScreen = (props) => {
         id="home-screen"
         primitive="a-plane"
         src="#backdrop"
-        height="100"
-        width="100"
-        position="0 2 -3.5"
+        height="90"
+        width="90"
+        position="0 2 -4"
       >
         {gameState === 'home-screen' ?
         <EnterScene /> :
