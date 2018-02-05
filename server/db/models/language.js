@@ -10,12 +10,14 @@ const Language = db.define('languages', {
   },
   code: {
     type: Sequelize.STRING,
+    unique: true,
     validate: {
       notEmpty: false
     }
   },
   google: {
     type: Sequelize.STRING,
+    unique: true,
     validate: {
       notEmpty: false
     }
