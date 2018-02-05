@@ -19,8 +19,8 @@ Quest.belongsToMany(Scene, { through: 'scene_quests' })
 Scene.belongsToMany(Character, { through: 'scene_characters' })
 Character.belongsToMany(Scene, { through: 'scene_characters' })
 
-Character.belongsToMany(Prompt, { through: 'character_prompts' })
-Prompt.belongsToMany(Character, { through: 'character_prompts' })
+Prompt.hasMany(Character)
+Character.belongsTo(Prompt)
 
 Prompt.belongsToMany(Response, { through: PromptResponse })
 Response.belongsToMany(Prompt, { through: PromptResponse })

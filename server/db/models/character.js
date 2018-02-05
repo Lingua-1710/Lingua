@@ -15,10 +15,6 @@ const Character = db.define('characters', {
   matUrl: {
     type: Sequelize.STRING,
     defaultValue: 'models/octo/ramenoctomaterials.mtl'
-  },
-  initialPromptId: {
-    type: Sequelize.INTEGER,
-    allowNull: false
   }
 })
 

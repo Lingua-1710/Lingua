@@ -1,6 +1,6 @@
 import stringSimilarity from 'string-similarity'
 
-
+/* global webkitSpeechRecognition webkitSpeechGrammarList webkitSpeechRecognitionEvent */
 let SpeechRecognition
 let SpeechGrammarList
 let SpeechRecognitionEvent

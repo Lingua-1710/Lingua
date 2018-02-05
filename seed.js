@@ -11,25 +11,28 @@ const {
 } = require('./server/db')
 
 const prompts = [
-  {text: 'Do you want an apple?'},
-  {text: 'Do you want a pear?'},
-  {text: 'Bye!'},
-  {text: 'The best apple ever!'},
-  {text: 'Here is your apple'},
-  {text: 'Here is your pear'},
+  {id: 1, text: 'Do you want an apple?'},
+  {id: 2, text: 'Do you want a pear?'},
+  {id: 3, text: 'Bye!'},
+  {id: 4, text: 'The best apple ever!'},
+  {id: 5, text: 'Here is your apple'},
+  {id: 6, text: 'Here is your pear'},
+  {id: 7, text: 'Sorry, I didn\'t understand you'}
 ]
+
 const responses = [
-  {text: 'Yes'},
-  {text: 'No'},
-  {text: 'What kind of apple?'},
-  {text: 'What kind of pear?'},
-  {text: 'Bye'},
-  {text: 'Okay I\'ll buy one.'},
-  {text: 'I don\'t believe you'},
-  {text: 'Is it green?'},
-  {text: 'Thank you'},
+  {id: 1, text: 'Yes'},
+  {id: 2, text: 'No'},
+  {id: 3, text: 'What kind of apple?'},
+  {id: 4, text: 'What kind of pear?'},
+  {id: 5, text: 'Bye'},
+  {id: 6, text: 'Okay I\'ll buy one.'},
+  {id: 7, text: 'I don\'t believe you'},
+  {id: 8, text: 'Is it green?'},
+  {id: 9, text: 'Thank you'}
 ]
-const promptResponses = [
+
+let promptResponses = [
   {promptId: 1, responseId: 1, nextPromptId: 5},
   {promptId: 1, responseId: 2, nextPromptId: 2},
   {promptId: 1, responseId: 3, nextPromptId: 4},
@@ -41,8 +44,9 @@ const promptResponses = [
   {promptId: 4, responseId: 7, nextPromptId: 7},
   {promptId: 4, responseId: 8, nextPromptId: 7},
   {promptId: 5, responseId: 9, nextPromptId: 3},
-  {promptId: 6, responseId: 9, nextPromptId: 3},
+  {promptId: 6, responseId: 9, nextPromptId: 3}
 ]
+
 const languages = [
   {name: 'Spanish', code: 'es-419', google: 'es'},
   {name: 'French', code: 'fr-FR', google: 'fr'},
