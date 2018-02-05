@@ -28,7 +28,7 @@ Response.belongsToMany(Prompt, { through: PromptResponse })
 module.exports = {
   Quest,
   Character,
-  promptResponse,
+  PromptResponse,
   Language,
   Prompt,
   Scene,
