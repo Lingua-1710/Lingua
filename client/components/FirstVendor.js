@@ -37,34 +37,35 @@ export class FirstVendor extends React.Component {
   }
 
   converse(repeating) {
-    if(this.state.promptIndex < this.props.prompts.length) {
-      if(!repeating) {
-        this.setState({
-          promptIndex: this.state.promptIndex + 1
-        })
-      }
-      let prompts = this.props.prompts
-      if(this.state.promptIndex < this.props.prompts.length) {
-        this.props.setCurrentPrompt(prompts[this.state.promptIndex])
-      } else {
-        this.reward()
-      }
-      this.listenToUser()
-      .then((speech) => {
-        let result = this.grade(speech)
-        if (result.correct) {
-          this.setState({repeat: false})
-          this.converse(false)
-          this.props.clearResponse()
-        } else {
-          this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
-          this.setState({repeat: true, vendorResponse: this.props.vendorResponse})
-          this.converse(true)
-        }
-      })
-    } else {
-      this.reward(true)
-    }
+
+    // if(this.state.promptIndex < this.props.prompts.length) {
+    //   if(!repeating) {
+    //     this.setState({
+    //       promptIndex: this.state.promptIndex + 1
+    //     })
+    //   }
+    //   let prompts = this.props.prompts
+    //   if(this.state.promptIndex < this.props.prompts.length) {
+    //     this.props.setCurrentPrompt(prompts[this.state.promptIndex])
+    //   } else {
+    //     this.reward()
+    //   }
+    //   this.listenToUser()
+    //   .then((speech) => {
+    //     let result = this.grade(speech)
+    //     if (result.correct) {
+    //       this.setState({repeat: false})
+    //       this.converse(false)
+    //       this.props.clearResponse()
+    //     } else {
+    //       this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
+    //       this.setState({repeat: true, vendorResponse: this.props.vendorResponse})
+    //       this.converse(true)
+    //     }
+    //   })
+    // } else {
+    //   this.reward(true)
+    // }
   }
 
   reward(done) {
@@ -92,7 +93,7 @@ export class FirstVendor extends React.Component {
   }
 
   componentDidMount() {
-    this.props.setPrompts(this.props.language.nativeLang, this.props.language.learningLang)
+    this.props.setPrompts(this.props.language.nativeLang, this.props.language.learningLang, 1)
   }
 
   render() {
@@ -162,7 +163,7 @@ export const mapState = (storeState) => {
 
 export const mapDispatch = (dispatch) => {
   return {
-    setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
+    setPrompts: (learningLang, nativeLang, characterId) => dispatch(fetchPrompts(learningLang, nativeLang, characterId)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
     getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
     clearResponse: () => dispatch(respond(''))

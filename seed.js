@@ -3,12 +3,30 @@ const {
   Quest,
   Character,
   PromptResponse,
+  CharacterPrompt,
   Language,
   Prompt,
   Scene,
   User,
   Response
 } = require('./server/db')
+
+const characters = [
+  {
+    name: 'Octo',
+    startingPromptId: 1
+  }
+]
+
+const characterPrompts = [
+  {characterId: 1, promptId: 1},
+  {characterId: 1, promptId: 2},
+  {characterId: 1, promptId: 3},
+  {characterId: 1, promptId: 4},
+  {characterId: 1, promptId: 5},
+  {characterId: 1, promptId: 6},
+  {characterId: 1, promptId: 7}
+]
 
 const prompts = [
   {id: 1, text: 'Do you want an apple?'},
@@ -32,7 +50,7 @@ const responses = [
   {id: 9, text: 'Thank you'}
 ]
 
-let promptResponses = [
+const promptResponses = [
   {promptId: 1, responseId: 1, nextPromptId: 5},
   {promptId: 1, responseId: 2, nextPromptId: 2},
   {promptId: 1, responseId: 3, nextPromptId: 4},
@@ -73,19 +91,32 @@ function addPromptResponses(promptResponses) {
   })
 }
 
+function addCharacterPrompts(characterPrompts) {
+  return characterPrompts.forEach((characterPrompt) => {
+    CharacterPrompt.create(characterPrompt)
+  })
+}
+
 function addLanguages(languages) {
   return languages.forEach((language) => {
     Language.create(language)
   })
 }
 
+function addCharacters(characters) {
+  return characters.forEach((character) => {
+    Character.create(character)
+  })
+}
 
-function seed(prompts, responses, promptResponses, languages) {
+function seed(prompts, responses, promptResponses, languages, characterPrompts, characters) {
   return Promise.all([
+    addLanguages(languages),
     addPrompts(prompts),
     addResponses(responses),
     addPromptResponses(promptResponses),
-    addLanguages(languages)
+    addCharacters(characters),
+    addCharacterPrompts(characterPrompts)
   ])
 }
 
@@ -101,7 +132,7 @@ function seed(prompts, responses, promptResponses, languages) {
 db.sync({force: true})
   .then(() => {
     console.log('Seeding database')
-    return seed(prompts, responses, promptResponses, languages)
+    return seed(prompts, responses, promptResponses, languages, characterPrompts, characters)
   })
   .then(() => console.log('Seeding successful'))
   .catch(err => {

@@ -1,7 +1,7 @@
 //DEFAULT LANGUAGE SETTINGS
 const defaultLanguage = {
   nativeLang: 'en',
-  learningLang: 'en',
+  learningLang: 'es',
   learningLangCode: 'en-US'
 }
 
