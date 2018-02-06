@@ -6,7 +6,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const { db } = require('./db')
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 
 const createApp = () => {
   // logging middleware
