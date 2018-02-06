@@ -9,13 +9,13 @@ class Player extends React.Component {
     super(props)
     this.state = {
       scoreAdjustPosition: { x: 1, y: -.05, z: 2 },
-     }
     }
+  }
 
-    render() {
-      const move = this.props.gameState === 'game'
-      const look = this.props.gameState !== 'loading'
-      return (
+  render() {
+    const move = this.props.gameState === 'game'
+    const look = this.props.gameState !== 'loading'
+    return (
       <Entity
         primitive="a-camera"
         look-controls-enabled={look}
