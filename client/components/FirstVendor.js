@@ -42,7 +42,7 @@ export class FirstVendor extends React.Component {
 
   converse() {
     let currentPrompt = this.props.currentPrompt
-    if(!Object.keys(this.props.currentPrompt).length) {
+    if(!Object.keys(currentPrompt).length) {
       let firstPrompt = this.props.prompts.find((prompt) => {
         return prompt.id === this.props.firstPromptId
       })
@@ -72,7 +72,7 @@ export class FirstVendor extends React.Component {
       } else {
         this.setState({incorrectCount: this.state.incorrectCount + 1})
         if(this.state.incorrectCount > 1) {
-          this.setState({hintText: `The vendor said: ${this.props.currentPrompt.text}`})
+          this.setState({hintText: `The vendor said: ${currentPrompt.text}`})
         }
         this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
         this.setState({vendorResponse: this.props.vendorResponse})
@@ -81,7 +81,7 @@ export class FirstVendor extends React.Component {
     })
   }
 
-  reward(done) {
+  reward() {
     //temporary log until we have the rest of the logic for this down
     console.log('good job duderino, you did the thing!')
   }
