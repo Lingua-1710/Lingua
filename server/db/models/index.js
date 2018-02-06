@@ -1,4 +1,5 @@
 const Quest = require('./quest')
+const Character = require('./character')
 const PromptResponse = require('./promptResponse')
 const Language = require('./language')
 const Prompt = require('./prompt')
@@ -15,6 +16,9 @@ Scene.belongsToMany(User, { through: 'user_scenes' })
 Scene.belongsToMany(Quest, { through: 'scene_quests' })
 Quest.belongsToMany(Scene, { through: 'scene_quests' })
 
+Prompt.belongsToMany(Character, { through: 'character_prompts' })
+Character.belongsToMany(Prompt, { through: 'character_prompts' })
+
 Prompt.belongsToMany(Response, { through: PromptResponse })
 Response.belongsToMany(Prompt, { through: PromptResponse })
 
@@ -25,5 +29,6 @@ module.exports = {
   Prompt,
   Scene,
   User,
-  Response
+  Response,
+  Character
 }

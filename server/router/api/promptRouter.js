@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Prompt, CharacterPrompt } = require('../../db')
+const { Prompt, Character } = require('../../db')
 
 router.get('/', (req, res, next) => {
   CharacterPrompt.findAll()
