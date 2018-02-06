@@ -7,6 +7,7 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 import { recognizeSpeech, checkAnswer } from '../utils'
 import { FirstVendor, Player, HomeScreen } from './index'
+import { fetchPrompts } from '../store'
 
 class Main extends Component {
   constructor(props) {
@@ -16,6 +17,10 @@ class Main extends Component {
 
   listen(obj, options){
     return recognizeSpeech(obj, options)
+  }
+
+  componentDidMount() {
+    this.props.setPrompts(this.props.currentLanguage.nativeLang, this.props.currentLanguage.learningLang)
   }
 
   render() {
@@ -48,6 +53,7 @@ class Main extends Component {
           <FirstVendor
             listen={this.listen}
             checkAnswer={checkAnswer}
+            firstPromptId={1}
           />
         </Entity> : null }
       </Scene>
@@ -55,6 +61,12 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = ({ gameState }) => ({ gameState })
+export const mapState = ({ gameState, currentLanguage }) => ({ gameState, currentLanguage })
 
-export default connect(mapStateToProps)(Main)
+export const mapDispatch = (dispatch) => {
+  return {
+    setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang))
+  }
+}
+
+export default connect(mapState, mapDispatch)(Main)

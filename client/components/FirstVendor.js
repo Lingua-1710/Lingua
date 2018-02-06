@@ -8,11 +8,14 @@ import {
   PromptText,
   ResponseText,
   Octo,
-  DisplayCorrect } from './index'
-import { fetchPrompts,
+  DisplayCorrect,
+  Hint
+} from './index'
+import {
   getPrompt,
   translateResponse,
-  respond } from '../store'
+  respond
+} from '../store'
 import { speechRecObject } from '../utils'
 
 export class FirstVendor extends React.Component {
@@ -22,12 +25,13 @@ export class FirstVendor extends React.Component {
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
       vendorPosition: { x: 1, y: 1, z: -5 },
       vendorRotation: { x: 10, y: 160, z: 0 },
-      correctAdjustPosition: { x: 1, y: -.05, z: 2 },
+      correctAdjustPosition: { x: 1, y: -0.05, z: 2 },
       promptAdjustPosition: { x: -2, y: 2, z: 0 },
-      promptIndex: 0,
+      hintAdjustPosition: {x: 0, y: -0.5, z: 2},
       responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
-      repeat: false,
-      vendorResponse: 'I don\'t understand'
+      vendorResponse: 'I do not understand',
+      incorrectCount: 0,
+      hintText: ''
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
     this.listenToUser = this.listenToUser.bind(this)
@@ -36,63 +40,65 @@ export class FirstVendor extends React.Component {
     this.grade = this.grade.bind(this)
   }
 
-  converse(repeating) {
-    if(this.state.promptIndex < this.props.prompts.length) {
-      if(!repeating) {
-        this.setState({
-          promptIndex: this.state.promptIndex + 1
-        })
-      }
-      let prompts = this.props.prompts
-      if(this.state.promptIndex < this.props.prompts.length) {
-        this.props.setCurrentPrompt(prompts[this.state.promptIndex])
-      } else {
-        this.reward()
-      }
-      this.listenToUser()
-      .then((speech) => {
-        let result = this.grade(speech)
-        if (result.correct) {
-          this.setState({repeat: false})
-          this.converse(false)
-          this.props.clearResponse()
-        } else {
-          this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
-          this.setState({repeat: true, vendorResponse: this.props.vendorResponse})
-          this.converse(true)
-        }
+  converse() {
+    let currentPrompt = this.props.currentPrompt
+    if(!Object.keys(currentPrompt).length) {
+      let firstPrompt = this.props.prompts.find((prompt) => {
+        return prompt.id === this.props.firstPromptId
       })
-    } else {
-      this.reward(true)
+      currentPrompt = firstPrompt
+      this.props.setCurrentPrompt(currentPrompt)
     }
+    this.listenToUser(currentPrompt)
+    .then((speech) => {
+      let result = this.grade(speech)
+      if (result) {
+        this.setState({
+          incorrectCount: 0,
+          hintText: `You said: ${result.text}`
+        })
+        let nextPrompt = this.props.prompts.find((prompt) => {
+          return prompt.id === result.prompt_responses.nextPromptId
+        })
+        if(nextPrompt) {
+          this.props.setCurrentPrompt(nextPrompt)
+          this.converse()
+        } else {
+          this.reward()
+          this.props.setCurrentPrompt({})
+          this.setState({hintText: ''})
+        }
+        this.props.clearResponse()
+      } else {
+        this.setState({incorrectCount: this.state.incorrectCount + 1})
+        if(this.state.incorrectCount > 1) {
+          this.setState({hintText: `The vendor said: ${currentPrompt.text}`})
+        }
+        this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
+        this.setState({vendorResponse: this.props.vendorResponse})
+        this.converse()
+      }
+    })
   }
 
-  reward(done) {
+  reward() {
     //temporary log until we have the rest of the logic for this down
-    if(done) {
-      console.log('I don\'t want to talk to you anymore')
-    } else {
-      console.log('good job duderino, you did the thing!')
-    }
+    console.log('good job duderino, you did the thing!')
   }
 
   handleVendorClick() {
-    this.converse(true)
+    this.converse()
   }
 
-  listenToUser() {
+  listenToUser(currentPrompt) {
     return this.props.listen(speechRecObject, {
-      answers: this.props.currentPrompt.responses,
+      responses: currentPrompt.responses,
       language: this.props.language
     })
   }
 
   grade(answer) {
     return this.props.checkAnswer(answer, this.props.currentPrompt.responses)
-  }
-
-  componentDidMount() {
-    this.props.setPrompts(this.props.language.nativeLang, this.props.language.learningLang)
   }
 
   render() {
@@ -142,6 +148,17 @@ export class FirstVendor extends React.Component {
               }} />
             </Entity>
           }
+          {
+            this.state.hintText.length &&
+            <Hint
+              hint={this.state.hintText}
+              position={{
+                x: this.state.vendorPosition.x + this.state.hintAdjustPosition.x,
+                y: this.state.vendorPosition.y + this.state.hintAdjustPosition.y,
+                z: this.state.vendorPosition.z + this.state.hintAdjustPosition.z
+              }}
+            />
+          }
           <FirstVendorStoreFront />
         </Entity>
       )
@@ -162,7 +179,6 @@ export const mapState = (storeState) => {
 
 export const mapDispatch = (dispatch) => {
   return {
-    setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
     getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
     clearResponse: () => dispatch(respond(''))

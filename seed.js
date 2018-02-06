@@ -1,13 +1,32 @@
 const {
   db,
   Quest,
-  PromptResponse,
+  PromptResponses,
+  CharacterPrompts,
   Language,
   Prompt,
+  Character,
   Scene,
   User,
   Response
 } = require('./server/db')
+
+const characters = [
+  {
+    name: 'Octo',
+    startingPromptId: 1
+  }
+]
+
+const characterPrompts = [
+  {characterId: 1, promptId: 1},
+  {characterId: 1, promptId: 2},
+  {characterId: 1, promptId: 3},
+  {characterId: 1, promptId: 4},
+  {characterId: 1, promptId: 5},
+  {characterId: 1, promptId: 6},
+  {characterId: 1, promptId: 7}
+]
 
 const prompts = [
   {id: 1, text: 'Do you want an apple?'},
@@ -50,9 +69,7 @@ const promptResponses = [
 const languages = [
   {name: 'Spanish', code: 'es-419', google: 'es'},
   {name: 'French', code: 'fr-FR', google: 'fr'},
-  {name: 'German', code: 'de-DE', google: 'de'},
-  {name: 'Italian', code: 'it-IT', google: 'it'},
-  {name: 'Korean', code: 'ko-KR', google: 'ko'}
+  {name: 'German', code: 'de-DE', google: 'de'}
 ]
 
 function addPrompts(prompts) {
@@ -68,9 +85,11 @@ function addResponses(responses) {
 }
 
 function addPromptResponses(promptResponses) {
-  return promptResponses.forEach((promptResponse) => {
-    PromptResponse.create(promptResponse)
-  })
+  return Promise.all(promptResponses.map(promptResponse => PromptResponses.create(promptResponse)))
+}
+
+function addCharacterPrompts(characterPrompts) {
+  return Promise.all(characterPrompts.map(characterPrompt => CharacterPrompts.create(characterPrompt)))
 }
 
 function addLanguages(languages) {
@@ -79,19 +98,27 @@ function addLanguages(languages) {
   })
 }
 
-function seed(prompts, responses, promptResponses, languages) {
+function addCharacters(characters) {
+  return characters.forEach((character) => {
+    Character.create(character)
+  })
+}
+
+function seed(prompts, responses, promptResponses, languages, characterPrompts, characters) {
   return Promise.all([
     addLanguages(languages),
     addPrompts(prompts),
     addResponses(responses),
+    addCharacters(characters),
     addPromptResponses(promptResponses),
+    addCharacterPrompts(characterPrompts)
   ])
 }
 
 db.sync({force: true})
   .then(() => {
     console.log('Seeding database')
-    return seed(prompts, responses, promptResponses, languages)
+    return seed(prompts, responses, promptResponses, languages, characterPrompts, characters)
   })
   .then(() => console.log('Seeding successful'))
   .catch(err => {

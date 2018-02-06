@@ -1,8 +1,8 @@
 //DEFAULT LANGUAGE SETTINGS
 const defaultLanguage = {
   nativeLang: 'en',
-  learningLang: 'en',
-  learningLangCode: 'en-US'
+  learningLang: 'es',
+  learningLangCode: 'es-419'
 }
 
 //ACTION TYPES
