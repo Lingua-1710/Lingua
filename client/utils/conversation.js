@@ -23,8 +23,10 @@ export const converse = function() {
         incorrectCount: 0,
         hintText: `You said: ${result.text}`
       })
+      const promptResponses = result.prompt_responses
+      checkQuest(promptResponses.id, this.props.currentQuest)
       let nextPrompt = this.props.prompts.find((prompt) => {
-        return prompt.id === result.prompt_responses.nextPromptId
+        return prompt.id === promptResponses.nextPromptId
       })
       //start conversation with the nextPrompt
       if(nextPrompt) {
@@ -37,7 +39,7 @@ export const converse = function() {
         this.setState({hintText: ''})
       }
       this.setState({vendorResponse: ''})
-    //user did not respond wiht a possible response.
+    //user did not respond with a possible response.
     } else {
       //after the second incorrect response, give a hint
       this.setState({incorrectCount: this.state.incorrectCount + 1})
@@ -49,6 +51,12 @@ export const converse = function() {
       this.converse()
     }
   })
+}
+
+function checkQuest(promptResponsesId, quest) {
+  if (promptResponsesId === quest.promptResponsesId) {
+    console.log('Quest completed!')
+  }
 }
 
 function listenToUser(currentPrompt) {

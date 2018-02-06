@@ -65,7 +65,7 @@ const responses = [
   {id: 6, text: 'Okay I\'ll buy one.'},
   {id: 7, text: 'I don\'t believe you'},
   {id: 8, text: 'Impossible'},
-  {id: 9, text: 'Thank you'}
+  {id: 9, text: 'Thanks'}
 ]
 
 const promptResponses = [

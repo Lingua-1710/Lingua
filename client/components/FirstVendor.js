@@ -75,7 +75,8 @@ export const mapState = (storeState) => {
     prompts: storeState.prompts,
     currentPrompt: storeState.currentPrompt,
     vendorResponse: storeState.vendorResponse,
-    language: storeState.currentLanguage
+    language: storeState.currentLanguage,
+    currentQuest: storeState.currentQuest
   }
 }
 
