@@ -12,6 +12,7 @@ export { default as EnterScene } from './EnterScene'
 export { default as DisplayScore } from './DisplayScore'
 export { default as Hint } from './Hint'
 export { default as PickLanguage } from './PickLanguage'
+export { default as PickQuest } from './PickQuest'
 
 // Models
 export { default as Octo } from './modelComponents/Octo'

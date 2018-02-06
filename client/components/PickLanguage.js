@@ -79,14 +79,14 @@ export class PickLanguage extends Component {
           color="blue"
           class="clickable"
           events={{
-            click: () => this.props.setGameState('loading')
+            click: () => this.props.setGameState('quest')
           }}
         >
         <Entity
           id="ready-button"
           primitive="a-text"
           font="exo2bold"
-          value="START"
+          value="SELECT"
           height="12"
           color="white"
           align="center"
