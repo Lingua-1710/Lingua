@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
-import { EnterScene, Loading } from './index'
+import { EnterScene, Loading, PickLanguage } from './index'
 
 const HomeScreen = (props) => {
   const { gameState } = props
@@ -30,11 +30,15 @@ const HomeScreen = (props) => {
         src="#backdrop"
         height="90"
         width="90"
-        position="0 2 -4"
-      >
+        position="0 2 -3"
+        >
+
         {gameState === 'home-screen' ?
-        <EnterScene /> :
-        <Loading />}
+            <EnterScene /> :
+            gameState === 'language' ?
+              <PickLanguage /> :
+              <Loading />
+          }
       </Entity>
     </Entity> : null
   )

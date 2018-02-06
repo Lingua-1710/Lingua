@@ -17,7 +17,7 @@ export const EnterScene = (props) => {
       opacity="0"
       class="clickable"
       events={{
-        click: () => props.setGameState('loading')
+        click: () => props.setGameState('language')
       }}
     >
       <Entity

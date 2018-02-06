@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import { Entity } from 'aframe-react'
 import { connect } from 'react-redux'
-import { getGameState } from '../store'
-import { setLanguage } from '../store/index'
+import { getGameState, setLanguage, fetchLanguages } from '../store'
+
 
 
 export class PickLanguage extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-    }
+  }
+  componentDidMount() {
+    this.props.grabLanguages()
   }
 
   render() {
@@ -32,7 +33,7 @@ export class PickLanguage extends Component {
           height="12"
           color="white"
           align="center"
-          position="0 0 0"
+          position="0 .5 0"
         />
 
         {
@@ -41,14 +42,14 @@ export class PickLanguage extends Component {
             return (
               <Entity
                 key={language.id}
-                id="pick-language-text"
-                primitive="a-text"
-                font="exo2bold"
-                value={language.name}
-                height="12"
-                color="white"
-                align="center"
-                position={`0 ${-0.35 + index * -0.3} 0`}
+                id="pick-language-plane"
+                primitive="a-plane"
+                height=".5"
+                width="2"
+                position={`0 ${-0.25 + index * -0.4} 0`}
+                radius="0"
+                color="blue"
+                opacity="0"
                 class="clickable"
                 events={{
                   click: () => this.props.chooseLanguage({
@@ -57,10 +58,35 @@ export class PickLanguage extends Component {
                     learningLangCode: language.code
                   })
                 }}
-              />
+              >
+              <Entity
+                id="pick-language-text"
+                primitive="a-text"
+                font="exo2bold"
+                value={language.name}
+                height="12"
+                color="white"
+                align="center"
+                position={`0 0 .01`}
+                />
+              </Entity>
             )
           })
         }
+
+        <Entity
+          id="button-plane"
+          primitive="a-plane"
+          height=".5"
+          width="2"
+          position="0 -1.5 0"
+          radius="0"
+          color="blue"
+          class="clickable"
+          events={{
+            click: () => this.props.setGameState('loading')
+          }}
+        >
         <Entity
           id="ready-button"
           primitive="a-text"
@@ -69,12 +95,9 @@ export class PickLanguage extends Component {
           height="12"
           color="white"
           align="center"
-          position="0 -1.5 0"
-          class="clickable"
-          events={{
-            click: () => this.props.setGameState('game')
-          }}
+          position="0 0 .01"
         />
+    </Entity>
       </Entity>
     )
   }
@@ -85,6 +108,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setGameState(gameState) {
       dispatch(getGameState(gameState))
+    },
+    grabLanguages() {
+      dispatch(fetchLanguages())
     },
     chooseLanguage(language) {
       dispatch(setLanguage(language))
