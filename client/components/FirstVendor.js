@@ -22,14 +22,7 @@ export class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
-      vendorPosition: { x: 1, y: 1, z: -5 },
-      vendorRotation: { x: 10, y: 160, z: 0 },
-      correctAdjustPosition: { x: 1, y: -0.05, z: 2 },
-      promptAdjustPosition: { x: -2, y: 2, z: 0 },
-      hintAdjustPosition: { x: 0, y: -0.5, z: 2 },
-      responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
-      vendorResponse: 'I do not understand',
+      vendorResponse: '',
       incorrectCount: 0,
       hintText: ''
     }
@@ -37,21 +30,27 @@ export class FirstVendor extends React.Component {
   }
 
   render() {
+    const vendorPosition = { x: 1, y: 1, z: -5 }
+    const vendorRotation = { x: 10, y: 160, z: 0 }
+    const correctAdjustPosition = { x: 1, y: -0.05, z: 2 }
+    const promptAdjustPosition = { x: -2, y: 2, z: 0 }
+    const hintAdjustPosition = { x: 0, y: -0.5, z: 2 }
+    const responseAdjustPosition = { x: -2, y: 0.5, z: 1 }
     return (
       <Entity>
         <Octo
-          vendorPosition={this.state.vendorPosition}
+          vendorPosition={vendorPosition}
           handleVendorClick={this.converse}
-          vendorRotation={this.state.vendorRotation}
+          vendorRotation={vendorRotation}
         />
         {
           this.props.vendorResponse.length &&
           <DisplayCorrect
             value={this.props.vendorResponse}
             position={{
-              x: this.state.vendorPosition.x,
-              y: this.state.vendorPosition.y + 2,
-              z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
+              x: vendorPosition.x,
+              y: vendorPosition.y + 2,
+              z: vendorPosition.z + correctAdjustPosition.z
             }}
           />
         }
@@ -64,9 +63,9 @@ export class FirstVendor extends React.Component {
               id: 'prompt-text',
               width: '10',
               position: {
-                x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
-                y: this.state.vendorPosition.y + this.state.promptAdjustPosition.y,
-                z: this.state.vendorPosition.z + this.state.promptAdjustPosition.z
+                x: vendorPosition.x + promptAdjustPosition.x,
+                y: vendorPosition.y + promptAdjustPosition.y,
+                z: vendorPosition.z + promptAdjustPosition.z
               },
               align: 'center'
             }} />
@@ -74,9 +73,9 @@ export class FirstVendor extends React.Component {
               responses: this.props.currentPrompt.responses,
               color: 'black',
               position: {
-                x: this.state.vendorPosition.x + this.state.responseAdjustPosition.x,
-                y: this.state.vendorPosition.y + this.state.responseAdjustPosition.y,
-                z: this.state.vendorPosition.z + this.state.responseAdjustPosition.z
+                x: vendorPosition.x + responseAdjustPosition.x,
+                y: vendorPosition.y + responseAdjustPosition.y,
+                z: vendorPosition.z + responseAdjustPosition.z
               },
               align: 'center'
             }} />
@@ -87,9 +86,9 @@ export class FirstVendor extends React.Component {
           <Hint
             hint={this.state.hintText}
             position={{
-              x: this.state.vendorPosition.x + this.state.hintAdjustPosition.x,
-              y: this.state.vendorPosition.y + this.state.hintAdjustPosition.y,
-              z: this.state.vendorPosition.z + this.state.hintAdjustPosition.z
+              x: vendorPosition.x + hintAdjustPosition.x,
+              y: vendorPosition.y + hintAdjustPosition.y,
+              z: vendorPosition.z + hintAdjustPosition.z
             }}
           />
         }
