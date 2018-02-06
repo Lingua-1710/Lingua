@@ -17,14 +17,14 @@ export const EnterScene = (props) => {
       opacity="0"
       class="clickable"
       events={{
-        click: () => props.setGameState('loading')
+        click: () => props.setGameState('language')
       }}
     >
       <Entity
         id="enter-scene-text"
         primitive="a-text"
         font="exo2bold"
-        value="ENTER SCENE"
+        value="Sign In"
         height="12"
         color="white"
         align="center"
