@@ -46,7 +46,7 @@ export class FirstVendor extends React.Component {
         {
           this.props.vendorResponse.length &&
           <DisplayCorrect
-            value={this.props.vendorResponse}
+            value={this.state.vendorResponse}
             position={{
               x: vendorPosition.x,
               y: vendorPosition.y + 2,

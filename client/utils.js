@@ -94,7 +94,7 @@ export const converse = function() {
         this.props.setCurrentPrompt({})
         this.setState({hintText: ''})
       }
-      this.props.clearResponse()
+      this.setState({vendorResponse: ''})
     //user did not respond wiht a possible response.
     } else {
       //after the second incorrect response, give a hint
@@ -102,8 +102,7 @@ export const converse = function() {
       if(this.state.incorrectCount > 1) {
         this.setState({hintText: `The vendor said: ${currentPrompt.text}`})
       }
-      //translates the vendorResponse.
-      this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
+      //Vendor says "I do not understand"
       this.setState({vendorResponse: this.props.vendorResponse})
       this.converse()
     }
