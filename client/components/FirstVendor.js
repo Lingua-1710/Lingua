@@ -50,7 +50,6 @@ export class FirstVendor extends React.Component {
     .then((speech) => {
       let result = this.grade(speech)
       if (result) {
-        console.log('result')
         let nextPrompt = this.props.prompts.find((prompt) => {
           return prompt.id === result.prompt_responses.nextPromptId
         })
