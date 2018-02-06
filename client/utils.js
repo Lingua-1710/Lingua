@@ -1,5 +1,4 @@
 import stringSimilarity from 'string-similarity'
-import axios from 'axios'
 
 /* global webkitSpeechRecognition webkitSpeechGrammarList webkitSpeechRecognitionEvent */
 
