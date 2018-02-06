@@ -1,32 +1,13 @@
 const {
   db,
   Quest,
-  Character,
   PromptResponse,
-  CharacterPrompt,
   Language,
   Prompt,
   Scene,
   User,
   Response
 } = require('./server/db')
-
-const characters = [
-  {
-    name: 'Octo',
-    startingPromptId: 1
-  }
-]
-
-const characterPrompts = [
-  {characterId: 1, promptId: 1},
-  {characterId: 1, promptId: 2},
-  {characterId: 1, promptId: 3},
-  {characterId: 1, promptId: 4},
-  {characterId: 1, promptId: 5},
-  {characterId: 1, promptId: 6},
-  {characterId: 1, promptId: 7}
-]
 
 const prompts = [
   {id: 1, text: 'Do you want an apple?'},
@@ -92,48 +73,25 @@ function addPromptResponses(promptResponses) {
   })
 }
 
-function addCharacterPrompts(characterPrompts) {
-  return characterPrompts.forEach((characterPrompt) => {
-    CharacterPrompt.create(characterPrompt)
-  })
-}
-
 function addLanguages(languages) {
   return languages.forEach((language) => {
     Language.create(language)
   })
 }
 
-function addCharacters(characters) {
-  return characters.forEach((character) => {
-    Character.create(character)
-  })
-}
-
-function seed(prompts, responses, promptResponses, languages, characterPrompts, characters) {
+function seed(prompts, responses, promptResponses, languages) {
   return Promise.all([
     addLanguages(languages),
     addPrompts(prompts),
     addResponses(responses),
     addPromptResponses(promptResponses),
-    addCharacters(characters),
-    addCharacterPrompts(characterPrompts)
   ])
 }
-
-
-// scenes.forEach((scene) => {
-//   Scene.create(scene)
-// })
-
-// users.forEach((user) => {
-//   User.create(user)
-// })
 
 db.sync({force: true})
   .then(() => {
     console.log('Seeding database')
-    return seed(prompts, responses, promptResponses, languages, characterPrompts, characters)
+    return seed(prompts, responses, promptResponses, languages)
   })
   .then(() => console.log('Seeding successful'))
   .catch(err => {
