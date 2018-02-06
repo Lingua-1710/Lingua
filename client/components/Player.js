@@ -20,6 +20,7 @@ class Player extends React.Component {
         primitive="a-camera"
         look-controls-enabled={look}
         wasd-controls-enabled={move}
+        sound="src: audio/LinguaTrack.mp3; autoplay: true; loop: true; volume: 0.1"
       >
         <Cursor />
       </Entity>
