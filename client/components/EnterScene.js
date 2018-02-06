@@ -24,7 +24,7 @@ export const EnterScene = (props) => {
         id="enter-scene-text"
         primitive="a-text"
         font="exo2bold"
-        value="ENTER SCENE"
+        value="Sign In"
         height="12"
         color="white"
         align="center"

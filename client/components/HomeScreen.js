@@ -8,39 +8,37 @@ const HomeScreen = (props) => {
   const { gameState } = props
   return (
     gameState !== 'game' ?
-    <Entity
-      id="home-screen"
-     >
+      <Entity
+        id="home-screen"
+      >
         <img
           id="backdrop"
           src="/backgrounds/backdrop.jpg"
-          />
-      <Entity
-        id="home-screen-sphere"
-        primitive="a-sky"
-        src="#backdrop"
-        theta-length="90"
-        width="window.innerWidth"
-        height="window.innerHeight"
-        radius="5"
         />
-      <Entity
-        id="home-screen"
-        primitive="a-plane"
-        src="#backdrop"
-        height="90"
-        width="90"
-        position="0 2 -3"
+        <Entity
+          id="home-screen-sphere"
+          primitive="a-sky"
+          src="#backdrop"
+          theta-length="90"
+          width="window.innerWidth"
+          height="window.innerHeight"
+          radius="5"
+        />
+        <Entity
+          id="home-screen"
+          primitive="a-plane"
+          src="#backdrop"
+          height="90"
+          width="90"
+          position="0 2 -3"
         >
-
-        {gameState === 'home-screen' ?
+          {gameState === 'home-screen' ?
             <EnterScene /> :
             gameState === 'language' ?
               <PickLanguage /> :
-              <Loading />
-          }
-      </Entity>
-    </Entity> : null
+              <Loading />}
+        </Entity>
+      </Entity> : null
   )
 }
 

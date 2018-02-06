@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Entity } from 'aframe-react'
 
 const Loading = (props) => {
-
   return (
     props.gameState === 'loading' ? <Entity
       id="enter-scene-plane"

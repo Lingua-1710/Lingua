@@ -3,8 +3,6 @@ import { Entity } from 'aframe-react'
 import { connect } from 'react-redux'
 import { getGameState, setLanguage, fetchLanguages } from '../store'
 
-
-
 export class PickLanguage extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +10,6 @@ export class PickLanguage extends Component {
   componentDidMount() {
     this.props.grabLanguages()
   }
-
   render() {
     return (
       <Entity
@@ -35,7 +32,6 @@ export class PickLanguage extends Component {
           align="center"
           position="0 .5 0"
         />
-
         {
           this.props.languages &&
           this.props.languages.map((language, index) => {
@@ -73,7 +69,6 @@ export class PickLanguage extends Component {
             )
           })
         }
-
         <Entity
           id="button-plane"
           primitive="a-plane"
@@ -102,7 +97,6 @@ export class PickLanguage extends Component {
     )
   }
 }
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
