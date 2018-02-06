@@ -8,6 +8,7 @@ import gameState from './reducers/gameState'
 import vendorResponse from './reducers/vendorResponse'
 import currentLanguage from './reducers/currentLanguage'
 import languages from './reducers/languages'
+import quests from './reducers/quests'
 
 const reducer = combineReducers({
   prompts,
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   gameState,
   vendorResponse,
   languages,
-  currentLanguage
+  currentLanguage,
+  quests
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -31,4 +33,5 @@ export * from './reducers/gameState'
 export * from './reducers/vendorResponse'
 export * from './reducers/languages'
 export * from './reducers/currentLanguage'
+export * from './reducers/quests'
 
