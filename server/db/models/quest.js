@@ -18,6 +18,14 @@ const Quest = db.define('quests', {
     type: Sequelize.INTEGER,
     allowNull: false
   }
+}, {
+  scopes: {
+    populated: () => ({
+      include: {
+        all: true
+      }
+    })
+  }
 })
 
 module.exports = Quest
