@@ -4,7 +4,7 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses } from './index'
-import { getPrompt, translateResponse, respond } from '../store'
+import { getPrompt } from '../store'
 import { converse } from '../utils'
 
 export class FirstVendor extends React.Component {
@@ -81,9 +81,7 @@ export const mapState = (storeState) => {
 
 export const mapDispatch = (dispatch) => {
   return {
-    setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
-    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
-    clearResponse: () => dispatch(respond(''))
+    setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt))
   }
 }
 
