@@ -1,7 +1,9 @@
 const db = require('./db')
 const {
+  Character,
   Quest,
-  PromptResponse,
+  CharacterPrompts,
+  PromptResponses,
   Language,
   Prompt,
   Scene,
@@ -12,9 +14,11 @@ const {
 require('./models')
 
 module.exports = {
+  Character,
   db,
   Quest,
-  PromptResponse,
+  CharacterPrompts,
+  PromptResponses,
   Language,
   Prompt,
   Scene,

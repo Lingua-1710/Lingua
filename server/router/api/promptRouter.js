@@ -1,13 +1,8 @@
 const router = require('express').Router()
-const { Prompt, Character } = require('../../db')
+const { Prompt } = require('../../db')
 
 router.get('/', (req, res, next) => {
-  CharacterPrompt.findAll()
-    .then(characterPrompts => {
-      return Promise.all(characterPrompts.map(characterPrompt => {
-        return Prompt.scope('populated').findById(characterPrompt.promptId)
-      }))
-    })
+  Prompt.scope('populated').findAll()
     .then(prompts => res.json(prompts))
     .catch(next)
 })

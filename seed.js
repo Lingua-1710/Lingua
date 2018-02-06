@@ -1,8 +1,8 @@
 const {
   db,
   Quest,
-  PromptResponse,
-  CharacterPrompt,
+  PromptResponses,
+  CharacterPrompts,
   Language,
   Prompt,
   Character,
@@ -88,13 +88,13 @@ function addResponses(responses) {
 
 function addPromptResponses(promptResponses) {
   return promptResponses.forEach((promptResponse) => {
-    PromptResponse.create(promptResponse)
+    PromptResponses.create(promptResponse)
   })
 }
 
 function addCharacterPrompts(characterPrompts) {
   return characterPrompts.forEach((characterPrompt) => {
-    CharacterPrompt.create(characterPrompt)
+    CharacterPrompts.create(characterPrompt)
   })
 }
 

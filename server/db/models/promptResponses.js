@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const PromptResponse = db.define('prompt_responses', {
+const PromptResponses = db.define('prompt_responses', {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -12,4 +12,4 @@ const PromptResponse = db.define('prompt_responses', {
   }
 })
 
-module.exports = PromptResponse
+module.exports = PromptResponses
