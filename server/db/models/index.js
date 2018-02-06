@@ -1,7 +1,6 @@
 const Quest = require('./quest')
 const Character = require('./character')
 const PromptResponse = require('./promptResponse')
-const CharacterPrompt = require('./characterPrompt')
 const Language = require('./language')
 const Prompt = require('./prompt')
 const Scene = require('./scene')
@@ -30,7 +29,6 @@ module.exports = {
   Quest,
   Character,
   PromptResponse,
-  CharacterPrompt,
   Language,
   Prompt,
   Scene,
