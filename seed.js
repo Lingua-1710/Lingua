@@ -11,12 +11,29 @@ const {
   Response
 } = require('./server/db')
 
+const users = [
+  {id: 1, name: 'sam', username: 'food', password: '123'},
+  {id: 2, name: 'owen', username: 'sushi', password: '123'},
+]
+
 const characters = [
   {
     name: 'Octo',
     startingPromptId: 1
   }
 ]
+
+const quests = [
+  {id: 1, name: 'Buy an apple', text: 'Buy an apple', promptResponsesId: 11},
+  {id: 2, name: 'Buy a pear', text: 'Buy a pear', promptResponseId: 12}
+]
+
+let userQuests = []
+users.forEach(user => {
+  quests.forEach(quest => {
+    userQuests.push({userId: user.id, questId: quest.id})
+  })
+})
 
 const characterPrompts = [
   {characterId: 1, promptId: 1},
@@ -51,19 +68,19 @@ const responses = [
 ]
 
 const promptResponses = [
-  {promptId: 1, responseId: 1, nextPromptId: 5},
-  {promptId: 1, responseId: 2, nextPromptId: 2},
-  {promptId: 1, responseId: 3, nextPromptId: 4},
-  {promptId: 2, responseId: 1, nextPromptId: 6},
-  {promptId: 2, responseId: 2, nextPromptId: 3},
-  {promptId: 2, responseId: 4, nextPromptId: 7},
-  {promptId: 3, responseId: 5, nextPromptId: null},
-  {promptId: 4, responseId: 6, nextPromptId: 6},
-  {promptId: 4, responseId: 7, nextPromptId: 7},
-  {promptId: 4, responseId: 8, nextPromptId: 7},
-  {promptId: 5, responseId: 9, nextPromptId: 3},
-  {promptId: 6, responseId: 9, nextPromptId: 3},
-  {promptId: 7, responseId: 5, nextPromptId: null}
+  {id: 1, promptId: 1, responseId: 1, nextPromptId: 5},
+  {id: 2, promptId: 1, responseId: 2, nextPromptId: 2},
+  {id: 3, promptId: 1, responseId: 3, nextPromptId: 4},
+  {id: 4, promptId: 2, responseId: 1, nextPromptId: 6},
+  {id: 5, promptId: 2, responseId: 2, nextPromptId: 3},
+  {id: 6, promptId: 2, responseId: 4, nextPromptId: 7},
+  {id: 7, promptId: 3, responseId: 5, nextPromptId: null},
+  {id: 8, promptId: 4, responseId: 6, nextPromptId: 6},
+  {id: 9, promptId: 4, responseId: 7, nextPromptId: 7},
+  {id: 10, promptId: 4, responseId: 8, nextPromptId: 7},
+  {id: 11, promptId: 5, responseId: 9, nextPromptId: 3},
+  {id: 12, promptId: 6, responseId: 9, nextPromptId: 3},
+  {id: 13, promptId: 7, responseId: 5, nextPromptId: null}
 ]
 
 const languages = [

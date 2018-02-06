@@ -14,7 +14,7 @@ const Quest = db.define('quests', {
       notEmpty: false
     }
   },
-  prompt_responsesId: {
+  promptResponsesId: {
     type: Sequelize.INTEGER,
     allowNull: false
   }

@@ -4,7 +4,8 @@ const db = require('../db')
 
 const UserQuests = db.define('user_quests', {
   isCompleted: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
