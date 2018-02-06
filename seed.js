@@ -3,6 +3,7 @@ const {
   Quest,
   PromptResponses,
   CharacterPrompts,
+  UserQuests,
   Language,
   Prompt,
   Character,
@@ -25,7 +26,7 @@ const characters = [
 
 const quests = [
   {id: 1, name: 'Buy an apple', text: 'Buy an apple', promptResponsesId: 11},
-  {id: 2, name: 'Buy a pear', text: 'Buy a pear', promptResponseId: 12}
+  {id: 2, name: 'Buy a pear', text: 'Buy a pear', promptResponsesId: 12}
 ]
 
 let userQuests = []
@@ -101,14 +102,6 @@ function addResponses(responses) {
   })
 }
 
-function addPromptResponses(promptResponses) {
-  return Promise.all(promptResponses.map(promptResponse => PromptResponses.create(promptResponse)))
-}
-
-function addCharacterPrompts(characterPrompts) {
-  return Promise.all(characterPrompts.map(characterPrompt => CharacterPrompts.create(characterPrompt)))
-}
-
 function addLanguages(languages) {
   return languages.forEach((language) => {
     Language.create(language)
@@ -121,12 +114,39 @@ function addCharacters(characters) {
   })
 }
 
-function seed(prompts, responses, promptResponses, languages, characterPrompts, characters) {
+function addUsers(users) {
+  return users.forEach((user) => {
+    User.create(user)
+  })
+}
+
+function addQuests(quests) {
+  return quests.forEach((quest) => {
+    Quest.create(quest)
+  })
+}
+
+function addPromptResponses(promptResponses) {
+  return Promise.all(promptResponses.map(promptResponse => PromptResponses.create(promptResponse)))
+}
+
+function addCharacterPrompts(characterPrompts) {
+  return Promise.all(characterPrompts.map(characterPrompt => CharacterPrompts.create(characterPrompt)))
+}
+
+function addUserQuests(userQuests) {
+  return Promise.all(userQuests.map(userQuest => UserQuests.create(userQuest)))
+}
+
+function seed(prompts, responses, promptResponses, languages, characterPrompts, characters, users, quests, userQuests) {
   return Promise.all([
     addLanguages(languages),
     addPrompts(prompts),
     addResponses(responses),
     addCharacters(characters),
+    addUsers(users),
+    addQuests(quests),
+    addUserQuests(userQuests),
     addPromptResponses(promptResponses),
     addCharacterPrompts(characterPrompts)
   ])
@@ -135,7 +155,7 @@ function seed(prompts, responses, promptResponses, languages, characterPrompts, 
 db.sync({force: true})
   .then(() => {
     console.log('Seeding database')
-    return seed(prompts, responses, promptResponses, languages, characterPrompts, characters)
+    return seed(prompts, responses, promptResponses, languages, characterPrompts, characters, users, quests, userQuests)
   })
   .then(() => console.log('Seeding successful'))
   .catch(err => {
