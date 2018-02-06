@@ -1,5 +1,4 @@
 /* SpeechRecognition webkitSpeechRecognition*/
-
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import 'aframe'
@@ -49,7 +48,7 @@ class Main extends Component {
       >
         <Player wasd-controls-enabled="false" />
         <HomeScreen />
-        { gameState !== 'home-screen' ?
+        {(gameState === 'loading' || gameState === 'game' ) ?
         <Entity>
           <FirstVendor
             listen={this.listen}

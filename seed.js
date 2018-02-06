@@ -69,9 +69,7 @@ const promptResponses = [
 const languages = [
   {name: 'Spanish', code: 'es-419', google: 'es'},
   {name: 'French', code: 'fr-FR', google: 'fr'},
-  {name: 'German', code: 'de-DE', google: 'de'},
-  {name: 'Italian', code: 'it-IT', google: 'it'},
-  {name: 'Korean', code: 'ko-KR', google: 'ko'}
+  {name: 'German', code: 'de-DE', google: 'de'}
 ]
 
 function addPrompts(prompts) {
