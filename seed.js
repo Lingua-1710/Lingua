@@ -1,6 +1,7 @@
 const {
   db,
-  Item,
+  Quest,
+  PromptResponse,
   Language,
   Prompt,
   Scene,
@@ -8,31 +9,44 @@ const {
   Response
 } = require('./server/db')
 
-const items = []
 const prompts = [
-  {text: 'Hello, how are you?'},
-  {text: 'Do you want to buy a cat?'},
-  {text: 'Do you want a nice ham? It\'s very dry.'},
-  {text: 'How about some kidneys?'},
-  {text: 'Are you a cop?'}
+  {id: 1, text: 'Do you want an apple?'},
+  {id: 2, text: 'Do you want a pear?'},
+  {id: 3, text: 'Bye!'},
+  {id: 4, text: 'The best apple ever!'},
+  {id: 5, text: 'Here is your apple'},
+  {id: 6, text: 'Here is your pear'},
+  {id: 7, text: 'I don\'t have time for this.'}
 ]
+
 const responses = [
-  {text: 'I am a goose', isCorrect: false, promptId: 1},
-  {text: 'You are a tasty muffin', isCorrect: false, promptId: 1},
-  {text: 'I\'m fine, thanks', isCorrect: true, promptId: 1},
-  {text: 'I want to buy a dog', isCorrect: false, promptId: 2},
-  {text: 'I love bananas', isCorrect: false, promptId: 2},
-  {text: 'I want to buy a cat', isCorrect: true, promptId: 2},
-  {text: 'I am a vegetarian', isCorrect: false, promptId: 3},
-  {text: 'No, my cousin is a pig', isCorrect: false, promptId: 3},
-  {text: 'I love dry ham', isCorrect: true, promptId: 3},
-  {text: 'I want to purchase a foot', isCorrect: false, promptId: 4},
-  {text: 'Are they tasty?', isCorrect: false, promptId: 4},
-  {text: 'Please, you can never have too many kidneys', isCorrect: true, promptId: 4},
-  {text: 'I am a parrot', isCorrect: false, promptId: 5},
-  {text: 'I am a policeman', isCorrect: false, promptId: 5},
-  {text: 'I am not a policeman', isCorrect: true, promptId: 5}
+  {id: 1, text: 'Yes'},
+  {id: 2, text: 'No'},
+  {id: 3, text: 'What kind of apple?'},
+  {id: 4, text: 'What kind of pear?'},
+  {id: 5, text: 'Bye'},
+  {id: 6, text: 'Okay I\'ll buy one.'},
+  {id: 7, text: 'I don\'t believe you'},
+  {id: 8, text: 'Impossible'},
+  {id: 9, text: 'Thank you'}
 ]
+
+const promptResponses = [
+  {promptId: 1, responseId: 1, nextPromptId: 5},
+  {promptId: 1, responseId: 2, nextPromptId: 2},
+  {promptId: 1, responseId: 3, nextPromptId: 4},
+  {promptId: 2, responseId: 1, nextPromptId: 6},
+  {promptId: 2, responseId: 2, nextPromptId: 3},
+  {promptId: 2, responseId: 4, nextPromptId: 7},
+  {promptId: 3, responseId: 5, nextPromptId: null},
+  {promptId: 4, responseId: 6, nextPromptId: 6},
+  {promptId: 4, responseId: 7, nextPromptId: 7},
+  {promptId: 4, responseId: 8, nextPromptId: 7},
+  {promptId: 5, responseId: 9, nextPromptId: 3},
+  {promptId: 6, responseId: 9, nextPromptId: 3},
+  {promptId: 7, responseId: 5, nextPromptId: null}
+]
+
 const languages = [
   {name: 'Spanish', code: 'es-419', google: 'es'},
   {name: 'French', code: 'fr-FR', google: 'fr'},
@@ -53,30 +67,31 @@ function addResponses(responses) {
   })
 }
 
+function addPromptResponses(promptResponses) {
+  return promptResponses.forEach((promptResponse) => {
+    PromptResponse.create(promptResponse)
+  })
+}
+
 function addLanguages(languages) {
   return languages.forEach((language) => {
     Language.create(language)
   })
 }
 
-
-function seed(prompts, responses, languages) {
-  return Promise.all([addPrompts(prompts), addResponses(responses), addLanguages(languages)])
+function seed(prompts, responses, promptResponses, languages) {
+  return Promise.all([
+    addLanguages(languages),
+    addPrompts(prompts),
+    addResponses(responses),
+    addPromptResponses(promptResponses),
+  ])
 }
-
-
-// scenes.forEach((scene) => {
-//   Scene.create(scene)
-// })
-
-// users.forEach((user) => {
-//   User.create(user)
-// })
 
 db.sync({force: true})
   .then(() => {
     console.log('Seeding database')
-    return seed(prompts, responses, languages)
+    return seed(prompts, responses, promptResponses, languages)
   })
   .then(() => console.log('Seeding successful'))
   .catch(err => {

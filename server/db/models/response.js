@@ -3,10 +3,10 @@ const Sequelize = require('sequelize')
 
 const Response = db.define('responses', {
   text: {
-    type: Sequelize.TEXT
-  },
-  isCorrect: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.TEXT,
+    validate: {
+      notEmpty: false
+    }
   }
 })
 

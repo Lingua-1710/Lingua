@@ -1,27 +1,23 @@
 const db = require('../db')
 const Sequelize = require('sequelize')
 
-const User = db.define('users', {
+const Quest = db.define('quests', {
   name: {
     type: Sequelize.STRING,
     validate: {
       notEmpty: false
     }
   },
-  username: {
-    type: Sequelize.STRING,
-    unique: true,
+  text: {
+    type: Sequelize.TEXT,
     validate: {
       notEmpty: false
     }
   },
-  password: {
-    type: Sequelize.STRING,
-    validate: {
-      notEmpty: false
-    }
+  prompt_responsesId: {
+    type: Sequelize.INTEGER,
+    allowNull: false
   }
 })
 
-module.exports = User
-
+module.exports = Quest
