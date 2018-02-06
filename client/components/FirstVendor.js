@@ -8,7 +8,8 @@ import {
   PromptText,
   ResponseText,
   Octo,
-  DisplayCorrect
+  DisplayCorrect,
+  Hint
 } from './index'
 import {
   getPrompt,
@@ -24,11 +25,13 @@ export class FirstVendor extends React.Component {
       lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
       vendorPosition: { x: 1, y: 1, z: -5 },
       vendorRotation: { x: 10, y: 160, z: 0 },
-      correctAdjustPosition: { x: 1, y: -.05, z: 2 },
+      correctAdjustPosition: { x: 1, y: -0.05, z: 2 },
       promptAdjustPosition: { x: -2, y: 2, z: 0 },
-      promptIndex: 0,
+      hintAdjustPosition: {x: 0, y: -0.5, z: 2},
       responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
-      vendorResponse: 'I do not understand'
+      vendorResponse: 'I do not understand',
+      incorrectCount: 0,
+      hintText: ''
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
     this.listenToUser = this.listenToUser.bind(this)
@@ -50,6 +53,10 @@ export class FirstVendor extends React.Component {
     .then((speech) => {
       let result = this.grade(speech)
       if (result) {
+        this.setState({
+          incorrectCount: 0,
+          hintText: `You said: ${result.text}`
+        })
         let nextPrompt = this.props.prompts.find((prompt) => {
           return prompt.id === result.prompt_responses.nextPromptId
         })
@@ -59,9 +66,14 @@ export class FirstVendor extends React.Component {
         } else {
           this.reward()
           this.props.setCurrentPrompt({})
+          this.setState({hintText: ''})
         }
         this.props.clearResponse()
       } else {
+        this.setState({incorrectCount: this.state.incorrectCount + 1})
+        if(this.state.incorrectCount > 1) {
+          this.setState({hintText: `The vendor said: ${this.props.currentPrompt.text}`})
+        }
         this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
         this.setState({vendorResponse: this.props.vendorResponse})
         this.converse()
@@ -135,6 +147,17 @@ export class FirstVendor extends React.Component {
                 align: 'center'
               }} />
             </Entity>
+          }
+          {
+            this.state.hintText.length &&
+            <Hint
+              hint={this.state.hintText}
+              position={{
+                x: this.state.vendorPosition.x + this.state.hintAdjustPosition.x,
+                y: this.state.vendorPosition.y + this.state.hintAdjustPosition.y,
+                z: this.state.vendorPosition.z + this.state.hintAdjustPosition.z
+              }}
+            />
           }
           <FirstVendorStoreFront />
         </Entity>

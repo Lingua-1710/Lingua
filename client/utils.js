@@ -47,8 +47,6 @@ export const recognizeSpeech = (recObj, options) => {
 }
 
 export const checkAnswer = (userInput, responses) => {
-  console.log('UI', userInput)
-  console.log('R', responses)
   for(let i=0; i<responses.length; i++) {
     if((stringSimilarity.compareTwoStrings(userInput, responses[i].translation) > 0.85)) {
       return responses[i]

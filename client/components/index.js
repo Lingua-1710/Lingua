@@ -10,6 +10,7 @@ export { default as HomeScreen } from './HomeScreen'
 export { default as Loading } from './Loading'
 export { default as EnterScene } from './EnterScene'
 export { default as DisplayScore } from './DisplayScore'
+export { default as Hint } from './Hint'
 
 // Models
 export { default as Octo } from './modelComponents/Octo'
