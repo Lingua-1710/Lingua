@@ -1,7 +1,6 @@
 const {
   db,
   Quest,
-  Character,
   PromptResponse,
   Language,
   Prompt,
@@ -17,7 +16,7 @@ const prompts = [
   {id: 4, text: 'The best apple ever!'},
   {id: 5, text: 'Here is your apple'},
   {id: 6, text: 'Here is your pear'},
-  {id: 7, text: 'Sorry, I didn\'t understand you'}
+  {id: 7, text: 'I don\'t have time for this.'}
 ]
 
 const responses = [
@@ -28,11 +27,11 @@ const responses = [
   {id: 5, text: 'Bye'},
   {id: 6, text: 'Okay I\'ll buy one.'},
   {id: 7, text: 'I don\'t believe you'},
-  {id: 8, text: 'Is it green?'},
+  {id: 8, text: 'Impossible'},
   {id: 9, text: 'Thank you'}
 ]
 
-let promptResponses = [
+const promptResponses = [
   {promptId: 1, responseId: 1, nextPromptId: 5},
   {promptId: 1, responseId: 2, nextPromptId: 2},
   {promptId: 1, responseId: 3, nextPromptId: 4},
@@ -44,7 +43,8 @@ let promptResponses = [
   {promptId: 4, responseId: 7, nextPromptId: 7},
   {promptId: 4, responseId: 8, nextPromptId: 7},
   {promptId: 5, responseId: 9, nextPromptId: 3},
-  {promptId: 6, responseId: 9, nextPromptId: 3}
+  {promptId: 6, responseId: 9, nextPromptId: 3},
+  {promptId: 7, responseId: 5, nextPromptId: null}
 ]
 
 const languages = [
@@ -79,24 +79,14 @@ function addLanguages(languages) {
   })
 }
 
-
 function seed(prompts, responses, promptResponses, languages) {
   return Promise.all([
+    addLanguages(languages),
     addPrompts(prompts),
     addResponses(responses),
     addPromptResponses(promptResponses),
-    addLanguages(languages)
   ])
 }
-
-
-// scenes.forEach((scene) => {
-//   Scene.create(scene)
-// })
-
-// users.forEach((user) => {
-//   User.create(user)
-// })
 
 db.sync({force: true})
   .then(() => {
