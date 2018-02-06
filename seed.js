@@ -87,15 +87,11 @@ function addResponses(responses) {
 }
 
 function addPromptResponses(promptResponses) {
-  return promptResponses.forEach((promptResponse) => {
-    PromptResponses.create(promptResponse)
-  })
+  return Promise.all(promptResponses.map(promptResponse => PromptResponses.create(promptResponse)))
 }
 
 function addCharacterPrompts(characterPrompts) {
-  return characterPrompts.forEach((characterPrompt) => {
-    CharacterPrompts.create(characterPrompt)
-  })
+  return Promise.all(characterPrompts.map(characterPrompt => CharacterPrompts.create(characterPrompt)))
 }
 
 function addLanguages(languages) {
@@ -115,8 +111,8 @@ function seed(prompts, responses, promptResponses, languages, characterPrompts, 
     addLanguages(languages),
     addPrompts(prompts),
     addResponses(responses),
-    addPromptResponses(promptResponses),
     addCharacters(characters),
+    addPromptResponses(promptResponses),
     addCharacterPrompts(characterPrompts)
   ])
 }
