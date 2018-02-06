@@ -16,3 +16,4 @@ export { default as PickLanguage } from './PickLanguage'
 // Models
 export { default as Octo } from './modelComponents/Octo'
 export { default as DisplayCorrect } from './modelComponents/DisplayCorrect'
+export { default as DisplayPromptResponses } from './modelComponents/DisplayPromptResponses'

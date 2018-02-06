@@ -3,19 +3,8 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import {
-  FirstVendorStoreFront,
-  PromptText,
-  ResponseText,
-  Octo,
-  DisplayCorrect,
-  Hint
-} from './index'
-import {
-  getPrompt,
-  translateResponse,
-  respond
-} from '../store'
+import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses } from './index'
+import { getPrompt, translateResponse, respond } from '../store'
 import { converse } from '../utils'
 
 export class FirstVendor extends React.Component {
@@ -36,6 +25,7 @@ export class FirstVendor extends React.Component {
     const promptAdjustPosition = { x: -2, y: 2, z: 0 }
     const hintAdjustPosition = { x: 0, y: -0.5, z: 2 }
     const responseAdjustPosition = { x: -2, y: 0.5, z: 1 }
+    const { vendorResponse, currentPrompt } = this.props
     return (
       <Entity>
         <Octo
@@ -44,7 +34,7 @@ export class FirstVendor extends React.Component {
           vendorRotation={vendorRotation}
         />
         {
-          this.props.vendorResponse.length &&
+          vendorResponse.length &&
           <DisplayCorrect
             value={this.state.vendorResponse}
             position={{
@@ -55,31 +45,13 @@ export class FirstVendor extends React.Component {
           />
         }
         {
-          this.props.currentPrompt.text &&
-          <Entity>
-            <PromptText promptProps={{
-              value: this.props.currentPrompt.translation,
-              color: 'white',
-              id: 'prompt-text',
-              width: '10',
-              position: {
-                x: vendorPosition.x + promptAdjustPosition.x,
-                y: vendorPosition.y + promptAdjustPosition.y,
-                z: vendorPosition.z + promptAdjustPosition.z
-              },
-              align: 'center'
-            }} />
-            <ResponseText responseProps={{
-              responses: this.props.currentPrompt.responses,
-              color: 'black',
-              position: {
-                x: vendorPosition.x + responseAdjustPosition.x,
-                y: vendorPosition.y + responseAdjustPosition.y,
-                z: vendorPosition.z + responseAdjustPosition.z
-              },
-              align: 'center'
-            }} />
-          </Entity>
+          currentPrompt.text &&
+          <DisplayPromptResponses
+            vendorPosition={vendorPosition}
+            promptAdjustPosition={promptAdjustPosition}
+            responseAdjustPosition={responseAdjustPosition}
+            currentPrompt={currentPrompt}
+          />
         }
         {
           this.state.hintText.length &&
