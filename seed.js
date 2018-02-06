@@ -145,11 +145,13 @@ function seed(prompts, responses, promptResponses, languages, characterPrompts, 
     addResponses(responses),
     addCharacters(characters),
     addUsers(users),
-    addQuests(quests),
-    addUserQuests(userQuests),
-    addPromptResponses(promptResponses),
-    addCharacterPrompts(characterPrompts)
+    addQuests(quests)
   ])
+    .then(() => Promise.all([
+      addUserQuests(userQuests),
+      addPromptResponses(promptResponses),
+      addCharacterPrompts(characterPrompts)
+    ]))
 }
 
 db.sync({force: true})
