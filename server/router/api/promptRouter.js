@@ -1,8 +1,17 @@
-const router = require('express').Router();
+const router = require('express').Router()
+const { Prompt } = require('../../db')
 
 router.get('/', (req, res, next) => {
-  res.status(200).send('/api/prompts is working');
-  next();
-});
+  Prompt.scope('populated').findAll()
+    .then(prompts => res.json(prompts))
+    .catch(next)
+})
 
-module.exports = router;
+router.get('/:id', (req, res, next) => {
+  Prompt.scope('populated').findById(req.params.id)
+    .then(prompt => res.json(prompt))
+    .catch(next)
+})
+
+
+module.exports = router

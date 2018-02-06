@@ -1,24 +1,60 @@
-export function setAttributes(el, attrs) {
-  for(var key in attrs) {
-    el.setAttribute(key, attrs[key])
-  }
+import stringSimilarity from 'string-similarity'
+
+
+let SpeechRecognition
+let SpeechGrammarList
+let SpeechRecognitionEvent
+try {
+  SpeechRecognition = SpeechRecognition || webkitSpeechRecognition
+  SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
+  SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent
+} catch(e) {
+  /* Testing causes an error with webkit, so this is a workaround */
+  console.log(e.message)
 }
 
-export const COLORS = ['#D92B6A', '#9564F2', '#FFCF59']
+export const speechRecObject = {
+  SpeechRecognition,
+  SpeechGrammarList,
+  SpeechRecognitionEvent
+}
 
-export const QUESTIONS = [
-  `How are you today?`,
-  `What's up?`,
-  `How's it going?`,
-  `Hi!`,
-  `Hello!`,
-  `LALALA`
-]
+export const recognizeSpeech = (recObj, options) => {
+  const recognition = new SpeechRecognition()
+  const speechRecognitionList = new SpeechGrammarList()
+  const answers = options.answers.map(ans => ans.translation).join(' | ')
+  const grammar = `#JSGF V1.0 grammar answers public <answer> = ${answers} `
+  speechRecognitionList.addFromString(grammar, 1)
+  recognition.grammars = speechRecognitionList
+  recognition.lang = options.language.learningLangCode
+  recognition.interimResults = false
+  recognition.maxAlternatives = 1
+  return new Promise((resolve, reject) => {
+    recognition.start()
+    recognition.onresult = (SpeechRecognitionEvent) => {
+      recognition.stop()
+      resolve(SpeechRecognitionEvent.results["0"]["0"].transcript)
+    }
+    recognition.onnomatch = () => {
+      recognition.stop()
+      reject(new Error('What? I did not understand'))
+    }
+    recognition.onerror = (SpeechRecognitionEvent) => {
+      recognition.stop()
+      reject(SpeechRecognitionEvent.error)
+    }
+  })
+}
 
-export const fetchRandomQuestion = (questions, prevQuestion) => {
-  let question = questions[Math.floor(Math.random(questions) * questions.length)]
-  while (question === prevQuestion) {
-    question = questions[Math.floor(Math.random(questions) * questions.length)]
+export const checkAnswer = (userInput, answers) => {
+  for(let i=0; i<answers.length; i++) {
+    if((stringSimilarity.compareTwoStrings(userInput, answers[i].translation) > 0.85)) {
+      if(answers[i].isCorrect) {
+        return {correct: true, answer: answers[i].translation, userSpeech: userInput}
+      } else {
+        return {correct: false, answer: answers[i].translation, userSpeech: userInput}
+      }
+    }
   }
-  return question
+  return {correct: false, answer: null, userSpeech: userInput}
 }
