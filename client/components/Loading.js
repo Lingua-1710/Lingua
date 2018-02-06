@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import 'aframe'
 import { connect } from 'react-redux'
 import { Entity } from 'aframe-react'
-import { fetchPrompts, translateResponse } from '../store'
+import { fetchPrompts, translateResponse, fetchQuests } from '../store'
 
 class Loading extends Component {
   constructor(props) {
@@ -49,7 +49,8 @@ const mapState = ({ gameState, currentLanguage }) => ({ gameState, currentLangua
 export const mapDispatch = (dispatch) => {
   return {
     setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
-    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang))
+    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
+    getQuests: (() => dispatch(fetchQuests()))
   }
 }
 

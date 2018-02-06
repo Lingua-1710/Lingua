@@ -20,7 +20,7 @@ export const setLanguage = language => {
 export default function(state = defaultLanguage, action) {
   switch(action.type) {
     case SET_LANGUAGE:
-      return Object.assign({}, action.language)
+      return action.language
     default:
       return state
   }
