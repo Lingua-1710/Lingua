@@ -19,10 +19,6 @@ class Main extends Component {
     return recognizeSpeech(obj, options)
   }
 
-  componentDidMount() {
-    this.props.setPrompts(this.props.currentLanguage.nativeLang, this.props.currentLanguage.learningLang)
-  }
-
   render() {
     const { gameState } = this.props
     return (
@@ -61,12 +57,6 @@ class Main extends Component {
   }
 }
 
-export const mapState = ({ gameState, currentLanguage }) => ({ gameState, currentLanguage })
+export const mapState = ({ gameState }) => ({ gameState })
 
-export const mapDispatch = (dispatch) => {
-  return {
-    setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang))
-  }
-}
-
-export default connect(mapState, mapDispatch)(Main)
+export default connect(mapState)(Main)
