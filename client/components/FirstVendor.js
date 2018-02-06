@@ -8,11 +8,13 @@ import {
   PromptText,
   ResponseText,
   Octo,
-  DisplayCorrect } from './index'
-import { fetchPrompts,
+  DisplayCorrect
+} from './index'
+import {
   getPrompt,
   translateResponse,
-  respond } from '../store'
+  respond
+} from '../store'
 import { speechRecObject } from '../utils'
 
 export class FirstVendor extends React.Component {
@@ -26,8 +28,7 @@ export class FirstVendor extends React.Component {
       promptAdjustPosition: { x: -2, y: 2, z: 0 },
       promptIndex: 0,
       responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
-      repeat: false,
-      vendorResponse: 'I don\'t understand'
+      vendorResponse: 'I do not understand'
     }
     this.handleVendorClick = this.handleVendorClick.bind(this)
     this.listenToUser = this.listenToUser.bind(this)
@@ -36,64 +37,57 @@ export class FirstVendor extends React.Component {
     this.grade = this.grade.bind(this)
   }
 
-  converse(repeating) {
-
-    // if(this.state.promptIndex < this.props.prompts.length) {
-    //   if(!repeating) {
-    //     this.setState({
-    //       promptIndex: this.state.promptIndex + 1
-    //     })
-    //   }
-    //   let prompts = this.props.prompts
-    //   if(this.state.promptIndex < this.props.prompts.length) {
-    //     this.props.setCurrentPrompt(prompts[this.state.promptIndex])
-    //   } else {
-    //     this.reward()
-    //   }
-    //   this.listenToUser()
-    //   .then((speech) => {
-    //     let result = this.grade(speech)
-    //     if (result.correct) {
-    //       this.setState({repeat: false})
-    //       this.converse(false)
-    //       this.props.clearResponse()
-    //     } else {
-    //       this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
-    //       this.setState({repeat: true, vendorResponse: this.props.vendorResponse})
-    //       this.converse(true)
-    //     }
-    //   })
-    // } else {
-    //   this.reward(true)
-    // }
+  converse() {
+    let currentPrompt = this.props.currentPrompt
+    if(!Object.keys(this.props.currentPrompt).length) {
+      let firstPrompt = this.props.prompts.find((prompt) => {
+        return prompt.id === this.props.firstPromptId
+      })
+      currentPrompt = firstPrompt
+      this.props.setCurrentPrompt(currentPrompt)
+    }
+    this.listenToUser(currentPrompt)
+    .then((speech) => {
+      let result = this.grade(speech)
+      if (result) {
+        console.log('result')
+        let nextPrompt = this.props.prompts.find((prompt) => {
+          return prompt.id === result.prompt_responses.nextPromptId
+        })
+        if(nextPrompt) {
+          this.props.setCurrentPrompt(nextPrompt)
+          this.converse()
+        } else {
+          this.reward()
+          this.props.setCurrentPrompt({})
+        }
+        this.props.clearResponse()
+      } else {
+        this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
+        this.setState({vendorResponse: this.props.vendorResponse})
+        this.converse()
+      }
+    })
   }
 
   reward(done) {
     //temporary log until we have the rest of the logic for this down
-    if(done) {
-      console.log('I don\'t want to talk to you anymore')
-    } else {
-      console.log('good job duderino, you did the thing!')
-    }
+    console.log('good job duderino, you did the thing!')
   }
 
   handleVendorClick() {
-    this.converse(true)
+    this.converse()
   }
 
-  listenToUser() {
+  listenToUser(currentPrompt) {
     return this.props.listen(speechRecObject, {
-      answers: this.props.currentPrompt.responses,
+      responses: currentPrompt.responses,
       language: this.props.language
     })
   }
 
   grade(answer) {
     return this.props.checkAnswer(answer, this.props.currentPrompt.responses)
-  }
-
-  componentDidMount() {
-    this.props.setPrompts(this.props.language.nativeLang, this.props.language.learningLang, 1)
   }
 
   render() {
@@ -163,7 +157,6 @@ export const mapState = (storeState) => {
 
 export const mapDispatch = (dispatch) => {
   return {
-    setPrompts: (learningLang, nativeLang, characterId) => dispatch(fetchPrompts(learningLang, nativeLang, characterId)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
     getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
     clearResponse: () => dispatch(respond(''))

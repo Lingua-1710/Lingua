@@ -2,7 +2,7 @@
 const defaultLanguage = {
   nativeLang: 'en',
   learningLang: 'es',
-  learningLangCode: 'en-US'
+  learningLangCode: 'es-419'
 }
 
 //ACTION TYPES

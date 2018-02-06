@@ -2,11 +2,7 @@ const router = require('express').Router()
 const { Prompt, CharacterPrompt } = require('../../db')
 
 router.get('/', (req, res, next) => {
-  let query = {where: {}}
-  if(req.query.characterId) {
-    query.where = {characterId: req.query.characterId}
-  }
-  CharacterPrompt.findAll(query)
+  CharacterPrompt.findAll()
     .then(characterPrompts => {
       return Promise.all(characterPrompts.map(characterPrompt => {
         return Prompt.scope('populated').findById(characterPrompt.promptId)

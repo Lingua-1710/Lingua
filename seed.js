@@ -35,7 +35,7 @@ const prompts = [
   {id: 4, text: 'The best apple ever!'},
   {id: 5, text: 'Here is your apple'},
   {id: 6, text: 'Here is your pear'},
-  {id: 7, text: 'Sorry, I didn\'t understand you'}
+  {id: 7, text: 'I don\'t have time for this.'}
 ]
 
 const responses = [
@@ -46,7 +46,7 @@ const responses = [
   {id: 5, text: 'Bye'},
   {id: 6, text: 'Okay I\'ll buy one.'},
   {id: 7, text: 'I don\'t believe you'},
-  {id: 8, text: 'Is it green?'},
+  {id: 8, text: 'Impossible'},
   {id: 9, text: 'Thank you'}
 ]
 
@@ -62,7 +62,8 @@ const promptResponses = [
   {promptId: 4, responseId: 7, nextPromptId: 7},
   {promptId: 4, responseId: 8, nextPromptId: 7},
   {promptId: 5, responseId: 9, nextPromptId: 3},
-  {promptId: 6, responseId: 9, nextPromptId: 3}
+  {promptId: 6, responseId: 9, nextPromptId: 3},
+  {promptId: 7, responseId: 5, nextPromptId: null}
 ]
 
 const languages = [
