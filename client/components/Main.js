@@ -7,7 +7,6 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 import { recognizeSpeech, checkAnswer } from '../utils'
 import { FirstVendor, Player, HomeScreen } from './index'
-import { fetchPrompts } from '../store'
 
 class Main extends Component {
   constructor(props) {
