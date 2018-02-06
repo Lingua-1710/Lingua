@@ -12,10 +12,12 @@ class Loading extends Component {
   componentDidMount() {
     //response when character does not hear an expected response.
     const response = 'I do not understand'
-    const nativeLang = this.props.currentLanguage.nativeLang
-    const learningLang = this.props.currentLanguage.learningLang
-    this.props.setPrompts(nativeLang, learningLang)
-    this.props.getVendorResponse(response, nativeLang, learningLang)
+    const { setPrompts, getVendorResponse, getQuests, currentLanguage } = this.props
+    const nativeLang = currentLanguage.nativeLang
+    const learningLang = currentLanguage.learningLang
+    setPrompts(nativeLang, learningLang)
+    getVendorResponse(response, nativeLang, learningLang)
+    getQuests()
   }
 
   render() {
