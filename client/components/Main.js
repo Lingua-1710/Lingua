@@ -48,7 +48,7 @@ class Main extends Component {
           <FirstVendor
             listen={this.listen}
             checkAnswer={checkAnswer}
-            firstPromptId={1}
+            firstPromptId={8}
           />
         </Entity> : null }
       </Scene>

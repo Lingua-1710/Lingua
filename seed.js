@@ -15,17 +15,31 @@ const characters = [
   {
     name: 'Octo',
     startingPromptId: 1
+  },
+  {
+    name: 'Gypsy',
+    startingPromptId: 8
   }
 ]
 
 const characterPrompts = [
-  {characterId: 1, promptId: 1},
   {characterId: 1, promptId: 2},
   {characterId: 1, promptId: 3},
   {characterId: 1, promptId: 4},
   {characterId: 1, promptId: 5},
   {characterId: 1, promptId: 6},
-  {characterId: 1, promptId: 7}
+  {characterId: 1, promptId: 7},
+  {characterId: 2, promptId: 3},
+  {characterId: 2, promptId: 7},
+  {characterId: 2, promptId: 8},
+  {characterId: 2, promptId: 9},
+  {characterId: 2, promptId: 10},
+  {characterId: 2, promptId: 11},
+  {characterId: 2, promptId: 12},
+  {characterId: 2, promptId: 13},
+  {characterId: 2, promptId: 14},
+  {characterId: 2, promptId: 15},
+  {characterId: 2, promptId: 16}
 ]
 
 const prompts = [
@@ -35,7 +49,16 @@ const prompts = [
   {id: 4, text: 'The best apple ever!'},
   {id: 5, text: 'Here is your apple'},
   {id: 6, text: 'Here is your pear'},
-  {id: 7, text: 'I don\'t have time for this.'}
+  {id: 7, text: 'I don\'t have time for this.'},
+  {id: 8, text: 'Do you like cats?'},
+  {id: 9, text: 'Fantastic, I have a cat to sell!'},
+  {id: 10, text: 'Do you want a fish?'},
+  {id: 11, text: 'Very, very cute'},
+  {id: 12, text: 'Here is your cat'},
+  {id: 13, text: 'Fantastic, I have a fish to sell!'},
+  {id: 14, text: 'Sometimes'},
+  {id: 15, text: 'You don\'t deserve it'},
+  {id: 16, text: 'Here is your fish'}
 ]
 
 const responses = [
@@ -47,7 +70,16 @@ const responses = [
   {id: 6, text: 'Okay I\'ll buy one.'},
   {id: 7, text: 'I don\'t believe you'},
   {id: 8, text: 'Impossible'},
-  {id: 9, text: 'Thank you'}
+  {id: 9, text: 'Thank you'},
+  {id: 10, text: 'I love cats'},
+  {id: 11, text: 'I do not like cats'},
+  {id: 12, text: 'How cute is the cat?'},
+  {id: 13, text: 'Perfect, I\'ll buy it'},
+  {id: 14, text: 'I love fish'},
+  {id: 15, text: 'I don\'t like fish'},
+  {id: 16, text: 'Is the fish large?'},
+  {id: 17, text: 'I can get my own'},
+  {id: 18, text: 'I want a better fish'}
 ]
 
 const promptResponses = [
@@ -63,7 +95,22 @@ const promptResponses = [
   {promptId: 4, responseId: 8, nextPromptId: 7},
   {promptId: 5, responseId: 9, nextPromptId: 3},
   {promptId: 6, responseId: 9, nextPromptId: 3},
-  {promptId: 7, responseId: 5, nextPromptId: null}
+  {promptId: 7, responseId: 5, nextPromptId: null},
+  {promptId: 8, responseId: 10, nextPromptId: 9},
+  {promptId: 8, responseId: 11, nextPromptId: 10},
+  {promptId: 9, responseId: 12, nextPromptId: 11},
+  {promptId: 9, responseId: 13, nextPromptId: 12},
+  {promptId: 11, responseId: 7, nextPromptId: 15},
+  {promptId: 11, responseId: 13, nextPromptId: 12},
+  {promptId: 10, responseId: 14, nextPromptId: 13},
+  {promptId: 10, responseId: 15, nextPromptId: 7},
+  {promptId: 13, responseId: 16, nextPromptId: 14},
+  {promptId: 13, responseId: 17, nextPromptId: 7},
+  {promptId: 14, responseId: 13, nextPromptId: 16},
+  {promptId: 14, responseId: 18, nextPromptId: 7},
+  {promptId: 16, responseId: 9, nextPromptId: 3},
+  {promptId: 12, responseId: 9, nextPromptId: 3},
+  {promptId: 15, responseId: 5, nextPromptId: 3}
 ]
 
 const languages = [
@@ -73,15 +120,11 @@ const languages = [
 ]
 
 function addPrompts(prompts) {
-  return prompts.forEach((prompt) => {
-    Prompt.create(prompt)
-  })
+  return Promise.all(prompts.map(prompt => Prompt.create(prompt)))
 }
 
 function addResponses(responses) {
-  return responses.forEach((response) => {
-    Response.create(response)
-  })
+  return Promise.all(responses.map(response => Response.create(response)))
 }
 
 function addPromptResponses(promptResponses) {
@@ -99,9 +142,7 @@ function addLanguages(languages) {
 }
 
 function addCharacters(characters) {
-  return characters.forEach((character) => {
-    Character.create(character)
-  })
+  return Promise.all(characters.map(character => Character.create(character)))
 }
 
 function seed(prompts, responses, promptResponses, languages, characterPrompts, characters) {
