@@ -21,7 +21,7 @@ describe('prompts reducer', () => {
     expect(
       prompts([{text: 'how are you'}], getPrompts([{text: 'hi'}]))
     ).toEqual(
-      [{text: 'how are you'}, {text: 'hi'}]
+      [{text: 'hi'}]
     )
   })
 })

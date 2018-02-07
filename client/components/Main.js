@@ -5,7 +5,7 @@ import 'aframe'
 import { Scene, Entity} from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
-import { recognizeSpeech, checkAnswer } from '../utils'
+import { recognizeSpeech, checkAnswer, getCharacterPrompts } from '../utils'
 import { FirstVendor, Player, HomeScreen } from './index'
 
 class Main extends Component {
@@ -19,7 +19,11 @@ class Main extends Component {
   }
 
   render() {
-    const { gameState } = this.props
+    const { prompts, gameState, characters } = this.props
+    let characterPrompts = {}
+    if (characters.length && prompts.length) {
+      characters.map(character => characterPrompts[character.id] = getCharacterPrompts(prompts, character.id))
+    }
     return (
       <Scene
         id="scene"
@@ -49,6 +53,8 @@ class Main extends Component {
             listen={this.listen}
             checkAnswer={checkAnswer}
             firstPromptId={8}
+            characterId={2}
+            prompts={characterPrompts[2]}
           />
         </Entity> : null }
       </Scene>
@@ -56,6 +62,6 @@ class Main extends Component {
   }
 }
 
-export const mapState = ({ gameState }) => ({ gameState })
+export const mapState = ({ gameState, characters, prompts }) => ({ gameState, characters, prompts })
 
 export default connect(mapState)(Main)

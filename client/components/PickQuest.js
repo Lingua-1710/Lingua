@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import { Entity } from 'aframe-react'
 import { connect } from 'react-redux'
-import { getGameState, setLanguage, fetchLanguages } from '../store'
+import { fetchQuests, setQuest, getGameState } from '../store'
 
-export class PickLanguage extends Component {
+export class PickQuest extends Component {
   constructor(props) {
     super(props)
   }
+
   componentDidMount() {
-    this.props.grabLanguages()
+    this.props.getQuests()
   }
+
   render() {
     return (
       <Entity
@@ -23,22 +25,22 @@ export class PickLanguage extends Component {
         opacity="0"
       >
         <Entity
-          id="pick-language-text"
+          id="pick-quest-text"
           primitive="a-text"
           font="exo2bold"
-          value="PICK A LANGUAGE"
+          value="PICK A QUEST"
           height="12"
           color="white"
           align="center"
           position="0 .5 0"
         />
         {
-          this.props.languages &&
-          this.props.languages.map((language, index) => {
+          this.props.quests &&
+          this.props.quests.map((quest, index) => {
             return (
               <Entity
-                key={language.id}
-                id="pick-language-plane"
+                key={quest.id}
+                id="pick-quest-plane"
                 primitive="a-plane"
                 height=".5"
                 width="2"
@@ -48,18 +50,14 @@ export class PickLanguage extends Component {
                 opacity="0"
                 class="clickable"
                 events={{
-                  click: () => this.props.chooseLanguage({
-                    nativeLang: 'en',
-                    learningLang: language.google,
-                    learningLangCode: language.code
-                  })
+                  click: () => this.props.chooseQuest(quest)
                 }}
               >
               <Entity
-                id="pick-language-text"
+                id="pick-quest-text"
                 primitive="a-text"
                 font="exo2bold"
-                value={language.name}
+                value={quest.name}
                 height="12"
                 color="white"
                 align="center"
@@ -79,14 +77,14 @@ export class PickLanguage extends Component {
           color="blue"
           class="clickable"
           events={{
-            click: () => this.props.setGameState('quest')
+            click: () => this.props.setGameState('loading')
           }}
         >
         <Entity
           id="ready-button"
           primitive="a-text"
           font="exo2bold"
-          value="SELECT"
+          value="START"
           height="12"
           color="white"
           align="center"
@@ -98,24 +96,14 @@ export class PickLanguage extends Component {
   }
 }
 
+const mapStateToProps = ({ quests }) => ({ quests })
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    setGameState(gameState) {
-      dispatch(getGameState(gameState))
-    },
-    grabLanguages() {
-      dispatch(fetchLanguages())
-    },
-    chooseLanguage(language) {
-      dispatch(setLanguage(language))
-    }
+    getQuests: (() => dispatch(fetchQuests())),
+    chooseQuest: (quest => dispatch(setQuest(quest))),
+    setGameState: (gameState => dispatch(getGameState(gameState)))
   }
 }
 
-const mapStateToProps = (storeState) => {
-  return {
-    languages: storeState.languages
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PickLanguage)
+export default connect(mapStateToProps, mapDispatchToProps)(PickQuest)

@@ -26,9 +26,7 @@ export const fetchLanguages = () => {
 export default function(state = [], action) {
   switch(action.type) {
     case GET_LANGUAGES:
-      let newState = state
-      newState = newState.concat(action.languages)
-      return newState
+      return action.languages
     default:
       return state
   }

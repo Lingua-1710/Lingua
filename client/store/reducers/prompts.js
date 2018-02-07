@@ -45,11 +45,9 @@ export const translateResponses = (responses, fromLang, toLang) => {
 }
 
 export default function(state = [], action) {
-  let newState = state
   switch(action.type) {
     case GET_PROMPTS:
-      newState = newState.concat(action.prompts)
-      return newState
+      return action.prompts
     default:
       return state
   }

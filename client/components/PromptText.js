@@ -6,12 +6,12 @@ const PromptText = (props) => {
 
     <Entity
       primitive='a-text'
-      value={props.promptProps.value}
-      color={props.promptProps.color}
-      id={props.promptProps.id}
-      position={props.promptProps.position}
-      width={props.promptProps.width}
-      align={props.promptProps.align}
+      value={props.value}
+      color={props.color}
+      id={props.id}
+      position={props.position}
+      width={props.width}
+      align={props.align}
       />
   )
 }
