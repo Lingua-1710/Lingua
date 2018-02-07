@@ -4,7 +4,7 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses } from './index'
-import { getPrompt } from '../store'
+import { getPrompt, getCharacter } from '../store'
 import { converse } from '../utils'
 
 export class FirstVendor extends React.Component {
@@ -13,9 +13,16 @@ export class FirstVendor extends React.Component {
     this.state = {
       vendorResponse: '',
       incorrectCount: 0,
-      hintText: ''
+      hintText: '',
+      prompts: []
     }
     this.converse = converse.bind(this)
+  }
+
+  handleVendorClick() {
+    const { characterId } = this.props
+    this.props.setCurrentCharacter(characterId)
+    this.converse()
   }
 
   render() {
@@ -76,13 +83,15 @@ export const mapState = (storeState) => {
     currentPrompt: storeState.currentPrompt,
     vendorResponse: storeState.vendorResponse,
     language: storeState.currentLanguage,
-    currentQuest: storeState.currentQuest
+    currentQuest: storeState.currentQuest,
+    currentCharacter: storeState.currentCharacter
   }
 }
 
 export const mapDispatch = (dispatch) => {
   return {
-    setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt))
+    setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
+    setCurrentCharacter: (character) => dispatch(getCharacter(character)),
   }
 }
 

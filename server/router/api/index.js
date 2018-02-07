@@ -7,6 +7,7 @@ const promptRouter = require('./promptRouter')
 const translationRouter = require('./translationRouter')
 const responseRouter = require('./responseRouter')
 const questRouter = require('./questRouter')
+const characterRouter = require('./characterRouter')
 
 router.use('/languages', languageRouter)
 router.use('/users', userRouter)
@@ -15,6 +16,7 @@ router.use('/scenes', sceneRouter)
 router.use('/prompts', promptRouter)
 router.use('/translation', translationRouter)
 router.use('/responses', responseRouter)
-
+router.use('/characters', characterRouter)
 router.use('/quests', questRouter)
+
 module.exports = router

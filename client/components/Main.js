@@ -5,8 +5,9 @@ import 'aframe'
 import { Scene, Entity} from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
-import { recognizeSpeech, checkAnswer } from '../utils'
+import { recognizeSpeech, checkAnswer, getCharacterPrompts } from '../utils'
 import { FirstVendor, Player, HomeScreen } from './index'
+import { fetchPrompts, translateResponse, fetchCharacters } from '../store'
 
 class Main extends Component {
   constructor(props) {
@@ -14,12 +15,30 @@ class Main extends Component {
     this.listen = this.listen.bind(this)
   }
 
+  componentDidMount() {
+    //response when character does not hear an expected response.
+    const response = 'I do not understand'
+    const { getVendorResponse, currentLanguage, getCharacters } = this.props
+    const nativeLang = currentLanguage.nativeLang
+    const learningLang = currentLanguage.learningLang
+    getVendorResponse(response, nativeLang, learningLang)
+    getCharacters()
+  }
+
   listen(obj, options){
     return recognizeSpeech(obj, options)
   }
 
   render() {
-    const { gameState } = this.props
+    const { setPrompts, gameState, currentLanguage, characters } = this.props
+    const nativeLang = currentLanguage.nativeLang
+    const learningLang = currentLanguage.learningLang
+    let characterPrompts = {}
+    if (characters.length) {
+      characters.forEach(character => {
+        characterPrompts[character.id] = setPrompts(nativeLang, learningLang, character.id)
+      })
+    }
     return (
       <Scene
         id="scene"
@@ -49,6 +68,8 @@ class Main extends Component {
             listen={this.listen}
             checkAnswer={checkAnswer}
             firstPromptId={1}
+            characterId={1}
+            // prompts={setPrompts(nativeLang, learningLang, 1)}
           />
         </Entity> : null }
       </Scene>
@@ -56,6 +77,14 @@ class Main extends Component {
   }
 }
 
-export const mapState = ({ gameState }) => ({ gameState })
+export const mapState = ({ gameState, prompts, currentLanguage, characters }) => ({ gameState, prompts, currentLanguage, characters })
 
-export default connect(mapState)(Main)
+export const mapDispatch = (dispatch) => {
+  return {
+    setPrompts: (learningLang, nativeLang, characterId) => dispatch(fetchPrompts(learningLang, nativeLang, characterId)),
+    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
+    getCharacters: () => dispatch(fetchCharacters())
+  }
+}
+
+export default connect(mapState, mapDispatch)(Main)
