@@ -33,8 +33,10 @@ const characters = [
 ]
 
 const quests = [
-  {id: 1, name: `Buy an apple`, text: `Buy an apple`, promptResponsesId: 11},
-  {id: 2, name: `Buy a pear`, text: `Buy a pear`, promptResponsesId: 12}
+  {id: 1, name: 'Buy an apple', text: 'Buy an apple', promptResponsesId: 11},
+  {id: 2, name: 'Buy cheese', text: 'Buy cheese', promptResponsesId: 12},
+  {id: 3, name: 'Buy a cat', text: 'Buy a cat', promptResponsesId: 27},
+  {id: 4, name: 'Buy a fish', text: 'Buy a fish', promptResponsesId: 26}
 ]
 
 let userQuests = []
@@ -46,11 +48,11 @@ users.forEach(user => {
 
 const characterOnePrompts = [
   {id: 1, text: `Do you want an apple?`},
-  {id: 2, text: `Do you want a pear?`},
+  {id: 2, text: `Do you want a cheese?`},
   {id: 3, text: `Bye.`},
   {id: 4, text: `The best apple ever.`},
   {id: 5, text: `Here is your apple`},
-  {id: 6, text: `Here is your pear`},
+  {id: 6, text: `Here is your cheese`},
   {id: 7, text: `I don't have time for this.`}
 ]
 
@@ -110,12 +112,12 @@ const characterOneResponses = [
   {id: 1, text: `Yes`},
   {id: 2, text: `No`},
   {id: 3, text: `What kind of apple?`},
-  {id: 4, text: `What kind of pear?`},
+  {id: 4, text: `What kind of cheese?`},
   {id: 5, text: `Bye`},
   {id: 6, text: `Okay I'll buy one.`},
   {id: 7, text: `I don't believe you`},
   {id: 8, text: `Impossible`},
-  {id: 9, text: `Thank you`}
+  {id: 9, text: `Thanks`}
 ]
 
 const characterTwoResponses = [
@@ -131,7 +133,7 @@ const characterTwoResponses = [
 ]
 
 const characterThreeResponses = [
-  {id: 19, text: `I'm fine, thank you very much. How are you?`},
+  {id: 19, text: `I'm fine, thanks very much. How are you?`},
   {id: 20, text: `I'm doing great, the weather is so nice today`},
   {id: 21, text: `Not so well, every day is a long day`},
   {id: 22, text: `I really really want a doughnut`},
@@ -147,13 +149,13 @@ const characterThreeResponses = [
   {id: 32, text: `Thanks. That's just what I needed`},
   {id: 33, text: `Wow you're too kind. I'm feeling better already.`},
   {id: 34, text: `Where did the macaron come from?`},
-  {id: 35, text: `Here you go. Thank you very much.`},
+  {id: 35, text: `Here you go. Thanks very much.`},
   {id: 36, text: `Ah I forgot my wallet. I'm so sorry.`},
   {id: 37, text: `Actually could I also have a small cup of coffee please?`},
   {id: 38, text: `I don't want to hear it`},
   {id: 39, text: `A secret????`},
   {id: 40, text: `Yes tell me right now`},
-  {id: 41, text: `I'm so sorry. Thank you so much.`}
+  {id: 41, text: `I'm so sorry. Thanks so much.`}
 ]
 
 const responses = [
