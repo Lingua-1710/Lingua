@@ -31,7 +31,7 @@ const characters = [
 ]
 
 const quests = [
-  {id: 1, name: 'Buy an apple', text: 'Buy an apple', promptResponsesId: 11},
+  {id: 1, name: 'Buy an apple', text: 'Buy an apple', promptResponsesId: 1},
   {id: 2, name: 'Buy cheese', text: 'Buy cheese', promptResponsesId: 12},
   {id: 3, name: 'Buy a cat', text: 'Buy a cat', promptResponsesId: 27},
   {id: 4, name: 'Buy a fish', text: 'Buy a fish', promptResponsesId: 26}
@@ -106,7 +106,7 @@ const responses = [
 ]
 
 const promptResponses = [
-  {id: 1, promptId: 1, responseId: 1, nextPromptId: 5},
+  {id: 1, promptId: 1, responseId: 1, nextPromptId: null},
   {id: 2, promptId: 1, responseId: 2, nextPromptId: 2},
   {id: 3, promptId: 1, responseId: 3, nextPromptId: 4},
   {id: 4, promptId: 2, responseId: 1, nextPromptId: 6},

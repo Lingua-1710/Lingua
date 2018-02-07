@@ -4,26 +4,25 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import { getGameState } from '../store'
 
-const FirstVendorStoreFront = (props) => {
+const ThirdVendorStoreFront = () => {
   return (
     <Entity>
       <Entity>
         <a-asset-item
-          id="storefront-obj"
-          src="models/storefront/storefront.obj" />
+          id="thirdstorefront-obj"
+          src="models/donut/bakery/bakery.obj" />
         <a-asset-item
           id="storefront-mtl"
-          src="models/storefront/storefrontmaterials.mtl" />
+          src="models/donut/bakery/bakery.mtl" />
       </Entity>
       {/* Sets the state to 'game'. Used on this store-front cause it takes the longest to load. */}
       <Entity
         primitive="a-obj-model"
-        events={{"model-loaded": () => props.setGameState('game')}}
-        id="storefront"
-        src="#storefront-obj"
-        mtl="#storefront-mtl"
-        position="12 1 -11.5"
-        rotation="0 160 1" />
+        id="thirdstorefront"
+        src="#thirdstorefront-obj"
+        mtl="#thirdstorefront-mtl"
+        position="-30 .9 3"
+        rotation="0 210 1" />
     </Entity>
   )
 }
@@ -36,4 +35,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(FirstVendorStoreFront)
+export default connect(null, mapDispatchToProps)(ThirdVendorStoreFront)

@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses, Apple, GrilledCheese } from './index'
+import { SecondVendorStoreFront, Woman, DisplayCorrect, Hint, DisplayPromptResponses, Fish, Cat } from './index'
 import { getPrompt, setCharacter } from '../store'
 import { converse } from '../utils'
 
-export class FirstVendor extends React.Component {
+export class SecondVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,18 +21,16 @@ export class FirstVendor extends React.Component {
   }
 
   render() {
-    const vendorPosition = { x: 5, y: 1, z: -7.5 }
+    const vendorPosition = { x: 10, y: 1, z: -7.5 }
     const vendorRotation = { x: 10, y: 190, z: 0 }
     const correctAdjustPosition = { x: 1, y: -0.05, z: 2 }
     const promptAdjustPosition = { x: -2, y: 2, z: 0 }
     const hintAdjustPosition = { x: 0, y: -0.5, z: 2 }
     const responseAdjustPosition = { x: -2, y: 0.5, z: 1 }
     const { vendorResponse, currentPrompt } = this.props
-    console.log('the state', this.state)
-    console.log('questreward', this.state.questReward)
     return (
       <Entity>
-        <Octo
+        <Woman
           vendorPosition={vendorPosition}
           handleVendorClick={this.converse}
           vendorRotation={vendorRotation}
@@ -68,12 +66,12 @@ export class FirstVendor extends React.Component {
             }}
           />
         }
-        {this.state.questReward === 'apple' ?
-          <Apple /> :
-          this.state.questReward === 'cheese' ?
-            <GrilledCheese /> : null
+        {this.state.questReward === 'cat' ?
+          <Cat /> :
+          this.state.questReward === 'fish' ?
+          <Fish /> :  null
         }
-        <FirstVendorStoreFront />
+        {/* <SecondVendorStoreFront /> */}
       </Entity>
     )
   }
@@ -96,4 +94,4 @@ export const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(FirstVendor)
+export default connect(mapState, mapDispatch)(SecondVendor)
