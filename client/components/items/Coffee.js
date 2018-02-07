@@ -11,10 +11,10 @@ const Coffee = () => {
       <Entity>
         <a-asset-item
           id="coffee-obj"
-          src="models/items/Coffee/model.obj" />
+          src="models/items/coffee/model.obj" />
         <a-asset-item
           id="coffee-mtl"
-          src="models/items/Coffee/materials.mtl" />
+          src="models/items/coffee/materials.mtl" />
       </Entity>
       <a-obj-model
         id="coffee"
