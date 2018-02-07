@@ -5,14 +5,12 @@ export const converse = function() {
   this.grade = grade.bind(this)
   let currentPrompt = this.props.currentPrompt
   const characterId = this.props.characterId
-  console.log(this.props)
   // check if the character was clicked for the first time OR new vendor is clicked
   if(!Object.keys(currentPrompt).length || this.props.currentCharacter !== characterId) {
     let firstPrompt = this.props.prompts.find((prompt) => {
       return prompt.id === this.props.firstPromptId
     })
     currentPrompt = firstPrompt
-    console.log('setCurrentPrompt')
     this.props.setCurrentPrompt(currentPrompt)
     if (this.props.currentCharacter !== characterId) this.props.setCurrentCharacter(characterId)
   }
@@ -28,7 +26,6 @@ export const converse = function() {
         hintText: `You said: ${result.text}`
       })
       const promptResponses = result.prompt_responses
-      console.log('promptResponses', promptResponses)
       checkQuest(promptResponses.id, this.props.currentQuest)
       let nextPrompt = this.props.prompts.find((prompt) => {
         return prompt.id === promptResponses.nextPromptId
