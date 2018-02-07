@@ -28,7 +28,9 @@ export class SecondVendor extends React.Component {
     const hintAdjustPosition = { x: 0, y: -0.5, z: 2 }
     const responseAdjustPosition = { x: -2, y: 0.5, z: 1 }
     const { vendorResponse, currentPrompt } = this.props
-    const displayPromptResponses = currentPrompt.text && this.props.currentCharacter === this.props.characterId
+    const matchCharacter = this.props.currentCharacter === this.props.characterId
+    const displayHint = this.state.hintText && matchCharacter
+    const displayPromptResponses = currentPrompt.text && matchCharacter
     return (
       <Entity>
         <Woman
@@ -57,7 +59,7 @@ export class SecondVendor extends React.Component {
           />
         }
         {
-          this.state.hintText.length &&
+          displayHint &&
           <Hint
             hint={this.state.hintText}
             position={{
