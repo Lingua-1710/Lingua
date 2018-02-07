@@ -27,7 +27,7 @@ const Fish = () => {
         primitive="a-text"
         value="You Got the Fish!"
         opacity="2"
-        position="5 1.3 -4"
+        position="10 1.3 -4"
       />
       <Entity
         primitive="a-light"

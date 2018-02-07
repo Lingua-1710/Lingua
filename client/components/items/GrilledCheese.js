@@ -20,7 +20,7 @@ const GrilledCheese = () => {
         id="cheese"
         src="#cheese-obj"
         mtl="#cheese-mtl"
-        position="0 2 0"
+        position="5 1.5 -3"
         rotation="0 0 0"
       />
       <Entity

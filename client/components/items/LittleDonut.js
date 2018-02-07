@@ -20,14 +20,14 @@ const LittleDonut = () => {
         id="little-donut"
         src="#little-donut-obj"
         mtl="#little-donut-mtl"
-        position="0 1.5 0"
+        position="-20 2 3.5"
         rotation="0 0 0"
       />
       <Entity
         primitive="a-text"
         value="You Got the Little Donut!"
         opacity="2"
-        position="5 1.3 -4"
+        position="-20 1.3 -4"
       />
       <Entity
         primitive="a-light"

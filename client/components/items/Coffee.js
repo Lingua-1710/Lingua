@@ -20,14 +20,14 @@ const Coffee = () => {
         id="coffee"
         src="#coffee-obj"
         mtl="#coffee-mtl"
-        position="0 2 0"
+        position="-20 2 3.5"
         rotation="0 0 0"
       />
       <Entity
         primitive="a-text"
         value="You Got the Coffee!"
         opacity="2"
-        position="5 1.3 -4"
+        position="-20 1.3 -4"
       />
       <Entity
         primitive="a-light"
