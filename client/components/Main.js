@@ -7,23 +7,11 @@ import 'babel-polyfill'
 import 'aframe-environment-component'
 import { recognizeSpeech, checkAnswer, getCharacterPrompts } from '../utils'
 import { FirstVendor, Player, HomeScreen } from './index'
-import { fetchPrompts, translateResponse, fetchCharacters } from '../store'
 
 class Main extends Component {
   constructor(props) {
     super(props)
     this.listen = this.listen.bind(this)
-  }
-
-  componentDidMount() {
-    //response when character does not hear an expected response.
-    const response = 'I do not understand'
-    const { setPrompts, getVendorResponse, currentLanguage, getCharacters } = this.props
-    const nativeLang = currentLanguage.nativeLang
-    const learningLang = currentLanguage.learningLang
-    getVendorResponse(response, nativeLang, learningLang)
-    getCharacters()
-    setPrompts(nativeLang, learningLang)
   }
 
   listen(obj, options){
@@ -74,14 +62,6 @@ class Main extends Component {
   }
 }
 
-export const mapState = ({ gameState, prompts, currentLanguage, characters }) => ({ gameState, prompts, currentLanguage, characters })
+export const mapState = ({ gameState, characters, prompts }) => ({ gameState, characters, prompts })
 
-export const mapDispatch = (dispatch) => {
-  return {
-    setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
-    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
-    getCharacters: () => dispatch(fetchCharacters())
-  }
-}
-
-export default connect(mapState, mapDispatch)(Main)
+export default connect(mapState)(Main)

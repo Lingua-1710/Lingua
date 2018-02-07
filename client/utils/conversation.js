@@ -4,13 +4,17 @@ export const converse = function() {
   this.listenToUser = listenToUser.bind(this)
   this.grade = grade.bind(this)
   let currentPrompt = this.props.currentPrompt
-  // check if the character was clicked for the first time.
-  if(!Object.keys(currentPrompt).length) {
+  const characterId = this.props.characterId
+  console.log(this.props)
+  // check if the character was clicked for the first time OR new vendor is clicked
+  if(!Object.keys(currentPrompt).length || this.props.currentCharacter !== characterId) {
     let firstPrompt = this.props.prompts.find((prompt) => {
       return prompt.id === this.props.firstPromptId
     })
     currentPrompt = firstPrompt
+    console.log('setCurrentPrompt')
     this.props.setCurrentPrompt(currentPrompt)
+    if (this.props.currentCharacter !== characterId) this.props.setCurrentCharacter(characterId)
   }
   //listen for user input
   this.listenToUser(currentPrompt)
@@ -24,12 +28,14 @@ export const converse = function() {
         hintText: `You said: ${result.text}`
       })
       const promptResponses = result.prompt_responses
+      console.log('promptResponses', promptResponses)
       checkQuest(promptResponses.id, this.props.currentQuest)
       let nextPrompt = this.props.prompts.find((prompt) => {
         return prompt.id === promptResponses.nextPromptId
       })
       //start conversation with the nextPrompt
       if(nextPrompt) {
+        console.log('nextPrompt', nextPrompt)
         this.props.setCurrentPrompt(nextPrompt)
         this.converse()
       //if the nextPrompt is null, then the conversation is over.

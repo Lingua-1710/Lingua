@@ -11,6 +11,7 @@ import languages from './reducers/languages'
 import quests from './reducers/quests'
 import currentQuest from './reducers/currentQuest'
 import characters from './reducers/characters'
+import currentCharacter from './reducers/currentCharacter'
 
 const reducer = combineReducers({
   prompts,
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   currentLanguage,
   quests,
   currentQuest,
-  characters
+  characters,
+  currentCharacter
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -40,4 +42,4 @@ export * from './reducers/currentLanguage'
 export * from './reducers/quests'
 export * from './reducers/currentQuest'
 export * from './reducers/characters'
-
+export * from './reducers/currentCharacter'

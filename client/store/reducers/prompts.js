@@ -44,7 +44,7 @@ export const translateResponses = (responses, fromLang, toLang) => {
   }))
 }
 
-export default function(state = {}, action) {
+export default function(state = [], action) {
   switch(action.type) {
     case GET_PROMPTS:
       return action.prompts
