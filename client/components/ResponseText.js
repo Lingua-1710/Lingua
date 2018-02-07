@@ -3,6 +3,7 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 import 'aframe-environment-component'
+import { deAccent } from '../utils/accentRemover'
 
 const ResponseText = (props) => {
   let yAdjust = 0
@@ -17,7 +18,7 @@ const ResponseText = (props) => {
             <Entity
               key={response.id}
               primitive='a-text'
-              value={response.translation}
+              value={deAccent(response.translation)}
               color={props.color}
               opacity="3"
               id={response.id}
