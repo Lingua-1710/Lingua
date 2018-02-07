@@ -251,11 +251,15 @@ const characterThreePromptResponses = [
   {promptId: 35, responseId: 40, nextPromptId: null}
 ]
 
-const promptResponses = [
+let promptResponses = [
   ...characterOnePromptResponses,
   ...characterTwoPromptResponses,
   ...characterThreePromptResponses
 ]
+
+promptResponses = promptResponses.map((promptResponse, id) => {
+  return {id: id+1, ...promptResponse}
+})
 
 const languages = [
   {name: `Spanish`, code: `es-419`, google: `es`},
