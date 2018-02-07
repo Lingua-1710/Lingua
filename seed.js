@@ -48,22 +48,22 @@ const characterOnePrompts = [
   {id: 1, text: `Do you want an apple?`},
   {id: 2, text: `Do you want a pear?`},
   {id: 3, text: `Bye.`},
-  {id: 4, text: `The best apple ever.`},
-  {id: 5, text: `Here is your apple`},
-  {id: 6, text: `Here is your pear`},
+  {id: 4, text: `The best apple ever!`},
+  {id: 5, text: `Here is your apple!`},
+  {id: 6, text: `Here is your pear!`},
   {id: 7, text: `I don't have time for this.`}
 ]
 
 const characterTwoPrompts = [
   {id: 8, text: `Do you like cats?`},
-  {id: 9, text: `Fantastic, I have a cat to sell.`},
+  {id: 9, text: `Fantastic, I have a cat to sell!`},
   {id: 10, text: `Do you want a fish?`},
   {id: 11, text: `Very, very cute`},
-  {id: 12, text: `Here is your cat`},
-  {id: 13, text: `Fantastic, I have a fish to sell.`},
+  {id: 12, text: `Here is your cat!`},
+  {id: 13, text: `Fantastic, I have a fish to sell!`},
   {id: 14, text: `Sometimes`},
-  {id: 15, text: `You don't deserve it`},
-  {id: 16, text: `Here is your fish`}
+  {id: 15, text: `You don't deserve it!`},
+  {id: 16, text: `Here is your fish!`}
 ]
 
 const characterThreePrompts = [
@@ -74,14 +74,14 @@ const characterThreePrompts = [
   {id: 21, text: `Really? What kind of doughnut do you want?`},
   {id: 22, text: `Of course the chocolate glazed and blueberry doughnuts are the best`},
   {id: 23, text: `Ah yes we have jelly doughnuts, strawberry jelly doughnuts, glazed, chocolate glazed, blueberry, double chocolate, cinnamon...`},
-  {id: 24, text: `Wow that's deep. Here are two doughnuts and a macaron, free of charge`},
-  {id: 25, text: `That's what I like to hear. What kind of doughnut do you want?`},
+  {id: 24, text: `Wow that's deep! Here are two doughnuts and a macaron, free of charge`},
+  {id: 25, text: `That's what I like to hear! What kind of doughnut do you want?`},
   {id: 26, text: `Sure, one jelly doughnut and one blueberry doughnut. That will be two dollars and fifty cents please.`},
   {id: 27, text: `Here is your chocolate glazed doughnut. That will be one dollar and twenty five cents please.`},
   {id: 28, text: `Here is your blueberry doughnut. That will be one dollar and twenty five cents please.`},
   {id: 29, text: `One chocolate glazed and one blueberry doughnut. That will be two dollars and fifty cents please.`},
   {id: 30, text: `Okay, here are your doughnuts. That will be ten dollars please.`},
-  {id: 31, text: `Hope you have a fantastic day. Bye.`},
+  {id: 31, text: `Hope you have a fantastic day! Bye.`},
   {id: 32, text: `Let me tell you a secret`},
   {id: 33, text: `It's okay, have a macaron too`},
   {id: 34, text: `Yes, one small cup of coffee. That will be an additional one dollar and fifty cents`},
