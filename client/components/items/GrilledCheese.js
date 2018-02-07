@@ -24,6 +24,12 @@ const GrilledCheese = () => {
         rotation="0 0 0"
       />
       <Entity
+        primitive="a-text"
+        value="You Got the Cheese!"
+        opacity="2"
+        position="5 1.3 -4"
+      />
+      <Entity
         primitive="a-light"
         type="directional"
         color="#FFF"
