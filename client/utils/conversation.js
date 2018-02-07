@@ -32,7 +32,6 @@ export const converse = function() {
       })
       //start conversation with the nextPrompt
       if(nextPrompt) {
-        console.log('nextPrompt', nextPrompt)
         this.props.setCurrentPrompt(nextPrompt)
         this.converse()
       //if the nextPrompt is null, then the conversation is over.

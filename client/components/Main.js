@@ -24,7 +24,6 @@ class Main extends Component {
     if (characters.length && prompts.length) {
       characters.map(character => characterPrompts[character.id] = getCharacterPrompts(prompts, character.id))
     }
-    console.log(characterPrompts)
     return (
       <Scene
         id="scene"
