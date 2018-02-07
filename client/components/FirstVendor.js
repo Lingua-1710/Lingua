@@ -28,6 +28,7 @@ export class FirstVendor extends React.Component {
     const hintAdjustPosition = { x: 0, y: -0.5, z: 2 }
     const responseAdjustPosition = { x: -2, y: 0.5, z: 1 }
     const { vendorResponse, currentPrompt } = this.props
+    const displayPromptResponses = currentPrompt.text && this.props.currentCharacter === this.props.characterId
     console.log('the state', this.state)
     console.log('questreward', this.state.questReward)
     return (
@@ -49,7 +50,7 @@ export class FirstVendor extends React.Component {
           />
         }
         {
-          currentPrompt.text &&
+          displayPromptResponses &&
           <DisplayPromptResponses
             vendorPosition={vendorPosition}
             promptAdjustPosition={promptAdjustPosition}

@@ -52,7 +52,7 @@ export const converse = function () {
         //after the second incorrect response, give a hint
         this.setState({ incorrectCount: this.state.incorrectCount + 1 })
         if (this.state.incorrectCount > 1) {
-          this.setState({ hintText: `The vendor said: ${currentPrompt.text}` })
+          this.setState({hintText: `Incorrect: ${this.state.incorrectCount}. The vendor said: ${currentPrompt.text}`})
         }
         //Vendor says "I do not understand"
         this.setState({ vendorResponse: this.props.vendorResponse })
