@@ -13,14 +13,14 @@ const Apple = () => {
           id="apple-obj"
           src="models/items/apple/model.obj" />
         <a-asset-item
-          id="octo-mtl"
+          id="apple-mtl"
           src="models/items/apple/materials.mtl" />
       </Entity>
       <a-obj-model
         id="apple"
         src="#apple-obj"
         mtl="#apple-mtl"
-        position="0 0 0"
+        position="0 1.5 0"
         rotation="0 0 0"
       />
       <Entity
