@@ -3,23 +3,23 @@ import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 
-const GrilledCheese = () => {
+const Coffee = () => {
   return (
     <Entity
-      id='cheese'
+      id='coffee'
     >
       <Entity>
         <a-asset-item
-          id="cheese-obj"
-          src="models/items/grilledcheese/model.obj" />
+          id="coffee-obj"
+          src="models/items/Coffee/model.obj" />
         <a-asset-item
-          id="cheese-mtl"
-          src="models/items/grilledcheese/materials.mtl" />
+          id="coffee-mtl"
+          src="models/items/Coffee/materials.mtl" />
       </Entity>
       <a-obj-model
-        id="cheese"
-        src="#cheese-obj"
-        mtl="#cheese-mtl"
+        id="coffee"
+        src="#coffee-obj"
+        mtl="#coffee-mtl"
         position="0 2 0"
         rotation="0 0 0"
       />
@@ -34,4 +34,4 @@ const GrilledCheese = () => {
   )
 }
 
-export default GrilledCheese
+export default Coffee
