@@ -36,7 +36,10 @@ const quests = [
   {id: 1, name: 'Buy an apple', text: 'Buy an apple', promptResponsesId: 11},
   {id: 2, name: 'Buy cheese', text: 'Buy cheese', promptResponsesId: 12},
   {id: 3, name: 'Buy a cat', text: 'Buy a cat', promptResponsesId: 27},
-  {id: 4, name: 'Buy a fish', text: 'Buy a fish', promptResponsesId: 26}
+  {id: 4, name: 'Buy a fish', text: 'Buy a fish', promptResponsesId: 26},
+  {id: 5, name: 'Buy coffee', text: 'Buy coffee', promptResponsesId: 78},
+  {id: 6, name: 'Buy a blueberry doughnut', text: 'Buy a blueberry doughnut', promptResponsesId: 62},
+  {id: 7, name: 'Discover the secret of the macarons', text: 'Discover the secret of the macarons', promptResponsesId: 80},
 ]
 
 let userQuests = []
