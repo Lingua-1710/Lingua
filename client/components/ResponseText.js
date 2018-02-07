@@ -20,6 +20,8 @@ const ResponseText = (props) => {
               primitive='a-text'
               value={deAccent(response.translation)}
               color={props.color}
+              shader='msdf'
+              font='https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/firasanscondensed/FiraSansCondensed-Regular.json'
               opacity="3"
               id={response.id}
               position={position}
