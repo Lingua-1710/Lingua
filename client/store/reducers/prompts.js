@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { deAccent } from '../../utils/accentRemover'
 //ACTION TYPES
 const GET_PROMPTS = 'GET_PROMPTS'
 
@@ -23,7 +23,7 @@ export const fetchPrompts = (fromLang, toLang) => {
 
 export const translatePrompts = (prompts, fromLang, toLang) => {
   return Promise.all(prompts.map((prompt) => {
-    return axios.get('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + prompt.text)
+    return axios.get('/api/translation', {params: {fromLang, toLang, text: prompt.text}})
     .then(async (translation) => {
       prompt.translation = translation.data
       prompt.responses = await translateResponses(prompt.responses, fromLang, toLang)
@@ -35,7 +35,7 @@ export const translatePrompts = (prompts, fromLang, toLang) => {
 
 export const translateResponses = (responses, fromLang, toLang) => {
   return Promise.all(responses.map((response) => {
-    return axios.get('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + response.text)
+    return axios.get('/api/translation', {params: {fromLang, toLang, text: response.text}})
     .then((translation) => {
       response.translation = translation.data
       return response
