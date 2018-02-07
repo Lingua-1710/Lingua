@@ -13,8 +13,7 @@ export class FirstVendor extends React.Component {
     this.state = {
       vendorResponse: '',
       incorrectCount: 0,
-      hintText: '',
-      prompts: []
+      hintText: ''
     }
     this.converse = converse.bind(this)
   }

@@ -4,17 +4,16 @@ import axios from 'axios'
 const GET_PROMPTS = 'GET_PROMPTS'
 
 //ACTION CREATORS
-export const getPrompts = (characterId, prompts) => {
+export const getPrompts = prompts => {
   return {
     type: GET_PROMPTS,
-    characterId,
     prompts
   }
 }
 
-export const fetchPrompts = (fromLang, toLang, characterId) => {
+export const fetchPrompts = (fromLang, toLang) => {
   return function(dispatch) {
-    return axios.get(`/api/prompts?characterId=${characterId}`)
+    return axios.get('/api/prompts')
     .then(prompts => prompts.data)
     .then(prompts => translatePrompts(prompts, fromLang, toLang))
     .then(prompts => dispatch(getPrompts(prompts)))
@@ -48,7 +47,7 @@ export const translateResponses = (responses, fromLang, toLang) => {
 export default function(state = {}, action) {
   switch(action.type) {
     case GET_PROMPTS:
-      return {...state, action.characterId: action.prompts}
+      return action.prompts
     default:
       return state
   }

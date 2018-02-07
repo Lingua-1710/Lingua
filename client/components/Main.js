@@ -18,11 +18,12 @@ class Main extends Component {
   componentDidMount() {
     //response when character does not hear an expected response.
     const response = 'I do not understand'
-    const { getVendorResponse, currentLanguage, getCharacters } = this.props
+    const { setPrompts, getVendorResponse, currentLanguage, getCharacters } = this.props
     const nativeLang = currentLanguage.nativeLang
     const learningLang = currentLanguage.learningLang
     getVendorResponse(response, nativeLang, learningLang)
     getCharacters()
+    setPrompts(nativeLang, learningLang)
   }
 
   listen(obj, options){
@@ -30,14 +31,10 @@ class Main extends Component {
   }
 
   render() {
-    const { setPrompts, gameState, currentLanguage, characters } = this.props
-    const nativeLang = currentLanguage.nativeLang
-    const learningLang = currentLanguage.learningLang
+    const { prompts, gameState, characters } = this.props
     let characterPrompts = {}
-    if (characters.length) {
-      characters.forEach(character => {
-        characterPrompts[character.id] = setPrompts(nativeLang, learningLang, character.id)
-      })
+    if (characters.length && prompts.length) {
+      characters.map(character => characterPrompts[character.id] = getCharacterPrompts(prompts, character.id))
     }
     return (
       <Scene
@@ -69,7 +66,7 @@ class Main extends Component {
             checkAnswer={checkAnswer}
             firstPromptId={1}
             characterId={1}
-            // prompts={setPrompts(nativeLang, learningLang, 1)}
+            prompts={characterPrompts[1]}
           />
         </Entity> : null }
       </Scene>
@@ -81,7 +78,7 @@ export const mapState = ({ gameState, prompts, currentLanguage, characters }) =>
 
 export const mapDispatch = (dispatch) => {
   return {
-    setPrompts: (learningLang, nativeLang, characterId) => dispatch(fetchPrompts(learningLang, nativeLang, characterId)),
+    setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
     getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
     getCharacters: () => dispatch(fetchCharacters())
   }
