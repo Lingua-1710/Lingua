@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { ThirdVendorStoreFront, Donut, DisplayCorrect, Hint, DisplayPromptResponses } from './index'
+import {  Donut, DisplayCorrect, Hint, DisplayPromptResponses } from './index'
 import { getPrompt, setCharacter } from '../store'
 import { converse } from '../utils'
 
@@ -66,7 +66,6 @@ export class ThirdVendor extends React.Component {
             }}
           />
         }
-        {/* <ThirdVendorStoreFront /> */}
       </Entity>
     )
   }

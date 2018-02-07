@@ -63,7 +63,13 @@ class Main extends Component {
               characterId={2}
               prompts={characterPrompts[2]}
             />
-          <ThirdVendor />
+            <ThirdVendor
+              listen={this.listen}
+              checkAnswer={checkAnswer}
+              firstPromptId={17}
+              characterId={3}
+              prompts={characterPrompts[3]}
+            />
         </Entity> : null }
       </Scene>
     )

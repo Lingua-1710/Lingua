@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { SecondVendorStoreFront, Woman, DisplayCorrect, Hint, DisplayPromptResponses, Fish, Cat } from './index'
+import { Woman, DisplayCorrect, Hint, DisplayPromptResponses, Fish, Cat } from './index'
 import { getPrompt, setCharacter } from '../store'
 import { converse } from '../utils'
 
@@ -72,7 +72,6 @@ export class SecondVendor extends React.Component {
           this.state.questReward === 'fish' ?
           <Fish /> :  null
         }
-        {/* <SecondVendorStoreFront /> */}
       </Entity>
     )
   }
