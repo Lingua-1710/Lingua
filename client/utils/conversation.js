@@ -26,7 +26,10 @@ export const converse = function() {
         hintText: `You said: ${result.text}`
       })
       const promptResponses = result.prompt_responses
-      checkQuest(promptResponses.id, this.props.currentQuest)
+      if(!this.state.success) {
+        let success = checkQuest(promptResponses.id, this.props.currentQuest)
+        this.setState({success})
+      }
       let nextPrompt = this.props.prompts.find((prompt) => {
         return prompt.id === promptResponses.nextPromptId
       })
@@ -36,7 +39,9 @@ export const converse = function() {
         this.converse()
       //if the nextPrompt is null, then the conversation is over.
       } else {
-        reward()
+        if(this.state.success) {
+          reward()
+        }
         this.props.setCurrentPrompt({})
         this.setState({hintText: ''})
       }
@@ -57,8 +62,9 @@ export const converse = function() {
 
 function checkQuest(promptResponsesId, quest) {
   if (promptResponsesId === quest.promptResponsesId) {
-    console.log('Quest completed!')
+    return true
   }
+  return false
 }
 
 function listenToUser(currentPrompt) {

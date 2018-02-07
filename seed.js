@@ -19,10 +19,12 @@ const users = [
 
 const characters = [
   {
+    id: 1,
     name: 'Octo',
     startingPromptId: 1
   },
   {
+    id: 2,
     name: 'Gypsy',
     startingPromptId: 8
   }
@@ -30,7 +32,9 @@ const characters = [
 
 const quests = [
   {id: 1, name: 'Buy an apple', text: 'Buy an apple', promptResponsesId: 11},
-  {id: 2, name: 'Buy a pear', text: 'Buy a pear', promptResponsesId: 12}
+  {id: 2, name: 'Buy cheese', text: 'Buy cheese', promptResponsesId: 12},
+  {id: 3, name: 'Buy a cat', text: 'Buy a cat', promptResponsesId: 27},
+  {id: 4, name: 'Buy a fish', text: 'Buy a fish', promptResponsesId: 26}
 ]
 
 let userQuests = []
@@ -41,6 +45,7 @@ users.forEach(user => {
 })
 
 const characterPrompts = [
+  {characterId: 1, promptId: 1},
   {characterId: 1, promptId: 2},
   {characterId: 1, promptId: 3},
   {characterId: 1, promptId: 4},
@@ -62,11 +67,11 @@ const characterPrompts = [
 
 const prompts = [
   {id: 1, text: 'Do you want an apple?'},
-  {id: 2, text: 'Do you want a pear?'},
+  {id: 2, text: 'Do you want cheese?'},
   {id: 3, text: 'Bye!'},
   {id: 4, text: 'The best apple ever!'},
   {id: 5, text: 'Here is your apple'},
-  {id: 6, text: 'Here is your pear'},
+  {id: 6, text: 'Here is your cheese'},
   {id: 7, text: 'I don\'t have time for this.'},
   {id: 8, text: 'Do you like cats?'},
   {id: 9, text: 'Fantastic, I have a cat to sell!'},
@@ -83,7 +88,7 @@ const responses = [
   {id: 1, text: 'Yes'},
   {id: 2, text: 'No'},
   {id: 3, text: 'What kind of apple?'},
-  {id: 4, text: 'What kind of pear?'},
+  {id: 4, text: 'What kind of cheese?'},
   {id: 5, text: 'Bye'},
   {id: 6, text: 'Okay I\'ll buy one.'},
   {id: 7, text: 'I don\'t believe you'},
@@ -101,34 +106,34 @@ const responses = [
 ]
 
 const promptResponses = [
-  {promptId: 1, responseId: 1, nextPromptId: 5},
-  {promptId: 1, responseId: 2, nextPromptId: 2},
-  {promptId: 1, responseId: 3, nextPromptId: 4},
-  {promptId: 2, responseId: 1, nextPromptId: 6},
-  {promptId: 2, responseId: 2, nextPromptId: 3},
-  {promptId: 2, responseId: 4, nextPromptId: 7},
-  {promptId: 3, responseId: 5, nextPromptId: null},
-  {promptId: 4, responseId: 6, nextPromptId: 6},
-  {promptId: 4, responseId: 7, nextPromptId: 7},
-  {promptId: 4, responseId: 8, nextPromptId: 7},
-  {promptId: 5, responseId: 9, nextPromptId: 3},
-  {promptId: 6, responseId: 9, nextPromptId: 3},
-  {promptId: 7, responseId: 5, nextPromptId: null},
-  {promptId: 8, responseId: 10, nextPromptId: 9},
-  {promptId: 8, responseId: 11, nextPromptId: 10},
-  {promptId: 9, responseId: 12, nextPromptId: 11},
-  {promptId: 9, responseId: 13, nextPromptId: 12},
-  {promptId: 11, responseId: 7, nextPromptId: 15},
-  {promptId: 11, responseId: 13, nextPromptId: 12},
-  {promptId: 10, responseId: 14, nextPromptId: 13},
-  {promptId: 10, responseId: 15, nextPromptId: 7},
-  {promptId: 13, responseId: 16, nextPromptId: 14},
-  {promptId: 13, responseId: 17, nextPromptId: 7},
-  {promptId: 14, responseId: 13, nextPromptId: 16},
-  {promptId: 14, responseId: 18, nextPromptId: 7},
-  {promptId: 16, responseId: 9, nextPromptId: 3},
-  {promptId: 12, responseId: 9, nextPromptId: 3},
-  {promptId: 15, responseId: 5, nextPromptId: 3}
+  {id: 1, promptId: 1, responseId: 1, nextPromptId: 5},
+  {id: 2, promptId: 1, responseId: 2, nextPromptId: 2},
+  {id: 3, promptId: 1, responseId: 3, nextPromptId: 4},
+  {id: 4, promptId: 2, responseId: 1, nextPromptId: 6},
+  {id: 5, promptId: 2, responseId: 2, nextPromptId: 3},
+  {id: 6, promptId: 2, responseId: 4, nextPromptId: 7},
+  {id: 7, promptId: 3, responseId: 5, nextPromptId: null},
+  {id: 8, promptId: 4, responseId: 6, nextPromptId: 6},
+  {id: 9, promptId: 4, responseId: 7, nextPromptId: 7},
+  {id: 10, promptId: 4, responseId: 8, nextPromptId: 7},
+  {id: 11, promptId: 5, responseId: 9, nextPromptId: 3},
+  {id: 12, promptId: 6, responseId: 9, nextPromptId: 3},
+  {id: 13, promptId: 7, responseId: 5, nextPromptId: null},
+  {id: 14, promptId: 8, responseId: 10, nextPromptId: 9},
+  {id: 15, promptId: 8, responseId: 11, nextPromptId: 10},
+  {id: 16, promptId: 9, responseId: 12, nextPromptId: 11},
+  {id: 17, promptId: 9, responseId: 13, nextPromptId: 12},
+  {id: 18, promptId: 11, responseId: 7, nextPromptId: 15},
+  {id: 19, promptId: 11, responseId: 13, nextPromptId: 12},
+  {id: 20, promptId: 10, responseId: 14, nextPromptId: 13},
+  {id: 21, promptId: 10, responseId: 15, nextPromptId: 7},
+  {id: 22, promptId: 13, responseId: 16, nextPromptId: 14},
+  {id: 23, promptId: 13, responseId: 17, nextPromptId: 7},
+  {id: 24, promptId: 14, responseId: 13, nextPromptId: 16},
+  {id: 25, promptId: 14, responseId: 18, nextPromptId: 7},
+  {id: 26, promptId: 16, responseId: 9, nextPromptId: 3},
+  {id: 27, promptId: 12, responseId: 9, nextPromptId: 3},
+  {id: 28, promptId: 15, responseId: 5, nextPromptId: 3}
 ]
 
 const languages = [

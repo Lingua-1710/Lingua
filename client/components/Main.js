@@ -52,9 +52,9 @@ class Main extends Component {
           <FirstVendor
             listen={this.listen}
             checkAnswer={checkAnswer}
-            firstPromptId={8}
-            characterId={2}
-            prompts={characterPrompts[2]}
+            firstPromptId={1}
+            characterId={1}
+            prompts={characterPrompts[1]}
           />
         </Entity> : null }
       </Scene>
