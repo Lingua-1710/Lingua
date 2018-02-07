@@ -20,7 +20,7 @@ const Macaron = () => {
         id="macaron"
         src="#macaron-obj"
         mtl="#macaron-mtl"
-        position="0 2 0"
+        position="-20 2 3.5"
         rotation="0 0 0"
       />
       <Entity

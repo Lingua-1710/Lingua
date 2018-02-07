@@ -21,7 +21,7 @@ export class ThirdVendor extends React.Component {
   }
 
   render() {
-    const vendorPosition = { x: -30, y: 1, z: 6.5 }
+    const vendorPosition = { x: -20, y: 1, z: 6.5 }
     const vendorRotation = { x: 10, y: 250, z: 0 }
     const correctAdjustPosition = { x: 1, y: -0.05, z: 2 }
     const promptAdjustPosition = { x: -2, y: 2, z: 0 }
@@ -69,6 +69,7 @@ export class ThirdVendor extends React.Component {
             }}
           />
         }
+
       </Entity>
     )
   }
