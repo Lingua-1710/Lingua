@@ -5,7 +5,7 @@ const app = require('../../index')
 const Language = db.model('languages')
 expect.extend(toBeType)
 
-describe('prompt routes', () => {
+describe('language routes', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
@@ -15,7 +15,7 @@ describe('prompt routes', () => {
     return null
   })
 
-  describe('/api/prompts/', () => {
+  describe('/api/languages/', () => {
     const testLanguage = {
       name: 'French',
       code: 'fr-FR',
@@ -23,11 +23,7 @@ describe('prompt routes', () => {
     }
 
     beforeEach(() => {
-      return Language.create({
-        name: 'French',
-        code: 'fr-FR',
-        google: 'fr'
-      })
+      return Language.create(testLanguage)
     })
 
     it('GET /api/languages', () => {
