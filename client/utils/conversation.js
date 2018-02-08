@@ -8,11 +8,11 @@ export const converse = function() {
   listenToUser.apply(this, currentPrompt)
   .then((speech) => {
     //checks user input against possible responses.
-    let result = grade.apply(this, speech)
+    let result = checkAnswer(speech, currentPrompt.responses)
     //user response matched a possible response.
     if (result) {
-      const questComplete = checkQuest(result.prompt_responses.id, this.props.currentQuest)
-      if (questComplete) console.log('quest completed!')
+      const success = checkQuest(result.prompt_responses.id, this.props.currentQuest)
+      this.setState({ success })
       const nextPrompt = findNextPrompt.apply(this)
       //start conversation with the nextPrompt
       nextPrompt ? serveNextPrompt.apply(this, currentPrompt)
@@ -63,15 +63,15 @@ function serveNextPrompt(nextPrompt) {
 }
 
 function endConversation() {
-  reward()
+  giveReward.apply(this)
   this.props.setCurrentPrompt({})
   this.setState({hintText: ''})
 }
 
 function giveHint(currentPrompt) {
   this.setState({incorrectCount: this.state.incorrectCount + 1})
-  if(this.state.incorrectCount > 1) {
-    this.setState({hintText: `The vendor said: ${currentPrompt.text}`})
+  if (this.state.incorrectCount > 1) {
+    this.setState({hintText: `Incorrect: ${this.state.incorrectCount}. The vendor said: ${currentPrompt.text}`})
   }
 }
 
@@ -91,11 +91,20 @@ function listenToUser(currentPrompt) {
   })
 }
 
-function grade(answer) {
-  return checkAnswer(answer, this.props.currentPrompt.responses)
+function giveReward() {
+  if (this.state.success) {
+    const questReward = reward(this.props.currentQuest.id)
+    this.setState({ questReward })
+  }
 }
-
-function reward() {
-  //temporary log until we have the rest of the logic for this down
-  console.log('good job duderino, you did the thing!')
+function reward(questId) {
+  if (questId === 1) {
+    return 'apple'
+  } else if (questId === 2) {
+    return 'cheese'
+  } else if (questId === 3) {
+    return 'cat'
+  } else if (questId === 4) {
+    return 'fish'
+  }
 }

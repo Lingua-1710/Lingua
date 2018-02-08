@@ -12,7 +12,7 @@ export const respond = response => {
 
 export const translateResponse = (response, fromLang, toLang) => {
   return function(dispatch) {
-    axios.get('/api/translation' + '?translate=' + fromLang + '!' + toLang + '!' + response)
+    axios.get('/api/translation', {params: {fromLang, toLang, text: response}})
     .then((translation) => {
       let response = translation.data
       dispatch(respond(response))

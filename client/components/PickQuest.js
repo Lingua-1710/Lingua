@@ -15,9 +15,9 @@ export class PickQuest extends Component {
   render() {
     return (
       <Entity
-        id="pick-language-plane"
+        id="pick-quest-plane"
         primitive="a-plane"
-        height="1"
+        height="10"
         width="2"
         position="0 0 .01"
         radius="2"
@@ -32,7 +32,7 @@ export class PickQuest extends Component {
           height="12"
           color="white"
           align="center"
-          position="0 .5 0"
+          position="0 1.5 0"
         />
         {
           this.props.quests &&
@@ -44,7 +44,7 @@ export class PickQuest extends Component {
                 primitive="a-plane"
                 height=".5"
                 width="2"
-                position={`0 ${-0.25 + index * -0.4} 0`}
+                position={`0 ${1 - index * .5} 0`}
                 radius="0"
                 color="blue"
                 opacity="0"
@@ -72,7 +72,7 @@ export class PickQuest extends Component {
           primitive="a-plane"
           height=".5"
           width="2"
-          position="0 -1.5 0"
+          position="0 -1.7 0"
           radius="0"
           color="blue"
           class="clickable"
@@ -85,7 +85,7 @@ export class PickQuest extends Component {
           primitive="a-text"
           font="exo2bold"
           value="START"
-          height="12"
+          height="10"
           color="white"
           align="center"
           position="0 0 .01"
