@@ -74,7 +74,7 @@ export class FirstVendor extends React.Component {
           this.state.questReward === 'cheese' ?
             <GrilledCheese /> : null
         }
-        <FirstVendorStoreFront />
+        {/* <FirstVendorStoreFront /> */}
       </Entity>
     )
   }
