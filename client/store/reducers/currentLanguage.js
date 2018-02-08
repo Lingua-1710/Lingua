@@ -1,8 +1,8 @@
 //DEFAULT LANGUAGE SETTINGS
 const defaultLanguage = {
   nativeLang: 'en',
-  learningLang: 'en',
-  learningLangCode: 'en-US'
+  learningLang: 'es',
+  learningLangCode: 'es-419'
 }
 
 //ACTION TYPES
@@ -20,7 +20,7 @@ export const setLanguage = language => {
 export default function(state = defaultLanguage, action) {
   switch(action.type) {
     case SET_LANGUAGE:
-      return Object.assign({}, action.language)
+      return action.language
     default:
       return state
   }

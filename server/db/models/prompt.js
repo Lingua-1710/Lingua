@@ -3,7 +3,10 @@ const Sequelize = require('sequelize')
 
 const Prompt = db.define('prompts', {
   text: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    validate: {
+      notEmpty: false
+    }
   }
 }, {
     scopes: {

@@ -3,169 +3,97 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import {
-  FirstVendorStoreFront,
-  PromptText,
-  ResponseText,
-  Octo,
-  DisplayCorrect } from './index'
-import { fetchPrompts,
-  getPrompt,
-  translateResponse,
-  respond } from '../store'
-import { speechRecObject } from '../utils'
+import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses, Apple, GrilledCheese } from './index'
+import { getPrompt, setCharacter } from '../store'
+import { converse } from '../utils'
 
 export class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      lightPosition: { x: 2.5, y: 0.0, z: 0.0 },
-      vendorPosition: { x: 1, y: 1, z: -5 },
-      vendorRotation: { x: 10, y: 160, z: 0 },
-      correctAdjustPosition: { x: 1, y: -.05, z: 2 },
-      promptAdjustPosition: { x: -2, y: 2, z: 0 },
-      promptIndex: 0,
-      responseAdjustPosition: { x: -2, y: 0.5, z: 1 },
-      repeat: false,
-      vendorResponse: 'I don\'t understand'
+      vendorResponse: '',
+      incorrectCount: 0,
+      hintText: '',
+      success: false,
+      questReward: ''
     }
-    this.handleVendorClick = this.handleVendorClick.bind(this)
-    this.listenToUser = this.listenToUser.bind(this)
-    this.converse = this.converse.bind(this)
-    this.reward = this.reward.bind(this)
-    this.grade = this.grade.bind(this)
-  }
-
-  converse(repeating) {
-    if(this.state.promptIndex < this.props.prompts.length) {
-      if(!repeating) {
-        this.setState({
-          promptIndex: this.state.promptIndex + 1
-        })
-      }
-      let prompts = this.props.prompts
-      if(this.state.promptIndex < this.props.prompts.length) {
-        this.props.setCurrentPrompt(prompts[this.state.promptIndex])
-      } else {
-        this.reward()
-      }
-      this.listenToUser()
-      .then((speech) => {
-        let result = this.grade(speech)
-        if (result.correct) {
-          this.setState({repeat: false})
-          this.converse(false)
-          this.props.clearResponse()
-        } else {
-          this.props.getVendorResponse(this.state.vendorResponse, this.props.language.nativeLang, this.props.language.learningLang)
-          this.setState({repeat: true, vendorResponse: this.props.vendorResponse})
-          this.converse(true)
-        }
-      })
-    } else {
-      this.reward(true)
-    }
-  }
-
-  reward(done) {
-    //temporary log until we have the rest of the logic for this down
-    if(done) {
-      console.log('I don\'t want to talk to you anymore')
-    } else {
-      console.log('good job duderino, you did the thing!')
-    }
-  }
-
-  handleVendorClick() {
-    this.converse(true)
-  }
-
-  listenToUser() {
-    return this.props.listen(speechRecObject, {
-      answers: this.props.currentPrompt.responses,
-      language: this.props.language
-    })
-  }
-
-  grade(answer) {
-    return this.props.checkAnswer(answer, this.props.currentPrompt.responses)
-  }
-
-  componentDidMount() {
-    this.props.setPrompts(this.props.language.nativeLang, this.props.language.learningLang)
+    this.converse = converse.bind(this)
   }
 
   render() {
-    if (this.props.prompts) {
-      return (
-        <Entity>
-          <Octo
-            vendorPosition={this.state.vendorPosition}
-            handleVendorClick={this.handleVendorClick}
-            vendorRotation={this.state.vendorRotation}
+    const vendorPosition = { x: 5, y: 1, z: -7.5 }
+    const vendorRotation = { x: 10, y: 190, z: 0 }
+    const correctAdjustPosition = { x: 1, y: -0.05, z: 2 }
+    const promptAdjustPosition = { x: -2, y: 2, z: 0 }
+    const hintAdjustPosition = { x: 0, y: -0.5, z: 2 }
+    const responseAdjustPosition = { x: -2, y: 0.5, z: 1 }
+    const { vendorResponse, currentPrompt } = this.props
+    const matchCharacter = this.props.currentCharacter === this.props.characterId
+    const displayHint = this.state.hintText && matchCharacter
+    const displayPromptResponses = currentPrompt.text && matchCharacter
+    return (
+      <Entity>
+        <Octo
+          vendorPosition={vendorPosition}
+          handleVendorClick={this.converse}
+          vendorRotation={vendorRotation}
+        />
+        {
+          vendorResponse.length &&
+          <DisplayCorrect
+            value={this.state.vendorResponse}
+            position={{
+              x: vendorPosition.x,
+              y: vendorPosition.y + 2,
+              z: vendorPosition.z + correctAdjustPosition.z
+            }}
           />
-          {
-            this.props.vendorResponse.length &&
-            <DisplayCorrect
-              value={this.props.vendorResponse}
-              position={{
-                x: this.state.vendorPosition.x,
-                y: this.state.vendorPosition.y + 2,
-                z: this.state.vendorPosition.z + this.state.correctAdjustPosition.z
-              }}
-            />
-          }
-          {
-            this.props.currentPrompt.text &&
-            <Entity>
-              <PromptText promptProps={{
-                value: this.props.currentPrompt.translation,
-                color: 'white',
-                id: 'prompt-text',
-                width: '10',
-                position: {
-                  x: this.state.vendorPosition.x + this.state.promptAdjustPosition.x,
-                  y: this.state.vendorPosition.y + this.state.promptAdjustPosition.y,
-                  z: this.state.vendorPosition.z + this.state.promptAdjustPosition.z
-                },
-                align: 'center'
-              }} />
-              <ResponseText responseProps={{
-                responses: this.props.currentPrompt.responses,
-                color: 'black',
-                position: {
-                  x: this.state.vendorPosition.x + this.state.responseAdjustPosition.x,
-                  y: this.state.vendorPosition.y + this.state.responseAdjustPosition.y,
-                  z: this.state.vendorPosition.z + this.state.responseAdjustPosition.z
-                },
-                align: 'center'
-              }} />
-            </Entity>
-          }
-          <FirstVendorStoreFront />
-        </Entity>
-      )
-    } else {
-      return null
-    }
+        }
+        {
+          displayPromptResponses &&
+          <DisplayPromptResponses
+            vendorPosition={vendorPosition}
+            promptAdjustPosition={promptAdjustPosition}
+            responseAdjustPosition={responseAdjustPosition}
+            currentPrompt={currentPrompt}
+          />
+        }
+        {
+          displayHint &&
+          <Hint
+            hint={this.state.hintText}
+            position={{
+              x: vendorPosition.x + hintAdjustPosition.x,
+              y: vendorPosition.y + hintAdjustPosition.y,
+              z: vendorPosition.z + hintAdjustPosition.z
+            }}
+          />
+        }
+        {this.state.questReward === 'apple' ?
+          <Apple /> :
+          this.state.questReward === 'cheese' ?
+            <GrilledCheese /> : null
+        }
+        <FirstVendorStoreFront />
+      </Entity>
+    )
   }
 }
 
 export const mapState = (storeState) => {
   return {
-    prompts: storeState.prompts,
     currentPrompt: storeState.currentPrompt,
     vendorResponse: storeState.vendorResponse,
-    language: storeState.currentLanguage
+    language: storeState.currentLanguage,
+    currentQuest: storeState.currentQuest,
+    currentCharacter: storeState.currentCharacter
   }
 }
 
 export const mapDispatch = (dispatch) => {
   return {
-    setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
-    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
-    clearResponse: () => dispatch(respond(''))
+    setCurrentCharacter: (character) => dispatch(setCharacter(character)),
   }
 }
 

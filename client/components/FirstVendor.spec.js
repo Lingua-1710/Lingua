@@ -5,7 +5,7 @@ import enzyme from 'enzyme'
 import { connect } from 'react-redux'
 import { shallowWithStore } from 'enzyme-redux'
 import { createMockStore } from 'redux-test-utils'
-import { fetchPrompts, getPrompt } from '../store'
+import { getPrompt } from '../store'
 import Adapter from 'enzyme-adapter-react-16'
 
 enzyme.configure({ adapter: new Adapter() })
@@ -37,10 +37,8 @@ describe("FirstVendor", () => {
     it('dispatches the correct actions', () => {
       const ConnectedComponent = connect(null, mapDispatch)(FirstVendor)
       const component = shallowWithStore(<ConnectedComponent />, store)
-      component.props().setPrompts()
-      expect(store.isActionDispatched(fetchPrompts)).toBe(true)
       component.props().setCurrentPrompt()
-      expect(store.isActionDispatched(getPrompt)).toBe(true)
+      expect(store.isActionDispatched(getPrompt())).toBe(true)
     })
   })
 

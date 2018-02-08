@@ -1,5 +1,6 @@
 import stringSimilarity from 'string-similarity'
 
+/* global webkitSpeechRecognition webkitSpeechGrammarList webkitSpeechRecognitionEvent */
 
 let SpeechRecognition
 let SpeechGrammarList
@@ -22,8 +23,8 @@ export const speechRecObject = {
 export const recognizeSpeech = (recObj, options) => {
   const recognition = new SpeechRecognition()
   const speechRecognitionList = new SpeechGrammarList()
-  const answers = options.answers.map(ans => ans.translation).join(' | ')
-  const grammar = `#JSGF V1.0 grammar answers public <answer> = ${answers} `
+  const responses = options.responses.map(ans => ans.translation).join(' | ')
+  const grammar = `#JSGF V1.0 grammar answers public <answer> = ${responses} `
   speechRecognitionList.addFromString(grammar, 1)
   recognition.grammars = speechRecognitionList
   recognition.lang = options.language.learningLangCode
@@ -46,15 +47,11 @@ export const recognizeSpeech = (recObj, options) => {
   })
 }
 
-export const checkAnswer = (userInput, answers) => {
-  for(let i=0; i<answers.length; i++) {
-    if((stringSimilarity.compareTwoStrings(userInput, answers[i].translation) > 0.85)) {
-      if(answers[i].isCorrect) {
-        return {correct: true, answer: answers[i].translation, userSpeech: userInput}
-      } else {
-        return {correct: false, answer: answers[i].translation, userSpeech: userInput}
-      }
+export const checkAnswer = (userInput, responses) => {
+  for(let i=0; i<responses.length; i++) {
+    if((stringSimilarity.compareTwoStrings(userInput, responses[i].translation) > 0.85)) {
+      return responses[i]
     }
   }
-  return {correct: false, answer: null, userSpeech: userInput}
+  return null
 }

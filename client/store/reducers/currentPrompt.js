@@ -10,11 +10,9 @@ export const getPrompt = prompt => {
 }
 
 export default function (state = {}, action) {
-  let newState
   switch (action.type) {
     case GET_PROMPT:
-      newState = Object.assign({}, action.prompt)
-      return newState
+      return action.prompt
     default:
       return state
   }
