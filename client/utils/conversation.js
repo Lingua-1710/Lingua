@@ -1,59 +1,66 @@
 import { checkAnswer, speechRecObject } from './speech'
 
 export const converse = function() {
-  let currentPrompt = this.props.currentPrompt
+  let { characterId, currentPrompt, currentCharacter, currentQuest } = this.props
+  const newCharacter = currentCharacter !== characterId
   // check if the character was clicked for the first time OR new vendor is clicked
-  currentPrompt = checkFirstClick.apply(this)
+  const firstClick = checkFirstClick.call(this, newCharacter, currentPrompt)
+  if (firstClick) currentPrompt = getFirstPrompt.call(this, currentPrompt, characterId)
   //listen for user input
-  listenToUser.apply(this, currentPrompt)
+  listenToUser.call(this, currentPrompt)
   .then((speech) => {
     //checks user input against possible responses.
     let result = checkAnswer(speech, currentPrompt.responses)
     //user response matched a possible response.
     if (result) {
-      const success = checkQuest(result.prompt_responses.id, this.props.currentQuest)
+      const success = checkQuest(result.prompt_responses.id, currentQuest)
       this.setState({ success })
-      const nextPrompt = findNextPrompt.apply(this)
+      const nextPrompt = findNextPrompt.call(this, result.prompt_responses.nextPromptId)
       //start conversation with the nextPrompt
-      nextPrompt ? serveNextPrompt.apply(this, currentPrompt)
+      if (nextPrompt) serveNextPrompt.call(this, nextPrompt)
       //if the nextPrompt is null, then the conversation is over.
-      : endConversation.apply(this)
-      resetState.apply(this, result)
+      else {
+        endConversation.call(this)
+        resetState.call(this, result)
+      }
+      resetState.call(this)
     //user did not respond with a possible response.
     } else {
       //after the second incorrect response, give a hint
-      giveHint.apply(this, currentPrompt)
-      //Vendor says "I do not understand"
-      vendorResponse.apply(this)
+      giveHint.call(this, currentPrompt)
+      //For current character, Vendor says "I do not understand"
+      vendorResponse.call(this, 'I do not understand')
+      this.converse()
     }
   })
 }
 
-function checkFirstClick() {
-  let currentPrompt = this.props.currentPrompt
-  const characterId = this.props.characterId
-  if (this.props.currentCharacter !== characterId) {
-    let firstPrompt = this.props.prompts.find((prompt) => {
-      return prompt.id === this.props.firstPromptId
-    })
-    this.props.setCurrentPrompt(currentPrompt)
-    this.props.setCurrentCharacter(characterId)
-    return firstPrompt
-  }
-  return currentPrompt
+function checkFirstClick(newCharacter, currentPrompt) {
+  if (newCharacter) resetState.call(this)
+  return newCharacter || !currentPrompt
+}
+
+function getFirstPrompt(currentPrompt, characterId) {
+  let firstPrompt = this.props.prompts.find((prompt) => {
+    return prompt.id === this.props.firstPromptId
+  })
+  this.props.setCurrentPrompt(firstPrompt)
+  this.props.setCurrentCharacter(characterId)
+  return firstPrompt
 }
 
 function resetState(result) {
+  const hintText = result !== undefined ? `You said: ${result.text}` : ''
+  vendorResponse.call(this, '')
   this.setState({
-    vendorResponse: '',
     incorrectCount: 0,
-    hintText: `You said: ${result.text}`
+    hintText
   })
 }
 
-function findNextPrompt() {
-  this.props.prompts.find((prompt) => {
-    return prompt.id === this.props.promptResponses.nextPromptId
+function findNextPrompt(nextPromptId) {
+  return this.props.prompts.find((prompt) => {
+    return prompt.id === nextPromptId
   })
 }
 
@@ -63,8 +70,8 @@ function serveNextPrompt(nextPrompt) {
 }
 
 function endConversation() {
-  giveReward.apply(this)
-  this.props.setCurrentPrompt({})
+  giveReward.call(this)
+  this.props.setCurrentPrompt(null)
   this.setState({hintText: ''})
 }
 
@@ -75,9 +82,11 @@ function giveHint(currentPrompt) {
   }
 }
 
-function vendorResponse() {
-  this.setState({vendorResponse: this.props.vendorResponse})
-  this.converse()
+function vendorResponse(response) {
+  const { getVendorResponse, currentLanguage } = this.props
+  const nativeLang = currentLanguage.nativeLang
+  const learningLang = currentLanguage.learningLang
+  getVendorResponse(response, nativeLang, learningLang)
 }
 
 function checkQuest(promptResponsesId, quest) {
