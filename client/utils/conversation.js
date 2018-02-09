@@ -15,6 +15,7 @@ export const converse = function() {
     let result = checkAnswer(speech, currentPrompt.responses, this.state.speechAccuracyThreshold)
     //user response matched a possible response.
     if (result) {
+      //checks for completed quest, fetches next prompt, or resets state if the conversation is over.
       handleCorrect.call(this, result, currentQuest)
     //user did not respond with a possible response.
     } else {
