@@ -10,7 +10,6 @@ export const converse = function() {
   //listen for user input
   listenToUser.call(this, currentPrompt)
   .then((speech) => {
-    console.log('???')
     //checks user input against possible responses.
     let result = checkAnswer(speech, currentPrompt.responses, this.state.speechAccuracyThreshold)
     //user response matched a possible response.
@@ -28,7 +27,7 @@ export const converse = function() {
   })
   .catch(err => {
     //remove listening text when no speech was detected and timed out
-    if (err === 'listening-ended') this.setState({ listening: '' })
+    if (err === 'listening-ended' || err === 'no-speech') this.setState({ listening: '' })
     console.error(err)
   })
 }
@@ -40,18 +39,18 @@ function handleCorrect(result, currentQuest) {
   //start conversation with the nextPrompt
   if (nextPrompt) {
     resetState.call(this, 'Listening!', result.text)
-    this.converse()
   //if the nextPrompt is null, then the conversation is over.
   } else {
     giveReward.call(this)
     resetState.call(this, '')
   }
   this.props.setCurrentPrompt(nextPrompt)
+  if (nextPrompt) this.converse()
 }
 
 function checkFirstClick(newCharacter, currentPrompt) {
   if (newCharacter) resetState.call(this, 'Listening!')
-  return newCharacter || !currentPrompt
+  return newCharacter || !Object.keys(currentPrompt).length
 }
 
 function getFirstPrompt(currentPrompt, characterId) {
@@ -75,9 +74,10 @@ function resetState(listening, hintText) {
 }
 
 function findNextPrompt(nextPromptId) {
-  return this.props.prompts.find((prompt) => {
+  const newPrompt = this.props.prompts.find((prompt) => {
     return prompt.id === nextPromptId
   })
+  return newPrompt
 }
 
 function giveHint(currentPrompt) {

@@ -2,7 +2,7 @@ import currentPrompt, { getPrompt } from './currentPrompt'
 
 describe('currentPrompt reducer', () => {
   it('should return the initial state', () => {
-    expect(currentPrompt(undefined, {})).toEqual(null)
+    expect(currentPrompt(undefined, {})).toEqual({})
   })
 
   it('should handle GET_PROMPT', () => {
