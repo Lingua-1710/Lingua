@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import 'aframe'
 import { connect } from 'react-redux'
 import { Entity } from 'aframe-react'
-import { fetchPrompts, translateResponse, fetchCharacters, getGameState } from '../store'
+import { fetchPrompts, fetchCharacters, getGameState } from '../store'
 
 class Loading extends Component {
   constructor(props) {
@@ -10,13 +10,10 @@ class Loading extends Component {
   }
 
   componentDidMount() {
-    //response when character does not hear an expected response.
-    const response = 'I do not understand'
-    const { setPrompts, getVendorResponse, currentLanguage, setCharacters, setGameState } = this.props
+    const { setPrompts, currentLanguage, setCharacters, setGameState } = this.props
     const nativeLang = currentLanguage.nativeLang
     const learningLang = currentLanguage.learningLang
     setPrompts(nativeLang, learningLang)
-    getVendorResponse(response, nativeLang, learningLang)
     setCharacters()
     setGameState('game')
   }
@@ -52,7 +49,6 @@ const mapState = ({ gameState, currentLanguage }) => ({ gameState, currentLangua
 export const mapDispatch = (dispatch) => {
   return {
     setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
-    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
     setCharacters: () => dispatch(fetchCharacters()),
     setGameState: (gameState => dispatch(getGameState(gameState)))
   }
