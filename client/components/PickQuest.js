@@ -6,6 +6,9 @@ import { fetchQuests, setQuest, getGameState } from '../store'
 export class PickQuest extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      selectedQuestId: -1
+    }
   }
 
   componentDidMount() {
@@ -13,6 +16,7 @@ export class PickQuest extends Component {
   }
 
   render() {
+    const selectedQuest = this.state.selectedQuest
     return (
       <Entity
         id="pick-quest-plane"
@@ -46,22 +50,25 @@ export class PickQuest extends Component {
                 width="2"
                 position={`0 ${1 - index * .5} 0`}
                 radius="0"
-                color="blue"
+                color='blue'
                 opacity="0"
                 class="clickable"
                 events={{
-                  click: () => this.props.chooseQuest(quest)
+                  click: () => {
+                    this.props.chooseQuest(quest)
+                    this.setState({ selectedQuest: quest.id})
+                  }
                 }}
               >
-              <Entity
-                id="pick-quest-text"
-                primitive="a-text"
-                font="exo2bold"
-                value={quest.name}
-                height="12"
-                color="white"
-                align="center"
-                position={`0 0 .01`}
+                <Entity
+                  id="pick-quest-text"
+                  primitive="a-text"
+                  font="exo2bold"
+                  value={quest.name}
+                  height="12"
+                  color={selectedQuest === quest.id ? 'green' : 'white'}
+                  align="center"
+                  position={`0 0 .01`}
                 />
               </Entity>
             )

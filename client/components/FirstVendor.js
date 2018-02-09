@@ -5,7 +5,7 @@ import 'babel-polyfill'
 import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses, Apple, GrilledCheese, Listening } from './index'
 import { converse } from '../utils'
 
-export class FirstVendor extends React.Component {
+export default class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -88,10 +88,8 @@ export class FirstVendor extends React.Component {
           this.state.questReward === 'cheese' ?
             <GrilledCheese /> : null
         }
-        {/* <FirstVendorStoreFront /> */}
+        <FirstVendorStoreFront />
       </Entity>
     )
   }
 }
-
-export default FirstVendor

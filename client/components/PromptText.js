@@ -3,6 +3,7 @@ import { Entity } from 'aframe-react'
 import { deAccent } from '../utils/accentRemover'
 
 const PromptText = (props) => {
+  const rotation = props.rotation
   return (
     <Entity
       primitive='a-text'
@@ -14,6 +15,7 @@ const PromptText = (props) => {
       position={props.position}
       width={props.width}
       align={props.align}
+      rotation={rotation}
     />
   )
 }

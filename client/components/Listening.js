@@ -6,11 +6,12 @@ const PromptText = (props) => {
     <Entity
       primitive='a-text'
       value='Listening!'
-      color={props.color}
+      color='blue'
       shader='msdf'
       font='https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/firasanscondensed/FiraSansCondensed-Regular.json'
       id='listening'
       position={props.position}
+      rotation={props.rotation}
     />
   )
 }

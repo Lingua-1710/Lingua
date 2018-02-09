@@ -31,8 +31,9 @@ export class ThirdVendor extends React.Component {
       displayPromptResponses,
       listeningAdjustPosition
     } = this.props
-    const vendorPosition = { x: -20, y: 1, z: 6.5 }
+    const vendorPosition = { x: -10, y: 1, z: 6.5 }
     const vendorRotation = { x: 10, y: 250, z: 0 }
+    const textRotation = {x:0, y: 90, z: 0 }
     const displayHint = this.state.hintText && matchCharacter
     const displayListening = this.state.listening && matchCharacter
     return (
@@ -51,6 +52,7 @@ export class ThirdVendor extends React.Component {
               y: vendorPosition.y + 2,
               z: vendorPosition.z + correctAdjustPosition.z
             }}
+            rotation={textRotation}
           />
         }
         {
@@ -60,6 +62,7 @@ export class ThirdVendor extends React.Component {
             promptAdjustPosition={promptAdjustPosition}
             responseAdjustPosition={responseAdjustPosition}
             currentPrompt={currentPrompt}
+            rotation={textRotation}
           />
         }
         {
@@ -70,6 +73,7 @@ export class ThirdVendor extends React.Component {
               y: vendorPosition.y + listeningAdjustPosition.y,
               z: vendorPosition.z + listeningAdjustPosition.z
             }}
+            rotation={textRotation}
           />
         }
         {
@@ -81,6 +85,7 @@ export class ThirdVendor extends React.Component {
               y: vendorPosition.y + hintAdjustPosition.y,
               z: vendorPosition.z + hintAdjustPosition.z
             }}
+            rotation={textRotation}
           />
         }
         {this.state.questReward === 'donut' ?

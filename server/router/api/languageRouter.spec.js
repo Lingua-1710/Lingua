@@ -6,7 +6,7 @@ const Language = db.model('languages')
 expect.extend(toBeType)
 
 describe('language routes', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     return db.sync({force: true})
   })
 
