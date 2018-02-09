@@ -2,7 +2,7 @@ import React from 'react'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { Woman, DisplayCorrect, Hint, DisplayPromptResponses, Fish, Cat } from './index'
+import { Woman, DisplayCorrect, Hint, DisplayPromptResponses, Fish, Cat, Listening } from './index'
 import { converse } from '../utils'
 
 export class SecondVendor extends React.Component {
@@ -26,11 +26,13 @@ export class SecondVendor extends React.Component {
       hintAdjustPosition,
       responseAdjustPosition,
       matchCharacter,
-      displayPromptResponses
+      displayPromptResponses,
+      listeningAdjustPosition
     } = this.props
     const vendorPosition = { x: 10, y: 1, z: -7.5 }
     const vendorRotation = { x: 10, y: 190, z: 0 }
     const displayHint = this.state.hintText && matchCharacter
+    const displayListening = this.state.listening && matchCharacter
     return (
       <Entity>
         <Woman
@@ -56,6 +58,16 @@ export class SecondVendor extends React.Component {
             promptAdjustPosition={promptAdjustPosition}
             responseAdjustPosition={responseAdjustPosition}
             currentPrompt={currentPrompt}
+          />
+        }
+        {
+          displayListening &&
+          <Listening
+            position={{
+              x: vendorPosition.x + listeningAdjustPosition.x,
+              y: vendorPosition.y + listeningAdjustPosition.y,
+              z: vendorPosition.z + listeningAdjustPosition.z
+            }}
           />
         }
         {

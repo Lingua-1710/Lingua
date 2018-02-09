@@ -2,7 +2,7 @@ import React from 'react'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import {  Donut, DisplayCorrect, Hint, DisplayPromptResponses } from './index'
+import {  Donut, DisplayCorrect, Hint, DisplayPromptResponses, Listening } from './index'
 import { converse } from '../utils'
 
 export class ThirdVendor extends React.Component {
@@ -26,11 +26,13 @@ export class ThirdVendor extends React.Component {
       hintAdjustPosition,
       responseAdjustPosition,
       matchCharacter,
-      displayPromptResponses
+      displayPromptResponses,
+      listeningAdjustPosition
     } = this.props
     const vendorPosition = { x: -20, y: 1, z: 6.5 }
     const vendorRotation = { x: 10, y: 250, z: 0 }
     const displayHint = this.state.hintText && matchCharacter
+    const displayListening = this.state.listening && matchCharacter
     return (
       <Entity>
         <Donut
@@ -56,6 +58,16 @@ export class ThirdVendor extends React.Component {
             promptAdjustPosition={promptAdjustPosition}
             responseAdjustPosition={responseAdjustPosition}
             currentPrompt={currentPrompt}
+          />
+        }
+        {
+          displayListening &&
+          <Listening
+            position={{
+              x: vendorPosition.x + listeningAdjustPosition.x,
+              y: vendorPosition.y + listeningAdjustPosition.y,
+              z: vendorPosition.z + listeningAdjustPosition.z
+            }}
           />
         }
         {

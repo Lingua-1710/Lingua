@@ -2,7 +2,7 @@ import React from 'react'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses, Apple, GrilledCheese } from './index'
+import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses, Apple, GrilledCheese, Listening } from './index'
 import { converse } from '../utils'
 
 export class FirstVendor extends React.Component {
@@ -13,7 +13,8 @@ export class FirstVendor extends React.Component {
       incorrectCount: 0,
       hintText: '',
       success: false,
-      questReward: ''
+      questReward: '',
+      listening: ''
     }
     this.converse = converse.bind(this)
   }
@@ -27,11 +28,13 @@ export class FirstVendor extends React.Component {
       hintAdjustPosition,
       responseAdjustPosition,
       matchCharacter,
-      displayPromptResponses
+      displayPromptResponses,
+      listeningAdjustPosition
     } = this.props
     const vendorPosition = { x: 5, y: 1, z: -7.5 }
     const vendorRotation = { x: 10, y: 190, z: 0 }
     const displayHint = this.state.hintText && matchCharacter
+    const displayListening = this.state.listening && matchCharacter
     return (
       <Entity>
         <Octo
@@ -57,6 +60,16 @@ export class FirstVendor extends React.Component {
             promptAdjustPosition={promptAdjustPosition}
             responseAdjustPosition={responseAdjustPosition}
             currentPrompt={currentPrompt}
+          />
+        }
+        {
+          displayListening &&
+          <Listening
+            position={{
+              x: vendorPosition.x + listeningAdjustPosition.x,
+              y: vendorPosition.y + listeningAdjustPosition.y,
+              z: vendorPosition.z + listeningAdjustPosition.z
+            }}
           />
         }
         {

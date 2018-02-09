@@ -1,6 +1,7 @@
 import { checkAnswer, speechRecObject } from './speech'
 
 export const converse = function() {
+  this.setState({ listening: 'listening!' })
   let { characterId, currentPrompt, currentCharacter, currentQuest } = this.props
   const newCharacter = currentCharacter !== characterId
   // check if the character was clicked for the first time OR new vendor is clicked
@@ -32,6 +33,11 @@ export const converse = function() {
       vendorResponse.call(this, 'I do not understand')
       this.converse()
     }
+  })
+  .catch(err => {
+    //remove listening text when no speech was detected and timed out
+    if (err === 'no-speech') this.setState({ listening: '' })
+    console.error(err)
   })
 }
 

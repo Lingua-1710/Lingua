@@ -9,6 +9,7 @@ export const mapState = (storeState, ownProps) => {
   const promptAdjustPosition = { x: 0, y: 4.5, z: -1 }
   const hintAdjustPosition = { x: 0, y: -0.5, z: 1 }
   const responseAdjustPosition = { x: 0, y: 3.5, z: -1 }
+  const listeningAdjustPosition = { x: .5, y: 1, z: 0}
   const matchCharacter = storeState.currentCharacter === ownProps.characterId
   const displayPromptResponses = storeState.currentPrompt && matchCharacter
   return {
@@ -23,7 +24,8 @@ export const mapState = (storeState, ownProps) => {
     hintAdjustPosition,
     responseAdjustPosition,
     matchCharacter,
-    displayPromptResponses
+    displayPromptResponses,
+    listeningAdjustPosition
   }
 }
 

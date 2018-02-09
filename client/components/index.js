@@ -19,6 +19,7 @@ export { default as DisplayScore } from './DisplayScore'
 export { default as Hint } from './Hint'
 export { default as PickLanguage } from './PickLanguage'
 export { default as PickQuest } from './PickQuest'
+export { default as Listening } from './Listening'
 
 // Models
 export { default as Octo } from './modelComponents/Octo'
