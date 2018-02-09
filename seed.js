@@ -7,7 +7,6 @@ const {
   Language,
   Prompt,
   Character,
-  Scene,
   User,
   Response
 } = require(`./server/db`)
@@ -23,11 +22,11 @@ const characters = [
     startingPromptId: 1
   },
   {
-    name: `Gypsy`,
+    name: `Woman`,
     startingPromptId: 8
   },
   {
-    name: `Gypsy3`,
+    name: `Donut`,
     startingPromptId: 17
   }
 ]
@@ -36,7 +35,7 @@ const quests = [
   {id: 1, name: 'Buy an apple', text: 'Buy an apple', promptResponsesId: 11},
   {id: 2, name: 'Buy cheese', text: 'Buy cheese', promptResponsesId: 12},
   {id: 3, name: 'Buy a cat', text: 'Buy a cat', promptResponsesId: 27},
-  {id: 6, name: 'Buy a apple doughnut', text: 'Buy a apple doughnut', promptResponsesId: 62},
+  {id: 6, name: 'Buy an apple doughnut', text: 'Buy a apple doughnut', promptResponsesId: 62},
   {id: 7, name: 'Discover the secret of the macarons', text: 'Discover the secret of the macarons', promptResponsesId: 80},
 ]
 
@@ -261,13 +260,15 @@ let promptResponses = [
 ]
 
 promptResponses = promptResponses.map((promptResponse, id) => {
-  return {id: id+1, ...promptResponse}
+  return {id: id + 1, ...promptResponse}
 })
 
 const languages = [
   {name: `Spanish`, code: `es-419`, google: `es`},
   {name: `French`, code: `fr-FR`, google: `fr`},
-  {name: `German`, code: `de-DE`, google: `de`}
+  {name: `German`, code: `de-DE`, google: `de`},
+  {name: `Italian`, code: `it-IT`, google: `it`},
+  {name: `Portuguese`, code: `pt-BR`, google: `pt`}
 ]
 
 function addPrompts(prompts) {
