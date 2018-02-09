@@ -20,14 +20,14 @@ const Apple = () => {
         id="apple"
         src="#apple-obj"
         mtl="#apple-mtl"
-        position="5 1.5 -3"
+        position="5 0.5 -6"
         rotation="0 0 0"
       />
       <Entity
         primitive="a-text"
         value="You Got the Apple!"
         opacity="2"
-        position="5 1.3 -4"
+        position="5 0.3 -7"
       />
       <Entity
         primitive="a-light"
