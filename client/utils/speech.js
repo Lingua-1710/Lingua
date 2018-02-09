@@ -44,6 +44,9 @@ export const recognizeSpeech = (recObj, options) => {
       recognition.stop()
       reject(SpeechRecognitionEvent.error)
     }
+    recognition.onend = () => {
+      reject('listening-ended')
+    }
   })
 }
 

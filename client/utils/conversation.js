@@ -1,7 +1,7 @@
 import { checkAnswer, speechRecObject } from './speech'
 
 export const converse = function() {
-  this.setState({ listening: 'listening!' })
+  this.setState({ listening: 'Listening!' })
   let { characterId, currentPrompt, currentCharacter, currentQuest } = this.props
   const newCharacter = currentCharacter !== characterId
   // check if the character was clicked for the first time OR new vendor is clicked
@@ -10,6 +10,7 @@ export const converse = function() {
   //listen for user input
   listenToUser.call(this, currentPrompt)
   .then((speech) => {
+    console.log('???')
     //checks user input against possible responses.
     let result = checkAnswer(speech, currentPrompt.responses, this.state.speechAccuracyThreshold)
     //user response matched a possible response.
@@ -26,9 +27,10 @@ export const converse = function() {
   })
   .catch(err => {
     //remove listening text when no speech was detected and timed out
-    if (err === 'no-speech') this.setState({ listening: '' })
+    if (err === 'listening-ended') this.setState({ listening: '' })
     console.error(err)
   })
+  console.log('yesss')
 }
 
 function handleCorrect(result, currentQuest) {
@@ -37,18 +39,18 @@ function handleCorrect(result, currentQuest) {
   let nextPrompt = findNextPrompt.call(this, result.prompt_responses.nextPromptId) || null
   //start conversation with the nextPrompt
   if (nextPrompt) {
-    resetState.call(this, result)
+    resetState.call(this, 'Listening!', result.text)
     this.converse()
   //if the nextPrompt is null, then the conversation is over.
   } else {
     giveReward.call(this)
-    resetState.call(this)
+    resetState.call(this, '')
   }
   this.props.setCurrentPrompt(nextPrompt)
 }
 
 function checkFirstClick(newCharacter, currentPrompt) {
-  if (newCharacter) resetState.call(this)
+  if (newCharacter) resetState.call(this, 'Listening!')
   return newCharacter || !currentPrompt
 }
 
@@ -61,10 +63,8 @@ function getFirstPrompt(currentPrompt, characterId) {
   return firstPrompt
 }
 
-function resetState(result) {
-  const isResult = result === undefined
-  const hintText = !isResult ? `You said: ${result.text}` : ''
-  const listening = isResult ? '' : 'Listening!'
+function resetState(listening, hintText) {
+  hintText = hintText ? `You said: ${hintText}` : ''
   vendorResponse.call(this, '')
   this.setState({
     incorrectCount: 0,
