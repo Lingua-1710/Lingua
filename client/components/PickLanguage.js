@@ -30,7 +30,7 @@ export class PickLanguage extends Component {
           height="12"
           color="white"
           align="center"
-          position="0 .5 0"
+          position="0 1.5 0"
         />
         {
           this.props.languages &&
@@ -42,7 +42,7 @@ export class PickLanguage extends Component {
                 primitive="a-plane"
                 height=".5"
                 width="2"
-                position={`0 ${-0.25 + index * -0.4} 0`}
+                position={`0 ${1 - index * .5} 0`}
                 radius="0"
                 color="blue"
                 opacity="0"

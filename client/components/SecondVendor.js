@@ -12,7 +12,8 @@ export class SecondVendor extends React.Component {
       incorrectCount: 0,
       hintText: '',
       success: false,
-      questReward: ''
+      questReward: '',
+      speechAccuracyThreshold: 0.85
     }
     this.converse = converse.bind(this)
   }
@@ -82,9 +83,7 @@ export class SecondVendor extends React.Component {
           />
         }
         {this.state.questReward === 'cat' ?
-          <Cat /> :
-          this.state.questReward === 'fish' ?
-          <Fish /> :  null
+          <Cat /> : null
         }
       </Entity>
     )

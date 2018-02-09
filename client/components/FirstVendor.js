@@ -9,12 +9,12 @@ export class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      vendorResponse: '',
       incorrectCount: 0,
       hintText: '',
       success: false,
       questReward: '',
-      listening: ''
+      listening: '',
+      speechAccuracyThreshold: 0.85
     }
     this.converse = converse.bind(this)
   }

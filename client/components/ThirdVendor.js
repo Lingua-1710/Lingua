@@ -2,7 +2,7 @@ import React from 'react'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import {  Donut, DisplayCorrect, Hint, DisplayPromptResponses, Listening } from './index'
+import {  Donut, Fish, DisplayCorrect, Hint, DisplayPromptResponses, Listening } from './index'
 import { converse } from '../utils'
 
 export class ThirdVendor extends React.Component {
@@ -12,7 +12,9 @@ export class ThirdVendor extends React.Component {
       incorrectCount: 0,
       hintText: '',
       success: false,
-      questReward: ''
+      questReward: '',
+      listening: '',
+      speechAccuracyThreshold: 0.85
     }
     this.converse = converse.bind(this)
   }
@@ -81,7 +83,11 @@ export class ThirdVendor extends React.Component {
             }}
           />
         }
-
+        {this.state.questReward === 'donut' ?
+          <Donut /> :
+          this.state.questReward === 'fish' ?
+            <Fish /> : null
+        }
       </Entity>
     )
   }

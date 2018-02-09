@@ -11,34 +11,40 @@ export const converse = function() {
   listenToUser.call(this, currentPrompt)
   .then((speech) => {
     //checks user input against possible responses.
-    let result = checkAnswer(speech, currentPrompt.responses)
+    let result = checkAnswer(speech, currentPrompt.responses, this.state.speechAccuracyThreshold)
     //user response matched a possible response.
     if (result) {
-      const success = checkQuest(result.prompt_responses.id, currentQuest)
-      this.setState({ success })
-      const nextPrompt = findNextPrompt.call(this, result.prompt_responses.nextPromptId)
-      //start conversation with the nextPrompt
-      if (nextPrompt) serveNextPrompt.call(this, nextPrompt)
-      //if the nextPrompt is null, then the conversation is over.
-      else {
-        endConversation.call(this)
-        resetState.call(this, result)
-      }
-      resetState.call(this)
+      handleCorrect.call(this, result, currentQuest)
     //user did not respond with a possible response.
     } else {
       //after the second incorrect response, give a hint
       giveHint.call(this, currentPrompt)
       //For current character, Vendor says "I do not understand"
       vendorResponse.call(this, 'I do not understand')
-      this.converse()
     }
+    this.converse()
   })
   .catch(err => {
     //remove listening text when no speech was detected and timed out
     if (err === 'no-speech') this.setState({ listening: '' })
     console.error(err)
   })
+}
+
+function handleCorrect(result, currentQuest) {
+  const success = checkQuest(result.prompt_responses.id, currentQuest)
+  if (success) this.setState({ success })
+  const nextPrompt = findNextPrompt.call(this, result.prompt_responses.nextPromptId)
+  //start conversation with the nextPrompt
+  if (nextPrompt) {
+    this.props.setCurrentPrompt(nextPrompt)
+    resetState.call(this, result)
+  //if the nextPrompt is null, then the conversation is over.
+  } else {
+    giveReward.call(this)
+    this.props.setCurrentPrompt(null)
+    resetState.call(this)
+  }
 }
 
 function checkFirstClick(newCharacter, currentPrompt) {
@@ -56,11 +62,15 @@ function getFirstPrompt(currentPrompt, characterId) {
 }
 
 function resetState(result) {
-  const hintText = result !== undefined ? `You said: ${result.text}` : ''
+  const isResult = result === undefined
+  const hintText = !isResult ? `You said: ${result.text}` : ''
+  const listening = !isResult ? '' : 'Listening!'
   vendorResponse.call(this, '')
   this.setState({
     incorrectCount: 0,
-    hintText
+    hintText,
+    speechAccuracyThreshold: 0.85,
+    listening
   })
 }
 
@@ -70,19 +80,12 @@ function findNextPrompt(nextPromptId) {
   })
 }
 
-function serveNextPrompt(nextPrompt) {
-  this.props.setCurrentPrompt(nextPrompt)
-  this.converse()
-}
-
-function endConversation() {
-  giveReward.call(this)
-  this.props.setCurrentPrompt(null)
-  this.setState({hintText: ''})
-}
-
 function giveHint(currentPrompt) {
   this.setState({incorrectCount: this.state.incorrectCount + 1})
+  //make it easier after 5 incorrect
+  if (this.state.incorrectCount > 5) {
+    this.setState({speechAccuracyThreshold: 0.5})
+  }
   if (this.state.incorrectCount > 1) {
     this.setState({hintText: `Incorrect: ${this.state.incorrectCount}. The vendor said: ${currentPrompt.text}`})
   }
@@ -112,6 +115,7 @@ function giveReward() {
     this.setState({ questReward })
   }
 }
+
 function reward(questId) {
   if (questId === 1) {
     return 'apple'
@@ -120,6 +124,9 @@ function reward(questId) {
   } else if (questId === 3) {
     return 'cat'
   } else if (questId === 4) {
+    return 'donut'
+  } else if (questId === 5) {
+    //it's a joke
     return 'fish'
   }
 }
