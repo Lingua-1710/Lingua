@@ -9,7 +9,7 @@ export const getPrompt = prompt => {
   }
 }
 
-export default function (state = {}, action) {
+export default function (state = null, action) {
   switch (action.type) {
     case GET_PROMPT:
       return action.prompt
