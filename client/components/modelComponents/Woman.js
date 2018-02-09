@@ -15,10 +15,10 @@ const Woman = (props) => {
       <Entity>
         <a-asset-item
           id="woman-obj"
-          src="models/woman/model.obj" />
+          src="models/Woman/model.obj" />
         <a-asset-item
           id="woman-mtl"
-          src="models/woman/materials.mtl" />
+          src="models/Woman/materials.mtl" />
       </Entity>
       <a-obj-model
         id="woman"
