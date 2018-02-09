@@ -4,7 +4,6 @@ import { deAccent } from '../utils/accentRemover'
 
 const PromptText = (props) => {
   return (
-
     <Entity
       primitive='a-text'
       value={deAccent(props.value)}
@@ -15,7 +14,7 @@ const PromptText = (props) => {
       position={props.position}
       width={props.width}
       align={props.align}
-      />
+    />
   )
 }
 
