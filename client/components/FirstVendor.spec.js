@@ -1,5 +1,6 @@
 import React from 'react'
-import { FirstVendor, mapState, mapDispatch } from './FirstVendor'
+import { FirstVendor } from './index'
+import { mapState, mapDispatch } from './VendorsContainer'
 import { Entity } from 'aframe-react'
 import enzyme from 'enzyme'
 import { connect } from 'react-redux'
@@ -15,10 +16,19 @@ describe("FirstVendor", () => {
   let store
   beforeEach(() => {
     props = {
-      prompts: undefined,
       currentPrompt: undefined,
       vendorResponse: [],
+      currentQuest: undefined,
+      currentCharacter: 0,
       language: undefined,
+      currentLanguage: undefined,
+      correctAdjustPosition: undefined,
+      promptAdjustPosition: undefined,
+      hintAdjustPosition: undefined,
+      responseAdjustPosition: undefined,
+      matchCharacter: undefined,
+      displayPromptResponses: undefined,
+      listeningAdjustPosition: undefined,
       dispatch: ()=>{}
     }
     store = createMockStore()
@@ -29,7 +39,7 @@ describe("FirstVendor", () => {
       const expectedProps = props
       const ConnectedComponent = connect(mapState)(FirstVendor)
       const component = shallowWithStore(<ConnectedComponent />, store)
-      expect(Object.keys(component.props())).toEqual(Object.keys(expectedProps))
+      expect(Object.keys(component.props()).sort()).toEqual(Object.keys(expectedProps).sort())
     })
   })
 
@@ -63,16 +73,16 @@ describe("FirstVendor", () => {
     it('that is an Entity', () => {
       const ConnectedComponent = connect(mockState, mapDispatch)(FirstVendor)
       const component = shallowWithStore(<ConnectedComponent />, store)
-      const entities = component.dive().first()
+      const entities = component.dive().dive().first()
       expect(entities.type().name).toBe('Entity')
     })
 
     it('that contains everything else that gets rendered', () => {
       const ConnectedComponent = connect(mockState, mapDispatch)(FirstVendor)
       const component = shallowWithStore(<ConnectedComponent />, store)
-      const entities = component.dive().find(Entity)
+      const entities = component.dive().dive().find(Entity)
       const wrappingEntity = entities.first()
-      expect(wrappingEntity.children().length).toEqual(component.dive().children().length)
+      expect(wrappingEntity.children().length).toEqual(component.dive().dive().children().length)
     })
   })
 })

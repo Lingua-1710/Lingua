@@ -6,7 +6,7 @@ const Prompt = db.model('prompts')
 expect.extend(toBeType)
 
 describe('prompt routes', () => {
-  beforeEach(() => {
+  beforeAll(() => {
     return db.sync({force: true})
   })
 

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import { FirstVendor } from './FirstVendor'
-import { SecondVendor } from './SecondVendor'
-import { ThirdVendor } from './ThirdVendor'
+import FirstVendor from './FirstVendor'
+import SecondVendor from './SecondVendor'
+import ThirdVendor from './ThirdVendor'
 import { getPrompt, setCharacter, translateResponse } from '../store'
 
 export const mapState = (storeState, ownProps) => {
