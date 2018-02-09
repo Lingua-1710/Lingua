@@ -14,6 +14,7 @@ const Hint = (props) => {
       id="hint"
       position={props.position}
       align="center"
+      rotation={props.rotation}
     />
   )
 }

@@ -8,6 +8,7 @@ import { deAccent } from '../utils/accentRemover'
 const ResponseText = (props) => {
   let yAdjust = 0
   let position = null
+  const rotation = props.rotation
   return (
     <Entity>
       {
@@ -27,6 +28,7 @@ const ResponseText = (props) => {
               id={response.id}
               position={position}
               align={props.align}
+              rotation={rotation}
             />
           )
         })

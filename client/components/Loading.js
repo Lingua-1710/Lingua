@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import 'aframe'
 import { connect } from 'react-redux'
 import { Entity } from 'aframe-react'
-import { fetchPrompts, fetchCharacters, getGameState } from '../store'
+import { fetchPrompts, fetchCharacters } from '../store'
 
 class Loading extends Component {
   constructor(props) {
@@ -10,12 +10,11 @@ class Loading extends Component {
   }
 
   componentDidMount() {
-    const { setPrompts, currentLanguage, setCharacters, setGameState } = this.props
+    const { setPrompts, currentLanguage, setCharacters } = this.props
     const nativeLang = currentLanguage.nativeLang
     const learningLang = currentLanguage.learningLang
     setPrompts(nativeLang, learningLang)
     setCharacters()
-    setGameState('game')
   }
 
   render() {
@@ -50,7 +49,6 @@ export const mapDispatch = (dispatch) => {
   return {
     setPrompts: (learningLang, nativeLang) => dispatch(fetchPrompts(learningLang, nativeLang)),
     setCharacters: () => dispatch(fetchCharacters()),
-    setGameState: (gameState => dispatch(getGameState(gameState)))
   }
 }
 

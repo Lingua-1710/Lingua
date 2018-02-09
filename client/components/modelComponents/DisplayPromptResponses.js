@@ -3,7 +3,7 @@ import { Entity } from 'aframe-react'
 import { PromptText, ResponseText } from '../index'
 
 const DisplayCorrect = (props) => {
-  const { vendorPosition, promptAdjustPosition, responseAdjustPosition, currentPrompt } = props
+  const { vendorPosition, promptAdjustPosition, responseAdjustPosition, currentPrompt, rotation } = props
   return (
     <Entity>
       <PromptText
@@ -16,6 +16,7 @@ const DisplayCorrect = (props) => {
           y: vendorPosition.y + promptAdjustPosition.y,
           z: vendorPosition.z + promptAdjustPosition.z
         }}
+        rotation={rotation}
         align={'center'}
       />
       <ResponseText
@@ -26,6 +27,7 @@ const DisplayCorrect = (props) => {
           y: vendorPosition.y + responseAdjustPosition.y,
           z: vendorPosition.z + responseAdjustPosition.z
         }}
+        rotation={rotation}
         align={'center'}
       />
     </Entity>

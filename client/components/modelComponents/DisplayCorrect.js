@@ -9,6 +9,7 @@ const DisplayCorrect = (props) => {
       color='red'
       position={props.position}
       align='center'
+      rotation={props.rotation}
     />
   )
 }

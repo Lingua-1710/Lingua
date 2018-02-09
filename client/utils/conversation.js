@@ -30,7 +30,6 @@ export const converse = function() {
     if (err === 'listening-ended') this.setState({ listening: '' })
     console.error(err)
   })
-  console.log('yesss')
 }
 
 function handleCorrect(result, currentQuest) {
