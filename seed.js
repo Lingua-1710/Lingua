@@ -48,7 +48,7 @@ users.forEach(user => {
 
 const characterOnePrompts = [
   {id: 1, text: `Do you want an apple?`},
-  {id: 2, text: `Do you want a cheese?`},
+  {id: 2, text: `Do you want cheese?`},
   {id: 3, text: `Bye.`},
   {id: 4, text: `The best apple ever!`},
   {id: 5, text: `Here is your apple!`},

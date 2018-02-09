@@ -21,8 +21,8 @@ export const converse = function() {
       giveHint.call(this, currentPrompt)
       //For current character, Vendor says "I do not understand"
       vendorResponse.call(this, 'I do not understand')
+      this.converse()
     }
-    this.converse()
   })
   .catch(err => {
     //remove listening text when no speech was detected and timed out
@@ -34,17 +34,17 @@ export const converse = function() {
 function handleCorrect(result, currentQuest) {
   const success = checkQuest(result.prompt_responses.id, currentQuest)
   if (success) this.setState({ success })
-  const nextPrompt = findNextPrompt.call(this, result.prompt_responses.nextPromptId)
+  let nextPrompt = findNextPrompt.call(this, result.prompt_responses.nextPromptId) || null
   //start conversation with the nextPrompt
   if (nextPrompt) {
-    this.props.setCurrentPrompt(nextPrompt)
     resetState.call(this, result)
+    this.converse()
   //if the nextPrompt is null, then the conversation is over.
   } else {
     giveReward.call(this)
-    this.props.setCurrentPrompt(null)
     resetState.call(this)
   }
+  this.props.setCurrentPrompt(nextPrompt)
 }
 
 function checkFirstClick(newCharacter, currentPrompt) {
@@ -64,7 +64,7 @@ function getFirstPrompt(currentPrompt, characterId) {
 function resetState(result) {
   const isResult = result === undefined
   const hintText = !isResult ? `You said: ${result.text}` : ''
-  const listening = !isResult ? '' : 'Listening!'
+  const listening = isResult ? '' : 'Listening!'
   vendorResponse.call(this, '')
   this.setState({
     incorrectCount: 0,
