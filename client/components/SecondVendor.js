@@ -1,36 +1,40 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { Woman, DisplayCorrect, Hint, DisplayPromptResponses, Fish, Cat } from './index'
-import { getPrompt, setCharacter } from '../store'
+import { Woman, DisplayCorrect, Hint, DisplayPromptResponses, Fish, Cat, Listening } from './index'
 import { converse } from '../utils'
 
 export class SecondVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      vendorResponse: '',
       incorrectCount: 0,
       hintText: '',
       success: false,
-      questReward: ''
+      questReward: '',
+      listening: '',
+      speechAccuracyThreshold: 0.85
     }
     this.converse = converse.bind(this)
   }
 
   render() {
+    const {
+      currentPrompt,
+      vendorResponse,
+      correctAdjustPosition,
+      promptAdjustPosition,
+      hintAdjustPosition,
+      responseAdjustPosition,
+      matchCharacter,
+      displayPromptResponses,
+      listeningAdjustPosition
+    } = this.props
     const vendorPosition = { x: 10, y: 1, z: -7.5 }
     const vendorRotation = { x: 10, y: 190, z: 0 }
-    const correctAdjustPosition = { x: 1, y: -0.05, z: 2 }
-    const promptAdjustPosition = { x: -2, y: 2, z: 0 }
-    const hintAdjustPosition = { x: 0, y: -0.5, z: 2 }
-    const responseAdjustPosition = { x: -2, y: 0.5, z: 1 }
-    const { vendorResponse, currentPrompt } = this.props
-    const matchCharacter = this.props.currentCharacter === this.props.characterId
     const displayHint = this.state.hintText && matchCharacter
-    const displayPromptResponses = currentPrompt.text && matchCharacter
+    const displayListening = this.state.listening && matchCharacter
     return (
       <Entity>
         <Woman
@@ -39,9 +43,9 @@ export class SecondVendor extends React.Component {
           vendorRotation={vendorRotation}
         />
         {
-          vendorResponse.length &&
+          matchCharacter &&
           <DisplayCorrect
-            value={this.state.vendorResponse}
+            value={vendorResponse}
             position={{
               x: vendorPosition.x,
               y: vendorPosition.y + 2,
@@ -59,6 +63,16 @@ export class SecondVendor extends React.Component {
           />
         }
         {
+          displayListening &&
+          <Listening
+            position={{
+              x: vendorPosition.x + listeningAdjustPosition.x,
+              y: vendorPosition.y + listeningAdjustPosition.y,
+              z: vendorPosition.z + listeningAdjustPosition.z
+            }}
+          />
+        }
+        {
           displayHint &&
           <Hint
             hint={this.state.hintText}
@@ -70,30 +84,17 @@ export class SecondVendor extends React.Component {
           />
         }
         {this.state.questReward === 'cat' ?
-          <Cat /> :
-          this.state.questReward === 'fish' ?
-          <Fish /> :  null
+          <Cat
+            position={{
+              x: vendorPosition.x,
+              y: vendorPosition.y,
+              z: vendorPosition.z + 2
+            }}
+          /> : null
         }
       </Entity>
     )
   }
 }
 
-export const mapState = (storeState) => {
-  return {
-    currentPrompt: storeState.currentPrompt,
-    vendorResponse: storeState.vendorResponse,
-    language: storeState.currentLanguage,
-    currentQuest: storeState.currentQuest,
-    currentCharacter: storeState.currentCharacter
-  }
-}
-
-export const mapDispatch = (dispatch) => {
-  return {
-    setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
-    setCurrentCharacter: (character) => dispatch(setCharacter(character)),
-  }
-}
-
-export default connect(mapState, mapDispatch)(SecondVendor)
+export default SecondVendor

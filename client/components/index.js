@@ -1,8 +1,10 @@
 export { default as Cursor } from './Cursor'
 export { default as Floor } from './Floor'
-export { default as FirstVendor } from './FirstVendor'
-export { default as SecondVendor } from './SecondVendor'
-export { default as ThirdVendor } from './ThirdVendor'
+export {
+  FirstVendorContainer as FirstVendor,
+  SecondVendorContainer as SecondVendor,
+  ThirdVendorContainer as ThirdVendor
+} from './VendorsContainer'
 export { default as FirstVendorStoreFront } from './FirstVendorStoreFront'
 export { default as SecondVendorStoreFront } from './SecondVendorStoreFront'
 export { default as ThirdVendorStoreFront } from './ThirdVendorStoreFront'
@@ -17,6 +19,7 @@ export { default as DisplayScore } from './DisplayScore'
 export { default as Hint } from './Hint'
 export { default as PickLanguage } from './PickLanguage'
 export { default as PickQuest } from './PickQuest'
+export { default as Listening } from './Listening'
 
 // Models
 export { default as Octo } from './modelComponents/Octo'

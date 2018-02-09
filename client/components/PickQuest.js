@@ -17,7 +17,7 @@ export class PickQuest extends Component {
       <Entity
         id="pick-quest-plane"
         primitive="a-plane"
-        height="10"
+        height="1"
         width="2"
         position="0 0 .01"
         radius="2"
@@ -72,7 +72,7 @@ export class PickQuest extends Component {
           primitive="a-plane"
           height=".5"
           width="2"
-          position="0 -1.7 0"
+          position="0 -1.5 0"
           radius="0"
           color="blue"
           class="clickable"
