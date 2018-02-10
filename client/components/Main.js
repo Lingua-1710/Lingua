@@ -1,10 +1,7 @@
 /* SpeechRecognition webkitSpeechRecognition*/
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import 'aframe'
 import { Scene, Entity} from 'aframe-react'
-import 'babel-polyfill'
-import 'aframe-environment-component'
 import { recognizeSpeech, checkAnswer, getCharacterPrompts } from '../utils'
 import { FirstVendor, SecondVendor, ThirdVendor, Player, HomeScreen } from './index'
 
