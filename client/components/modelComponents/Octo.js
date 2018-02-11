@@ -42,7 +42,7 @@ const Octo = (props) => {
         intensity={1}
         position={{ x: 2.5, y: 0.0, z: 0.0 }}
       />
-        <a-animation
+      <a-animation
           easing="linear"
           direction="alternate"
           attribute="position"

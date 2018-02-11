@@ -42,6 +42,17 @@ const Woman = (props) => {
         intensity={1}
         position={{ x: 2.5, y: 0.0, z: 0.0 }}
       />
+      <a-animation
+        easing="linear"
+        direction="alternate"
+        attribute="position"
+        from="0 0 0"
+        to="0 0.02 0"
+        repeat="indefinite"
+        delay="0000"
+        dur="300"
+      >
+      </a-animation>
     </Entity>
   )
 }

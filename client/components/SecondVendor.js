@@ -21,7 +21,7 @@ export class SecondVendor extends React.Component {
   }
 
   render() {
-    const vendorPosition = { x: 10, y: 1, z: -7.5 }
+    const vendorPosition = { x: 10, y: 0.8, z: -7.5 }
     const vendorRotation = { x: 10, y: 190, z: 0 }
     const correctAdjustPosition = { x: 1, y: -0.05, z: 2 }
     const promptAdjustPosition = { x: -2, y: 2, z: 0 }
