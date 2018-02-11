@@ -11,9 +11,17 @@ const Octo = (props) => {
         events={{
           click: props.handleVendorClick
         }}
-        animation='property: position; dir: alternate; loop: true; to: 0 0.1 0"'
+        animation={`
+          property: position;
+          dir: alternate;
+          loop: true;
+          to: 0 0.1 0;
+          startEvents: click;
+          pauseEvents: animationPause2;
+        `}
       >
         <Entity
+          event-proxy="emit: animationPause1"
           primitive='a-obj-model'
           id='octo'
           src='models/octo/ramenocto.obj'
