@@ -52,21 +52,22 @@ class Main extends Component {
             firstPromptId={1}
             characterId={1}
             prompts={characterPrompts[1]}
-            />
-            <SecondVendor
-              listen={this.listen}
-              checkAnswer={checkAnswer}
-              firstPromptId={8}
-              characterId={2}
-              prompts={characterPrompts[2]}
-            />
-            <ThirdVendor
-              listen={this.listen}
-              checkAnswer={checkAnswer}
-              firstPromptId={17}
-              characterId={3}
-              prompts={characterPrompts[3]}
-            />
+          />
+          <SecondVendor
+            listen={this.listen}
+            checkAnswer={checkAnswer}
+            firstPromptId={8}
+            characterId={2}
+            prompts={characterPrompts[2]}
+
+          />
+          <ThirdVendor
+            listen={this.listen}
+            checkAnswer={checkAnswer}
+            firstPromptId={17}
+            characterId={3}
+            prompts={characterPrompts[3]}
+          />
         </Entity> : null }
       </Scene>
     )

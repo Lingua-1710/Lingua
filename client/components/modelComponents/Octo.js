@@ -17,11 +17,10 @@ const Octo = (props) => {
           loop: true;
           to: 0 0.1 0;
           startEvents: click;
-          pauseEvents: animationPause2;
         `}
+        event-proxy="emit: pause1"
       >
         <Entity
-          event-proxy="emit: animationPause1"
           primitive='a-obj-model'
           id='octo'
           src='models/octo/ramenocto.obj'
