@@ -15,7 +15,8 @@ describe("FirstVendor", () => {
   let store
   beforeEach(() => {
     props = {
-      prompts: undefined,
+      currentQuest: undefined,
+      currentCharacter: undefined,
       currentPrompt: undefined,
       vendorResponse: [],
       language: undefined,
@@ -29,7 +30,7 @@ describe("FirstVendor", () => {
       const expectedProps = props
       const ConnectedComponent = connect(mapState)(FirstVendor)
       const component = shallowWithStore(<ConnectedComponent />, store)
-      expect(Object.keys(component.props())).toEqual(Object.keys(expectedProps))
+      expect(Object.keys(component.props()).sort()).toEqual(Object.keys(expectedProps).sort())
     })
   })
 
@@ -47,7 +48,6 @@ describe("FirstVendor", () => {
     beforeEach(() => {
       mockState = () => {
         return {
-          prompts: true,
           currentPrompt: 'test',
           vendorResponse: '',
           language: {

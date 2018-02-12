@@ -56,7 +56,7 @@ const startListening = () => {
 const syncDb = () => db.sync()
 
 //only syncDB if called from command line.
-if (require.main === module) {
+if (process.env.NODE !== 'test') {
   syncDb()
     .then(createApp)
     .then(startListening)
