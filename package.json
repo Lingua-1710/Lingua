@@ -8,7 +8,8 @@
     "build": "webpack -w",
     "start-dev": "npm run start & npm run build",
     "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/lingua' jest client/components/*.spec.js client/store/reducers/*.spec.js server/router/api/*.spec.js && npm run seed",
-    "seed": "node seed"
+    "seed": "node seed",
+    "deploy": "script/deploy"
   },
   "author": "",
   "license": "ISC",
