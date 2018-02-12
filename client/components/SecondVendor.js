@@ -2,7 +2,7 @@ import React from 'react'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { Woman, DisplayCorrect, Hint, DisplayPromptResponses, Fish, Cat, Listening } from './index'
+import { Woman, DisplayCorrect, Hint, DisplayPromptResponses, Cat, Listening } from './index'
 import { converse } from '../utils'
 
 export class SecondVendor extends React.Component {

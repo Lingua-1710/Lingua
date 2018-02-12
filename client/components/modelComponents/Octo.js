@@ -3,6 +3,7 @@ import { Entity } from 'aframe-react'
 import 'aframe-animation-component'
 
 const Octo = (props) => {
+  const animating = false
   return (
     <Entity>
       <Entity
@@ -11,7 +12,7 @@ const Octo = (props) => {
         events={{
           click: props.handleVendorClick
         }}
-        animation={`
+        animation={animating && `
           property: position;
           dir: alternate;
           loop: true;
