@@ -16,12 +16,7 @@ export default class FirstVendor extends React.Component {
       listening: '',
       speechAccuracyThreshold: 0.85
     }
-    // this.converse = converse.bind(this)
-  }
-
-  handleVendorClick(converse) {
-    converse.call(this)
-    // emit('pause1')
+    this.converse = converse.bind(this)
   }
 
   render() {
@@ -44,7 +39,7 @@ export default class FirstVendor extends React.Component {
       <Entity>
         <Octo
           vendorPosition={vendorPosition}
-          handleVendorClick={() => this.handleVendorClick(converse)}
+          handleVendorClick={this.converse}
           vendorRotation={vendorRotation}
           matchCharacter={matchCharacter}
         />
