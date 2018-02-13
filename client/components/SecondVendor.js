@@ -41,6 +41,7 @@ export class SecondVendor extends React.Component {
           vendorPosition={vendorPosition}
           handleVendorClick={this.converse}
           vendorRotation={vendorRotation}
+          matchCharacter={matchCharacter}
         />
         {
           matchCharacter &&

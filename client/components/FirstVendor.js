@@ -46,6 +46,7 @@ export default class FirstVendor extends React.Component {
           vendorPosition={vendorPosition}
           handleVendorClick={() => this.handleVendorClick(converse)}
           vendorRotation={vendorRotation}
+          matchCharacter={matchCharacter}
         />
         {
           matchCharacter &&

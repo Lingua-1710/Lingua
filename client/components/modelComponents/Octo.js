@@ -3,7 +3,12 @@ import { Entity } from 'aframe-react'
 import 'aframe-animation-component'
 
 const Octo = (props) => {
-  const animating = false
+  const animation = props.matchCharacter ?
+  `property: position;
+    dir: alternate;
+    loop: true;
+    to: 0 0.1 0;`
+  : null
   return (
     <Entity>
       <Entity
@@ -12,14 +17,7 @@ const Octo = (props) => {
         events={{
           click: props.handleVendorClick
         }}
-        animation={animating && `
-          property: position;
-          dir: alternate;
-          loop: true;
-          to: 0 0.1 0;
-          startEvents: click;
-        `}
-        event-proxy="emit: pause1"
+        animation={animation}
       >
         <Entity
           primitive='a-obj-model'

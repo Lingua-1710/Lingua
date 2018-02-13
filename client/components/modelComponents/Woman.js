@@ -4,6 +4,12 @@ import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 
 const Woman = (props) => {
+  const animation = props.matchCharacter ?
+  `property: position;
+    dir: alternate;
+    loop: true;
+    to: 0 0.05 0;`
+  : null
   return (
     <Entity>
       <Entity
@@ -12,13 +18,7 @@ const Woman = (props) => {
         events={{
           click: props.handleVendorClick
         }}
-        animation={`
-          property: position;
-          dir: alternate;
-          loop: true;
-          to: 0 0.1 0;
-          startEvents: pause1;
-        `}
+        animation={animation}
       >
         <Entity
           primitive='a-obj-model'
