@@ -7,20 +7,24 @@ import { deAccent } from '../utils/accentRemover'
 
 const ResponseText = (props) => {
   let yAdjust = 0
-  let position = null
   const rotation = props.rotation
+  let num = props.responses.length + 1
+  const maxResponseCharLength = 24
+  const maxWidth = 8
   return (
     <Entity>
       {
-        props.responses.map((response, num) => {
-          position = {...props.position}
+        props.responses.map(response => {
+          const responseTextLength = response.text.length
+          let position = {...props.position}
           position.y += yAdjust
-          yAdjust -= 0.8
+          yAdjust++
+          num--
           return (
             <Entity
               key={response.id}
               primitive='a-text'
-              value={deAccent(`${num + 1}: ${response.translation}`)}
+              value={deAccent(`${num}: ${response.translation}`)}
               color={props.color}
               shader='msdf'
               font='https://raw.githubusercontent.com/etiennepinchon/aframe-fonts/master/fonts/firasanscondensed/FiraSansCondensed-Regular.json'
@@ -29,6 +33,7 @@ const ResponseText = (props) => {
               position={position}
               align={props.align}
               rotation={rotation}
+              width={maxWidth - Math.floor(responseTextLength / maxResponseCharLength)}
             />
           )
         })

@@ -4,13 +4,16 @@ import { PromptText, ResponseText } from '../index'
 
 const DisplayCorrect = (props) => {
   const { vendorPosition, promptAdjustPosition, responseAdjustPosition, currentPrompt, rotation } = props
+  const promptTextLength = currentPrompt.text.length
+  const maxPromptCharLength = 30
+  const maxWidth = 10
   return (
     <Entity>
       <PromptText
         value={currentPrompt.translation}
         color={'white'}
         id={'prompt-text'}
-        width={'10'}
+        width={maxWidth - Math.floor(promptTextLength / maxPromptCharLength)}
         position={{
           x: vendorPosition.x + promptAdjustPosition.x,
           y: vendorPosition.y + promptAdjustPosition.y,
