@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { Scene, Entity} from 'aframe-react'
 import { recognizeSpeech, checkAnswer, getCharacterPrompts } from '../utils'
 import { FirstVendor, SecondVendor, ThirdVendor, Player, HomeScreen } from './index'
-import AFRAME from 'aframe'
 
 class Main extends Component {
   constructor(props) {
@@ -74,25 +73,6 @@ class Main extends Component {
     )
   }
 }
-
-/**
- * Listen to an event.
- * When that event is emitted, emit an event on another entity.
- */
-AFRAME.registerComponent('event-proxy', {
-  schema: {
-    listen: {default: ''},
-    target: {type: 'selector'},
-    emit: {default: ''}
-  },
-
-  update: function () {
-    var data = this.data
-    this.el.addEventListener(data.listen, function () {
-      data.target.emit(data.emit)
-    })
-  }
-})
 
 export const mapState = ({ gameState, characters, prompts }) => ({ gameState, characters, prompts })
 
