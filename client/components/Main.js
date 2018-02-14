@@ -21,6 +21,7 @@ class Main extends Component {
     if (characters.length && prompts.length) {
       characters.map(character => characterPrompts[character.id] = getCharacterPrompts(prompts, character.id))
     }
+    const firstVendorId = 1, secondVendorId = 2, thirdVendorId = 3
     return (
       <Scene
         id="scene"
@@ -50,23 +51,23 @@ class Main extends Component {
             listen={this.listen}
             checkAnswer={checkAnswer}
             firstPromptId={1}
-            characterId={1}
-            prompts={characterPrompts[1]}
+            characterId={firstVendorId}
+            prompts={characterPrompts[firstVendorId]}
           />
           <SecondVendor
             listen={this.listen}
             checkAnswer={checkAnswer}
             firstPromptId={8}
-            characterId={2}
-            prompts={characterPrompts[2]}
+            characterId={secondVendorId}
+            prompts={characterPrompts[secondVendorId]}
 
           />
           <ThirdVendor
             listen={this.listen}
             checkAnswer={checkAnswer}
             firstPromptId={17}
-            characterId={3}
-            prompts={characterPrompts[3]}
+            characterId={thirdVendorId}
+            prompts={characterPrompts[thirdVendorId]}
           />
         </Entity> : null }
       </Scene>
