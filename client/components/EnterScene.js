@@ -6,13 +6,13 @@ import { getGameState } from '../store'
 
 export const EnterScene = (props) => {
   return (
+    props.gameState === 'home-screen' &&
     <Entity
       id="enter-scene-plane"
       primitive="a-plane"
       height="1"
       width="2"
-      position="0 0 .01"
-      radius="2"
+      position="0 2 -3.01"
       color="grey"
       opacity="0"
       class="clickable"
@@ -34,6 +34,8 @@ export const EnterScene = (props) => {
   )
 }
 
+const mapStateToProps = ({ gameState }) => ({ gameState })
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setGameState(gameState) {
@@ -42,4 +44,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(EnterScene)
+export default connect(mapStateToProps, mapDispatchToProps)(EnterScene)

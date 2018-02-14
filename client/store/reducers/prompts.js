@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { deAccent } from '../../utils/accentRemover'
 //ACTION TYPES
 const GET_PROMPTS = 'GET_PROMPTS'
 

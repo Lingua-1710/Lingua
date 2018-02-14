@@ -18,12 +18,13 @@ export class PickLanguage extends Component {
   render() {
     const selectedLanguage = this.state.selectedLanguage
     return (
+      this.props.gameState === 'language' &&
       <Entity
         id="pick-language-plane"
         primitive="a-plane"
         height="1"
         width="2"
-        position="0 0 .01"
+        position="0 2 -3.01"
         radius="2"
         color="grey"
         opacity="0"
@@ -91,17 +92,17 @@ export class PickLanguage extends Component {
             click: () => this.props.setGameState('quest')
           }}
         >
-        <Entity
-          id="ready-button"
-          primitive="a-text"
-          font="exo2bold"
-          value="SELECT"
-          height="12"
-          color="white"
-          align="center"
-          position="0 0 .01"
-        />
-    </Entity>
+          <Entity
+            id="ready-button"
+            primitive="a-text"
+            font="exo2bold"
+            value="SELECT"
+            height="12"
+            color="white"
+            align="center"
+            position="0 0 .01"
+          />
+        </Entity>
       </Entity>
     )
   }
@@ -123,7 +124,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (storeState) => {
   return {
-    languages: storeState.languages
+    languages: storeState.languages,
+    gameState: storeState.gameState
   }
 }
 

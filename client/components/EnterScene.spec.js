@@ -11,7 +11,7 @@ describe("EnterScene", () => {
   const enterScene = () => {
     if (!shallowEnterScene) {
       shallowEnterScene = shallow(
-        <EnterScene />
+        <EnterScene gameState='home-screen' />
       )
     }
     return shallowEnterScene
@@ -35,7 +35,7 @@ describe("EnterScene", () => {
 
     it('is able to be clicked', () => {
       const clickSpy = jest.fn()
-      const component = shallow(<EnterScene setGameState={clickSpy} />)
+      const component = shallow(<EnterScene gameState='home-screen' setGameState={clickSpy} />)
       component.find('#enter-scene-plane').prop('events').click()
       expect(clickSpy).toBeCalled()
     })

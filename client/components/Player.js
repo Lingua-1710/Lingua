@@ -14,11 +14,9 @@ class Player extends React.Component {
 
   render() {
     const move = this.props.gameState === 'game'
-    const look = this.props.gameState !== 'loading'
     return (
       <Entity
         primitive="a-camera"
-        look-controls-enabled={look}
         wasd-controls-enabled={move}
         // sound="src: audio/LinguaTrack.mp3; autoplay: true; loop: true; volume: 0.1"
       >

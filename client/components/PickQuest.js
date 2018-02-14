@@ -18,12 +18,13 @@ export class PickQuest extends Component {
   render() {
     const selectedQuest = this.state.selectedQuest
     return (
+      this.props.gameState === 'quest' &&
       <Entity
         id="pick-quest-plane"
         primitive="a-plane"
         height="1"
         width="2"
-        position="0 0 .01"
+        position="0 2 -3.01"
         radius="2"
         color="grey"
         opacity="0"
@@ -87,23 +88,23 @@ export class PickQuest extends Component {
             click: () => this.props.setGameState('loading')
           }}
         >
-        <Entity
-          id="ready-button"
-          primitive="a-text"
-          font="exo2bold"
-          value="START"
-          height="10"
-          color="white"
-          align="center"
-          position="0 0 .01"
-        />
-    </Entity>
+          <Entity
+            id="ready-button"
+            primitive="a-text"
+            font="exo2bold"
+            value="START"
+            height="10"
+            color="white"
+            align="center"
+            position="0 0 .01"
+          />
+        </Entity>
       </Entity>
     )
   }
 }
 
-const mapStateToProps = ({ quests }) => ({ quests })
+const mapStateToProps = ({ quests, gameState }) => ({ quests, gameState })
 
 const mapDispatchToProps = (dispatch) => {
   return {
