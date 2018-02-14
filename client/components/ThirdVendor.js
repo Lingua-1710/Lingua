@@ -29,7 +29,8 @@ export class ThirdVendor extends React.Component {
       responseAdjustPosition,
       matchCharacter,
       displayPromptResponses,
-      listeningAdjustPosition
+      listeningAdjustPosition,
+      setLoading
     } = this.props
     const vendorPosition = { x: -10, y: 1, z: 6.5 }
     const vendorRotation = { x: 10, y: 250, z: 0 }
@@ -43,6 +44,7 @@ export class ThirdVendor extends React.Component {
           handleVendorClick={this.converse}
           vendorRotation={vendorRotation}
           matchCharacter={matchCharacter}
+          setLoading={setLoading}
         />
         {
           matchCharacter &&

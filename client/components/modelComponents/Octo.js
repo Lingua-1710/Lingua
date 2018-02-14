@@ -26,6 +26,7 @@ const Octo = (props) => {
           mtl='models/octo/ramenoctomaterials.mtl'
           position={props.vendorPosition}
           rotation={props.vendorRotation}
+          events={{'model-loaded': () => props.setLoading({octo: true})}}
         />
       </Entity>
       <Entity

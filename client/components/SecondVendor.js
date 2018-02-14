@@ -29,7 +29,8 @@ export class SecondVendor extends React.Component {
       responseAdjustPosition,
       matchCharacter,
       displayPromptResponses,
-      listeningAdjustPosition
+      listeningAdjustPosition,
+      setLoading
     } = this.props
     const vendorPosition = { x: 10, y: 1, z: -7.5 }
     const vendorRotation = { x: 10, y: 190, z: 0 }
@@ -42,6 +43,7 @@ export class SecondVendor extends React.Component {
           handleVendorClick={this.converse}
           vendorRotation={vendorRotation}
           matchCharacter={matchCharacter}
+          setLoading={setLoading}
         />
         {
           matchCharacter &&

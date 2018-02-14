@@ -27,6 +27,7 @@ const Woman = (props) => {
           mtl='models/woman/materials.mtl'
           position={props.vendorPosition}
           rotation={props.vendorRotation}
+          events={{'model-loaded': () => props.setLoading({woman: true})}}
         />
       </Entity>
       <Entity

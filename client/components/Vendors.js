@@ -8,7 +8,7 @@ const Vendors = (props) => {
   const firstVendorId = 1, secondVendorId = 2, thirdVendorId = 3
   const characterPrompts = props.characterPrompts
   return (
-    props.gameState === 'loading' || props.gameState === 'game' &&
+    (props.gameState === 'loading' || props.gameState === 'game') &&
     <Entity>
       <FirstVendor
         listen={recognizeSpeech}

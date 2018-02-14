@@ -12,6 +12,7 @@ import quests from './reducers/quests'
 import currentQuest from './reducers/currentQuest'
 import characters from './reducers/characters'
 import currentCharacter from './reducers/currentCharacter'
+import loading from './reducers/loading'
 
 const reducer = combineReducers({
   prompts,
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   quests,
   currentQuest,
   characters,
-  currentCharacter
+  currentCharacter,
+  loading
 })
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -43,3 +45,4 @@ export * from './reducers/quests'
 export * from './reducers/currentQuest'
 export * from './reducers/characters'
 export * from './reducers/currentCharacter'
+export * from './reducers/loading'

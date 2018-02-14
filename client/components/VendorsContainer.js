@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import FirstVendor from './FirstVendor'
 import SecondVendor from './SecondVendor'
 import ThirdVendor from './ThirdVendor'
-import { getPrompt, setCharacter, translateResponse } from '../store'
+import { getPrompt, setCharacter, translateResponse, getLoading } from '../store'
 
 export const mapState = (storeState, ownProps) => {
   const numResponses = storeState.currentPrompt.responses ? storeState.currentPrompt.responses.length : 0
@@ -34,7 +34,8 @@ export const mapDispatch = (dispatch) => {
   return {
     setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
     setCurrentCharacter: (character) => dispatch(setCharacter(character)),
-    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang))
+    getVendorResponse: (response, learningLang, nativeLang) => dispatch(translateResponse(response, learningLang, nativeLang)),
+    setLoading: (loading) => dispatch(getLoading(loading))
   }
 }
 

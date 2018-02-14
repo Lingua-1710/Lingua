@@ -32,9 +32,9 @@ const Main = (props) => {
       }}
     >
       <Player />
+      <HomeScreen />
       {gameState !== 'loading' ?
       <Entity>
-        <HomeScreen />
         <EnterScene />
         <PickLanguage />
         <PickQuest />

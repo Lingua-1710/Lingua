@@ -27,6 +27,7 @@ const Donut = (props) => {
           mtl='models/donut/materials.mtl'
           position={props.vendorPosition}
           rotation={props.vendorRotation}
+          events={{'model-loaded': () => props.setLoading({donut: true})}}
         />
       </Entity>
       <Entity
