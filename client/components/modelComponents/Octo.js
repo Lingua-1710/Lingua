@@ -34,7 +34,7 @@ const Octo = (props) => {
         type='directional'
         color='#FFF'
         intensity={1}
-        position={{ x: 2.5, y: 0.0, z: 0.0 }}
+        position={{ x: 5, y: 2, z: -7.5 }}
       />
     </Entity>
   )

@@ -84,6 +84,7 @@ export default class FirstVendor extends React.Component {
               y: vendorPosition.y + hintAdjustPosition.y,
               z: vendorPosition.z + hintAdjustPosition.z
             }}
+            color={'white'}
           />
         }
         {this.state.questReward === 'apple' ?

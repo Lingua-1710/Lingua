@@ -50,8 +50,8 @@ export class SecondVendor extends React.Component {
           <DisplayCorrect
             value={vendorResponse}
             position={{
-              x: vendorPosition.x,
-              y: vendorPosition.y + 2,
+              x: vendorPosition.x + correctAdjustPosition.x,
+              y: vendorPosition.y + correctAdjustPosition.y,
               z: vendorPosition.z + correctAdjustPosition.z
             }}
           />
@@ -84,6 +84,7 @@ export class SecondVendor extends React.Component {
               y: vendorPosition.y + hintAdjustPosition.y,
               z: vendorPosition.z + hintAdjustPosition.z
             }}
+            color={'white'}
           />
         }
         {this.state.questReward === 'cat' ?

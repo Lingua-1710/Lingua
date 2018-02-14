@@ -7,15 +7,24 @@ import 'aframe-environment-component'
 const Hint = (props) => {
   return (
     <Entity
-      primitive='a-text'
-      value={`(${props.hint})`}
-      color='white'
-      opacity="3"
-      id="hint"
+      id="hint-text"
+      primitive="a-plane"
+      opacity="0.8"
       position={props.position}
-      align="center"
       rotation={props.rotation}
-    />
+      color="blue"
+      width="5"
+      height="0.8"
+    >
+      <Entity
+        primitive='a-text'
+        value={`(${props.hint})`}
+        color={props.color}
+        opacity="3"
+        id="hint"
+        align="center"
+      />
+    </Entity>
   )
 }
 

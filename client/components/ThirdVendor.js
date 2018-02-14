@@ -51,9 +51,9 @@ export class ThirdVendor extends React.Component {
           <DisplayCorrect
             value={vendorResponse}
             position={{
-              x: vendorPosition.x,
-              y: vendorPosition.y + 2,
-              z: vendorPosition.z + correctAdjustPosition.z
+              x: vendorPosition.x + correctAdjustPosition.x + 2,
+              y: vendorPosition.y + correctAdjustPosition.y,
+              z: vendorPosition.z + correctAdjustPosition.z + 1
             }}
             rotation={textRotation}
           />
@@ -84,10 +84,11 @@ export class ThirdVendor extends React.Component {
           <Hint
             hint={this.state.hintText}
             position={{
-              x: vendorPosition.x + hintAdjustPosition.x,
+              x: vendorPosition.x + hintAdjustPosition.x + 1.5,
               y: vendorPosition.y + hintAdjustPosition.y,
               z: vendorPosition.z + hintAdjustPosition.z
             }}
+            color={'white'}
             rotation={textRotation}
           />
         }

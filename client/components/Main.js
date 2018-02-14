@@ -41,6 +41,13 @@ const Main = (props) => {
       </Entity> :
       <Loading /> }
       <Vendors characterPrompts={characterPrompts} />
+      <Entity
+        primitive='a-light'
+        type='directional'
+        color='#FFF'
+        intensity={1}
+        position={{ x: 0, y: 5, z: 0.0 }}
+      />
     </Scene>
   )
 }

@@ -30,13 +30,13 @@ const Woman = (props) => {
           events={{'model-loaded': () => props.setLoading({woman: true})}}
         />
       </Entity>
-      <Entity
+      {/* <Entity
         primitive='a-light'
         type='directional'
         color='#FFF'
         intensity={1}
-        position={{ x: 2.5, y: 0.0, z: 0.0 }}
-      />
+        position={{ x: 1, y: 0.0, z: 0.0 }}
+      /> */}
     </Entity>
   )
 }
