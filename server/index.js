@@ -6,7 +6,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 const { db } = require('./db')
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 
 const createApp = () => {
   // logging middleware
@@ -56,7 +56,7 @@ const startListening = () => {
 const syncDb = () => db.sync()
 
 //only syncDB if called from command line.
-if (require.main === module) {
+if (process.env.NODE_ENV !== 'test') {
   syncDb()
     .then(createApp)
     .then(startListening)
