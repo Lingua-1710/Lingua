@@ -20,5 +20,5 @@ Lingua is a language learning app built to address the shortcomings of the tradi
 6. Head to localhost:5000 on Chrome or Firefox and make sure you have a working microphone. Accept use of your mic if prompted.
 
 ## Information for Users:
-Either follow the "Information for Developers" steps above to run locally, or simply head to [our heroku app](https://lingua-1710.herokuapp.com "Lingua"). Select your desired learning language and your desired quest, make sure yo accept use of your microphone if prompted, and have fun!
+Either follow the "Information for Developers" steps above to run locally, or simply head to [our heroku app](https://lingua-1710.herokuapp.com "Lingua"). Select your desired learning language and your desired quest, make sure you accept use of your microphone if prompted, and have fun!
 
