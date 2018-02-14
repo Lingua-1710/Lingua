@@ -4,12 +4,11 @@ import { Entity } from 'aframe-react'
 import 'babel-polyfill'
 
 const Donut = (props) => {
-  const animation = props.matchCharacter ?
+  const animation = props.matchCharacter &&
   `property: position;
     dir: alternate;
     loop: true;
     to: 0 0.05 0;`
-  : null
   return (
     <Entity>
       <Entity
