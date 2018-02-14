@@ -46,7 +46,7 @@ const Main = (props) => {
         type='directional'
         color='#FFF'
         intensity={1}
-        position={{ x: 0, y: 5, z: 0.0 }}
+        position={{ x: -1, y: 1, z: 0 }}
       />
     </Scene>
   )

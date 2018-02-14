@@ -31,10 +31,11 @@ const Octo = (props) => {
       </Entity>
       <Entity
         primitive='a-light'
-        type='directional'
+        type='point'
         color='#FFF'
-        intensity={1}
-        position={{ x: 5, y: 2, z: -7.5 }}
+        intensity={.5}
+        angle='0'
+        position={props.vendorPosition}
       />
     </Entity>
   )
