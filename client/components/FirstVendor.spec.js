@@ -16,7 +16,7 @@ describe("FirstVendor", () => {
   let store
   beforeEach(() => {
     props = {
-      currentPrompt: undefined,
+      currentPrompt: {responses: []},
       vendorResponse: [],
       currentQuest: undefined,
       currentCharacter: 0,
@@ -31,7 +31,7 @@ describe("FirstVendor", () => {
       listeningAdjustPosition: undefined,
       dispatch: ()=>{}
     }
-    store = createMockStore()
+    store = createMockStore(props)
   })
 
   describe('state', () => {
@@ -58,7 +58,7 @@ describe("FirstVendor", () => {
       mockState = () => {
         return {
           prompts: true,
-          currentPrompt: 'test',
+          currentPrompt: {responses: []},
           vendorResponse: '',
           language: {
             nativeLang: 'en',
