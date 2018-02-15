@@ -3,111 +3,98 @@ import { connect } from 'react-redux'
 import 'aframe'
 import { Entity } from 'aframe-react'
 import 'babel-polyfill'
-import { FirstVendorStoreFront } from './index'
-import { setAttributes, COLORS, QUESTIONS, fetchRandomQuestion } from '../utils'
+import { FirstVendorStoreFront, Octo, DisplayCorrect, Hint, DisplayPromptResponses, Apple, GrilledCheese } from './index'
+import { getPrompt, setCharacter } from '../store'
+import { converse } from '../utils'
 
-class FirstVendor extends React.Component {
+export class FirstVendor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      colorIndex: 0
+      vendorResponse: '',
+      incorrectCount: 0,
+      hintText: '',
+      success: false,
+      questReward: ''
     }
-  }
-
-  handleVendorClick() {
-    const sceneEl = document.getElementById('scene')
-    const markerEl = document.getElementById('octo')
-    let text = document.getElementById('text')
-    let prevQuestion = ''
-    if (text) {
-      prevQuestion = text.getAttribute('value')
-      //remove text element if exists already
-      text.parentNode.removeChild(text)
-    }
-    let position = markerEl.object3D.getWorldPosition()
-    let newEl = document.createElement('a-text')
-    position.y = position.y + 2
-    let question = fetchRandomQuestion(QUESTIONS, prevQuestion)
-    setAttributes(newEl, {
-      color: 'black',
-      value: question,
-      id: 'text',
-      position: position,
-      align: 'center'
-    })
-    sceneEl.appendChild(newEl)
-    this.setState({
-      colorIndex: (this.state.colorIndex + 1) % COLORS.length
-    })
-    this.props.listen()
-  }
-
-  componentDidUpdate() {
-    if(this.props.userSpeech.data) {
-      const sceneEl = document.getElementById('scene')
-      const markerEl = document.getElementById('octo')
-      let text = document.getElementById('answer-text')
-      if (text) {
-        text.parentNode.removeChild(text)
-      }
-      let position = markerEl.object3D.getWorldPosition()
-      position.z = position.z + 3
-      let newEl = document.createElement('a-text')
-      let answer = this.props.userSpeech.data
-      setAttributes(newEl, {
-        color: 'black',
-        value: answer,
-        id: 'answer-text',
-        position: position,
-        align: 'center'
-      })
-      sceneEl.appendChild(newEl)
-    }
+    this.converse = converse.bind(this)
   }
 
   render() {
+    const vendorPosition = { x: 5, y: 1, z: -7.5 }
+    const vendorRotation = { x: 10, y: 190, z: 0 }
+    const correctAdjustPosition = { x: 1, y: -0.05, z: 2 }
+    const promptAdjustPosition = { x: -2, y: 2, z: 0 }
+    const hintAdjustPosition = { x: 0, y: -0.5, z: 2 }
+    const responseAdjustPosition = { x: -2, y: 0.5, z: 1 }
+    const { vendorResponse, currentPrompt } = this.props
+    const matchCharacter = this.props.currentCharacter === this.props.characterId
+    const displayHint = this.state.hintText && matchCharacter
+    const displayPromptResponses = currentPrompt.text && matchCharacter
     return (
       <Entity>
-        <Entity
-          id="first-vendor"
-          class="clickable"
-          events={{
-            click: this.handleVendorClick.bind(this)
-          }}
-        >
-          <a-assests>
-            <a-asset-item
-              id="octo-obj"
-              src="models/octo/ramenocto.obj" />
-            <a-asset-item
-              id="octo-mtl"
-              src="models/octo/ramenoctomaterials.mtl" />
-          </a-assests>
-          <a-obj-model
-            id="octo"
-            src="#octo-obj"
-            mtl="#octo-mtl"
-            position="1 1 -4"
-            rotation="10 180 0" />
-
-          <Entity
-            primitive="a-light"
-            type="directional"
-            color="#FFF"
-            intensity={1}
-            position={{ x: 2.5, y: 0.0, z: 0.0 }}
+        <Octo
+          vendorPosition={vendorPosition}
+          handleVendorClick={this.converse}
+          vendorRotation={vendorRotation}
+        />
+        {
+          vendorResponse.length &&
+          <DisplayCorrect
+            value={this.state.vendorResponse}
+            position={{
+              x: vendorPosition.x,
+              y: vendorPosition.y + 2,
+              z: vendorPosition.z + correctAdjustPosition.z
+            }}
           />
-        </Entity>
+        }
+        {
+          displayPromptResponses &&
+          <DisplayPromptResponses
+            vendorPosition={vendorPosition}
+            promptAdjustPosition={promptAdjustPosition}
+            responseAdjustPosition={responseAdjustPosition}
+            currentPrompt={currentPrompt}
+          />
+        }
+        {
+          displayHint &&
+          <Hint
+            hint={this.state.hintText}
+            position={{
+              x: vendorPosition.x + hintAdjustPosition.x,
+              y: vendorPosition.y + hintAdjustPosition.y,
+              z: vendorPosition.z + hintAdjustPosition.z
+            }}
+          />
+        }
+        {this.state.questReward === 'apple' ?
+          <Apple /> :
+          this.state.questReward === 'cheese' ?
+            <GrilledCheese /> : null
+        }
         <FirstVendorStoreFront />
       </Entity>
     )
   }
 }
 
-const mapState = (storeState) => {
+export const mapState = (storeState) => {
   return {
-    userSpeech: storeState.speech
+    currentPrompt: storeState.currentPrompt,
+    vendorResponse: storeState.vendorResponse,
+    language: storeState.currentLanguage,
+    currentQuest: storeState.currentQuest,
+    currentCharacter: storeState.currentCharacter
   }
 }
 
-export default connect(mapState, null)(FirstVendor)
+export const mapDispatch = (dispatch) => {
+  return {
+    setCurrentPrompt: (prompt) => dispatch(getPrompt(prompt)),
+    setCurrentCharacter: (character) => dispatch(setCharacter(character)),
+  }
+}
+
+export default connect(mapState, mapDispatch)(FirstVendor)

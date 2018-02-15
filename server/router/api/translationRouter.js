@@ -2,11 +2,10 @@ const router = require('express').Router()
 const translate = require('google-translate-api')
 
 router.get('/', (req, res, next) => {
-  let query = req.query.speech.split('!')
-  let lang = query[0]
-  let speech = query[1]
-
-  translate(speech, { from: lang, to: 'en' })
+  let fromLang = req.query.fromLang
+  let toLang = req.query.toLang
+  let speech = req.query.text
+  translate(speech, { from: fromLang, to: toLang })
     .then((translation) => {
       res.json(translation.text)
     })
