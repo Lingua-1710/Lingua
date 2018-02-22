@@ -7,7 +7,7 @@ export class PickQuest extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedQuestId: -1
+      selectedQuest: 1
     }
   }
 
