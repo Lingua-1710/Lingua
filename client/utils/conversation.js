@@ -39,13 +39,15 @@ function handleCorrect(result, currentQuest) {
   //start conversation with the nextPrompt
   if (nextPrompt) {
     resetState.call(this, 'Listening!', result.text)
+    this.props.setCurrentPrompt(nextPrompt)
+    this.converse()
   //if the nextPrompt is null, then the conversation is over.
   } else {
     giveReward.call(this)
     resetState.call(this, '')
+    this.props.setCurrentPrompt({})
+    this.props.setCurrentCharacter(0)
   }
-  this.props.setCurrentPrompt(nextPrompt)
-  if (nextPrompt) this.converse()
 }
 
 function checkFirstClick(newCharacter, currentPrompt) {
